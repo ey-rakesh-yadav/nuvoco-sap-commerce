@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+ Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+--><project name="nuvocobackoffice_buildcallbacks">
+    	
+    <property name="nuvocobackofficeWebFragmentSrc" value="${ext.nuvocobackoffice.path}/resources/web-fragment.xml"/>
+    	
+    <property name="nuvocobackofficeWebFragmentDestJar" value="${ext.backoffice.path}/web/webroot/WEB-INF/lib/webfragmentExt_nuvocobackoffice.jar"/>
+    	
+    <macrodef name="nuvocobackoffice_clean_classpath_file">
+        		
+        <sequential>
+            			
+            <copy failonerror="true" file="${ext.nuvocobackoffice.path}/.classpath" overwrite="true" tofile="${ext.nuvocobackoffice.path}/.classpath.edit">
+                				
+                <filterchain>
+                    					
+                    <linecontainsregexp negate="true">
+                        						
+                        <regexp pattern="^(\t\t\t\t|)$"/>
+                          
+                        <!-- added by script -->
+                        					
+                    </linecontainsregexp>
+                    				
+                </filterchain>
+                			
+            </copy>
+            			
+            <move failonerror="true" file="${ext.nuvocobackoffice.path}/.classpath.edit" overwrite="true" tofile="${ext.nuvocobackoffice.path}/.classpath"/>
+            		
+        </sequential>
+        	
+    </macrodef>
+    	
+    <macrodef name="nuvocobackoffice_after_clean">
+        		
+        <sequential>
+            			
+            <echo level="info" message="Generating .classpath file for nuvocobackoffice"/>
+            			
+            <create_extension_classpath_file extname="nuvocobackoffice"/>
+            			
+            <nuvocobackoffice_clean_classpath_file/>
+            			
+            <nuvocobackoffice_remove_web_fragment/>
+            		
+        </sequential>
+        	
+    </macrodef>
+    	
+    <macrodef name="nuvocobackoffice_after_build">
+        		
+        <sequential>
+            			
+            <nuvocobackoffice_remove_web_fragment/>
+            			
+            <nuvocobackoffice_create_web_fragment/>
+            		
+        </sequential>
+        	
+    </macrodef>
+    	
+    <macrodef name="nuvocobackoffice_remove_web_fragment">
+        		
+        <sequential>
+            			
+            <if>
+                				
+                <available file="${nuvocobackofficeWebFragmentDestJar}"/>
+                				
+                <then>
+                    					
+                    <delete file="${nuvocobackofficeWebFragmentDestJar}"/>
+                    				
+                </then>
+                			
+            </if>
+            		
+        </sequential>
+        	
+    </macrodef>
+    	
+    <macrodef name="nuvocobackoffice_create_web_fragment">
+        		
+        <sequential>
+            			
+            <if>
+                				
+                <available file="${nuvocobackofficeWebFragmentSrc}"/>
+                				
+                <then>
+                    					
+                    <sequential>
+                        						
+                        <jar destfile="${nuvocobackofficeWebFragmentDestJar}">
+                            							
+                            <metainf file="${nuvocobackofficeWebFragmentSrc}"/>
+                            						
+                        </jar>
+                        					
+                    </sequential>
+                    				
+                </then>
+                			
+            </if>
+            		
+        </sequential>
+        	
+    </macrodef>
+    	
+    <patternset id="nuvocobackoffice.localization.pattern">
+        		
+        <!-- core and hmc  -->
+        		
+        <include name="**/*locales*_en.properties"/>
+        		
+        <exclude name="**/hmc/web/webroot/WEB-INF/classes/**/*"/>
+        		
+        <exclude name="**/unittest/**/*"/>
+        		
+        <!-- cockpit (ng) -->
+        		
+        <include name="**/i3-label_en.properties"/>
+        		
+        <include name="**/labels_en.properties"/>
+        		
+        <!-- messages -->
+        		
+        <include name="**/*messages_en.properties"/>
+        		
+        <include name="**/*messages.properties"/>
+        		
+        <!-- frontend properties files in WEB-INF/messages folder -->
+        		
+        <include name="**/WEB-INF/messages/*_en.properties"/>
+        		
+        <!-- csv and impex -->
+        		
+        <include name="**/*_en.csv"/>
+        		
+        <include name="**/*_en.impex"/>
+        		
+        <include name="**/lang-en.properties"/>
+        		
+        <!-- email localizations from yacceleratorcore -->
+        		
+        <include name="resources/**/messages/*_en.properties"/>
+        		
+        <!-- include validation messages -->
+        		
+        <include name="resources/**/ValidationMessages.properties"/>
+        	
+    </patternset>
+    	
+    <macrodef name="nuvocobackoffice_before_build">
+        		
+        <sequential>
+            			
+            <register_sass_extension extensionname="nuvocobackoffice"/>
+            			
+            <register_sass_extension destination="" extensionname="nuvocobackoffice" resources="resources"/>
+            		
+        </sequential>
+        	
+    </macrodef>
+    
+</project>

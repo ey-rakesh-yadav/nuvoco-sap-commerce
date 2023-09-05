@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<enum class="com.nuvoco.populator.options.PaymentInfoOption">
+		<value>BASIC</value>
+		<value>BILLING_ADDRESS</value>
+	</enum>
+
+	<!--auth response  -->
+	<bean class="com.nuvoco.auth.data.LogoutResponse">
+		<property name="success" type="boolean"/>
+	</bean>
+
+	<!-- storesession data -->
+
+	<bean class="com.nuvoco.storesession.data.LanguageDataList">
+		<property name="languages"
+		          type="java.util.Collection&lt;de.hybris.platform.commercefacades.storesession.data.LanguageData>"/>
+	</bean>
+
+	<bean class="com.nuvoco.storesession.data.CurrencyDataList">
+		<property name="currencies"
+		          type="java.util.Collection&lt;de.hybris.platform.commercefacades.storesession.data.CurrencyData>"/>
+	</bean>
+
+	<!-- order data -->
+
+	<bean class="com.nuvoco.order.data.CartDataList">
+		<property name="carts"
+		          type="java.util.List&lt;de.hybris.platform.commercefacades.order.data.CartData>"/>
+	</bean>
+
+	<bean class="com.nuvoco.order.data.OrderEntryDataList">
+		<property name="orderEntries"
+		          type="java.util.List&lt;de.hybris.platform.commercefacades.order.data.OrderEntryData>"/>
+	</bean>
+
+	<bean class="com.nuvoco.order.data.CardTypeDataList">
+		<property name="cardTypes"
+		          type="java.util.List&lt;de.hybris.platform.commercefacades.order.data.CardTypeData>"/>
+	</bean>
+
+	<!-- product data -->
+
+	<bean class="com.nuvoco.product.data.ProductDataList">
+		<property name="products"
+		          type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.ProductData>"/>
+		<property name="catalog" type="String"/>
+		<property name="version" type="String"/>
+		<property name="totalProductCount" type="int"/>
+		<property name="totalPageCount" type="int"/>
+		<property name="currentPage" type="int"/>
+	</bean>
+
+	<bean class="com.nuvoco.product.data.PromotionDataList">
+		<property name="promotions"
+		          type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.PromotionData>"/>
+	</bean>
+
+	<bean class="com.nuvoco.product.data.PromotionResultDataList">
+		<property name="promotions"
+		          type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.PromotionResultData>"/>
+	</bean>
+
+	<bean class="com.nuvoco.product.data.ReviewDataList">
+		<property name="reviews" type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.ReviewData>"/>
+	</bean>
+
+	<bean class="com.nuvoco.product.data.SuggestionDataList">
+		<property name="suggestions"
+		          type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.SuggestionData>"/>
+	</bean>
+
+	<bean class="com.nuvoco.product.data.ProductFutureStocksData">
+		<property name="productCode" type="String"/>
+		<property name="futureStocks"
+		          type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.FutureStockData>"/>
+	</bean>
+
+	<bean class="com.nuvoco.product.data.ProductFutureStocksDataList">
+		<property name="productFutureStocks"
+		          type="java.util.List&lt;com.nuvoco.product.data.ProductFutureStocksData>"/>
+	</bean>
+	
+	<!-- user data -->
+
+	<bean class="com.nuvoco.user.data.TitleDataList">
+		<property name="titles" type="java.util.List&lt;de.hybris.platform.commercefacades.user.data.TitleData>"/>
+	</bean>
+
+	<bean class="com.nuvoco.user.data.CountryDataList">
+		<property name="countries" type="java.util.List&lt;de.hybris.platform.commercefacades.user.data.CountryData>"/>
+	</bean>
+
+	<bean class="com.nuvoco.user.data.RegionDataList">
+		<property name="regions"
+		          type="java.util.List&lt;de.hybris.platform.commercefacades.user.data.RegionData>"/>
+	</bean>
+
+	<bean class="com.nuvoco.user.data.AddressDataList">
+		<property name="addresses" type="java.util.List&lt;de.hybris.platform.commercefacades.user.data.AddressData>"/>
+	</bean>
+
+	<!-- voucher data -->
+	<bean class="com.nuvoco.voucher.data.VoucherDataList">
+		<property name="vouchers"
+		          type="java.util.List&lt;de.hybris.platform.commercefacades.voucher.data.VoucherData>"/>
+	</bean>
+
+	<!-- validation data -->
+	<bean class="com.nuvoco.validation.data.AddressValidationData">
+		<property name="errors" type="de.hybris.platform.webservicescommons.dto.error.ErrorListWsDTO"/>
+		<property name="decision" type="String"/>
+		<property name="suggestedAddressesList"
+		          type="com.nuvoco.user.data.AddressDataList"/>
+	</bean>
+
+	<bean class="com.nuvoco.validation.data.CartVoucherValidationData">
+		<property name="subject" type="String" />
+	</bean>
+
+	<bean class="com.nuvoco.validation.data.CartVoucherValidationDataList">
+		<property name="CartVoucherValidationDataList"
+				  type="java.util.List&lt;com.nuvoco.validation.data.CartVoucherValidationData>"/>
+	</bean>
+
+	<bean class="com.nuvoco.user.data.LoginChangeResponse">
+		<property name="success" type="boolean"/>
+	</bean>
+
+	<bean class="com.nuvoco.user.data.PasswordRestoreResponse">
+		<property name="success" type="boolean"/>
+	</bean>
+
+	<!-- update queues -->
+
+	<bean class="com.nuvoco.queues.data.ProductExpressUpdateElementData">
+		<property name="code" type="String"/>
+		<property name="catalogId" type="String"/>
+		<property name="catalogVersion" type="String"/>
+	</bean>
+
+	<bean class="com.nuvoco.queues.data.ProductExpressUpdateElementDataList">
+		<property name="productExpressUpdateElements"
+		          type="java.util.List&lt;com.nuvoco.queues.data.ProductExpressUpdateElementData>"/>
+	</bean>
+
+	<bean class="com.nuvoco.queues.data.OrderStatusUpdateElementData">
+		<property name="code" type="String"/>
+		<property name="status" type="String"/>
+		<property name="baseSiteId" type="String"/>
+	</bean>
+
+	<bean class="com.nuvoco.queues.data.OrderStatusUpdateElementDataList">
+		<property name="orderStatusUpdateElements"
+		          type="java.util.List&lt;com.nuvoco.queues.data.OrderStatusUpdateElementData>"/>
+	</bean>
+
+	<bean class="com.nuvoco.store.data.StoreCountListData">
+		<property name="countriesAndRegionsStoreCount"
+		          type="java.util.List&lt;de.hybris.platform.commercefacades.store.data.StoreCountData>"/>
+	</bean>
+
+	<!-- Consent management -->
+	<bean class="com.nuvoco.consent.data.ConsentTemplateDataList">
+		<property name="consentTemplates"
+		          type="java.util.List&lt;de.hybris.platform.commercefacades.consent.data.ConsentTemplateData>"/>
+	</bean>
+
+	<!-- Base Sites -->
+	<bean class="com.nuvoco.basesite.data.BaseSiteDataList">
+		<property name="baseSites"
+		          type="java.util.List&lt;de.hybris.platform.commercefacades.basesite.data.BaseSiteData>"/>
+	</bean>
+
+	<bean class="com.nuvoco.returns.data.ReturnRequestsData">
+		<property name="returnRequests"
+		          type="java.util.List&lt;de.hybris.platform.ordermanagementfacades.returns.data.ReturnRequestData>"/>
+		<property name="sorts" type="java.util.List&lt;de.hybris.platform.commerceservices.search.pagedata.SortData>"/>
+		<property name="pagination" type="de.hybris.platform.commerceservices.search.pagedata.PaginationData"/>
+	</bean>
+
+</beans>

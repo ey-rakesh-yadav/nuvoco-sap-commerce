@@ -1,0 +1,11 @@
+#Ant properties
+#Wed Jul 05 03:41:11 CEST 2023
+version.api=2211
+vendor=hybris
+group.id=de.hybris.platform
+name=nuvocofacades
+description=nuvocofacades
+builddate=20230705 0336
+releasedate=20230615 1237
+version=2211.9
+module.name=platform-module

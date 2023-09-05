@@ -1,0 +1,198 @@
+{
+    "commerceSuiteVersion": "2211",
+	"extensionPacks": [
+		{
+		//	"name": "hybris-commerce-integrations",
+		//	"version": "2211.0"
+		}
+	],
+    "enableImageProcessingService": true,
+    "extensions": [
+        "cloudmediaconversion",  
+        "mediaconversionbackoffice",
+		"azurecloudhotfolder",
+        "cloudcommons",
+        "cloudhotfolder"
+		],
+    "useConfig": {
+        "properties": [
+            {
+                "location": "config/cloudlocal-dev.properties",
+                "persona": "development"
+            },
+            {
+                "location": "config/cloudlocal-stage.properties",
+                "persona": "staging"
+            },
+            {
+                "location": "config/cloudlocal-prod.properties",
+                "persona": "production"
+            }
+            
+        ],
+        "extensions": {
+            "location": "config/local/localextensions.xml",
+            "exclude": [
+               "solrserver"
+			   ]
+        }
+    },
+    "properties": [
+        {
+            "key": "lang.packs",
+            "value": "de,en"
+        }
+    ],
+    
+    "aspects": [
+        {
+            "name": "backoffice",
+            "properties": [],
+            "webapps": [
+                {
+                    "name": "hac",
+                    "contextPath": "/hac"
+                },
+                {
+                    "name": "mediaweb",
+                    "contextPath": "/medias"
+                },
+                {
+                    "name": "backoffice",
+                    "contextPath": "/backoffice"
+                },
+                {
+                  "name":"odata2webservices",
+                  "contextPath":"/odata2webservices"
+               }
+            ]
+        },
+	     {
+            "name": "accstorefront",
+            "properties": [
+                {
+                    "key": "spring.session.enabled",
+                    "value": "true"
+                },
+                {
+                    "key": "spring.session.sclstorefront.save",
+                    "value": "async"
+                },
+                {
+                    "key": "spring.session.sclstorefront.cookie.name",
+                    "value": "JSESSIONID"
+                },
+                {
+                    "key": "spring.session.sclstorefront.cookie.path",
+                    "value": "/"
+                },
+                {
+                    "key": "storefrontContextRoot",
+                    "value": ""
+                }
+            ],
+            "webapps": [
+                {
+                    "name": "hac",
+                    "contextPath": "/hac"
+                },
+                {
+                    "name": "mediaweb",
+                    "contextPath": "/medias"
+                },
+                {
+                    "name": "nuvocostorefront",
+                    "contextPath": ""
+                },
+                {
+                    "name": "acceleratorservices",
+                    "contextPath": "/acceleratorservices"
+                },
+		 {
+			"name": "oauth2",
+			"contextPath": "/authorizationserver"
+		},
+	      {
+		"name": "odata2webservices",
+		"contextPath": "/odata2webservices"
+		},
+	      {
+			"name": "commercewebservices",
+			"contextPath": "/occ"
+		}
+            ]
+        },
+      
+        {
+            "name": "backgroundProcessing",
+            "properties": [
+                {
+                    "key": "cluster.node.groups",
+                    "value": "integration,yHotfolderCandidate,backgroundProcessing"
+                }
+            ],
+            "webapps": [
+                {
+                    "name": "hac",
+                    "contextPath": "/hac"
+                },
+                {
+                    "name": "mediaweb",
+                    "contextPath": "/medias"
+                }
+            ]
+        },
+        {
+            "name": "api",
+            "properties": [
+                {
+                    "key": "xss.filter.header.X-Frame-Options",
+                    "value": ""
+                },
+                {
+                    "key": "ccv2.platform.tomcat.serverxml.maxThreads",
+                    "value": "1200"
+                },
+                {
+                    "key": "storefrontContextRoot",
+                    "value": "/nuvocostorefront"
+                }
+            ],
+            "webapps": [
+                {
+                    "name": "hac",
+                    "contextPath": "/hac"
+                },
+                {
+                    "name": "commercewebservices",
+                    "contextPath": "/occ"
+                },
+                {
+                    "name": "acceleratorservices",
+                    "contextPath": "/acceleratorservices"
+                },
+                {
+                    "name": "oauth2",
+                    "contextPath": "/authorizationserver"
+                },
+                {
+                    "name": "cmswebservices",
+                    "contextPath": "/cmswebservices"
+                },
+                {
+                    "name": "permissionswebservices",
+                    "contextPath": "/permissionswebservices"
+                },
+                {
+                    "name": "previewwebservices",
+                    "contextPath": "/previewwebservices"
+                },
+                {
+                    "name": "mediaweb",
+                    "contextPath": "/medias"
+                }
+              
+            ]
+        }
+    ]
+}

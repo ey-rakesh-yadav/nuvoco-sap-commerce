@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testclasses><nuvocofacades><testclass>com.nuvoco.facades.suggestion.impl.DefaultSimpleSuggestionFacadeTest</testclass><testclass>com.nuvoco.facades.suggestion.DefaultSimpleSuggestionFacadeIntegrationTest</testclass><testclass>com.nuvoco.facades.populators.AcceleratorVariantOptionDataPopulatorTest</testclass></nuvocofacades></testclasses>
