@@ -537,4 +537,18 @@
 		<property name="itemCleanupHooks" ref="csTicketRetentionHooks"/>
 		<property name="ticketBusinessService" ref="ticketBusinessService"/>
 	</bean>
+
+
+	<alias alias="dynamicAttributesOrderStageStatusDisplay" name="dynamicAttributesOrderStageStatusDisplayByEnum"/>
+	<bean id="dynamicAttributesOrderStageStatusDisplayByEnum" class="com.nuvoco.core.orderhandler.DynamicAttributesOrderStageStatusDisplayByEnum">
+		<property name="enumerationService" ref="enumerationService"/>
+	</bean>
+	<alias alias="dynamicAttributesOrderEntryStatusDisplay" name="dynamicAttributesOrderEntryStatusDisplayByEnum"/>
+	<bean id="dynamicAttributesOrderEntryStatusDisplayByEnum" class="com.nuvoco.core.orderhandler.DynamicAttributesOrderEntryStatusDisplayByEnum">
+		<property name="enumerationService" ref="enumerationService"/>
+	</bean>
+
+	<alias alias="dynamicAttributesOrderEntryQtyMT" name="dynamicAttributesOrderEntryQtyMT"/>
+	<bean id="dynamicAttributesOrderEntryQtyMT" class="com.nuvoco.core.orderhandler.DynamicAttributesOrderEntryQtyMT">
+	</bean>
 </beans>

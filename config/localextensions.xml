@@ -243,7 +243,7 @@
 	<extension name='nuvocoinitialdata'/>
 	<extension name='nuvocostorefront'/>
     <extension name='nuvocoocc'/>
-	<extension name='nuvococommercewebservices'/>
+	<!--<extension name='nuvococommercewebservices'/>-->
 	<extension name='nuvocotest'/>
   </extensions>
 </hybrisconfig>
