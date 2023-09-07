@@ -147,33 +147,32 @@
 		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
 	</bean>
 
-	<bean id="colorFacetValueProvider"
+	<!--<bean id="colorFacetValueProvider"
 	      class="com.nuvoco.core.search.solrfacetsearch.provider.impl.ColorFacetValueProvider"
 	       parent="abstractPropertyFieldValueProvider">
 		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
-	</bean>
+	</bean>-->
 
-	<bean id="colorFacetDisplayNameProvider"
-	      class="com.nuvoco.core.search.solrfacetsearch.provider.impl.ColorFacetDisplayNameProvider"
-	      >
+	<!--<bean id="colorFacetDisplayNameProvider"
+	      class="com.nuvoco.core.search.solrfacetsearch.provider.impl.ColorFacetDisplayNameProvider">
 		<property name="enumerationService" ref="enumerationService"/>
 		<property name="i18nService" ref="i18nService"/>
 		<property name="commonI18NService" ref="commonI18NService"/>
-	</bean>
+	</bean>-->
 
-	<bean id="apparelPointOfServiceFacetDisplayNameProvider"
+	<!--<bean id="apparelPointOfServiceFacetDisplayNameProvider"
 	      class="com.nuvoco.core.search.solrfacetsearch.provider.impl.PointOfServiceFacetDisplayNameProvider"
 	      >
 		<property name="pointOfServiceService" ref="pointOfServiceService"/>
-	</bean>
+	</bean>-->
 
-	<bean id="electronicsPointOfServiceFacetDisplayNameProvider"
+	<!--<bean id="electronicsPointOfServiceFacetDisplayNameProvider"
 	      class="com.nuvoco.core.search.solrfacetsearch.provider.impl.PointOfServiceFacetDisplayNameProvider"
 	      >
 		<property name="pointOfServiceService" ref="pointOfServiceService"/>
-	</bean>
+	</bean>-->
 
-	<bean id="genderValueProvider"
+<!--	<bean id="genderValueProvider"
 	      class="com.nuvoco.core.search.solrfacetsearch.provider.impl.GenderValueProvider"
 	       parent="abstractPropertyFieldValueProvider">
 		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
@@ -185,7 +184,7 @@
 		<property name="enumerationService" ref="enumerationService"/>
 		<property name="i18nService" ref="i18nService"/>
 		<property name="commonI18NService" ref="commonI18NService"/>
-	</bean>
+	</bean>-->
 
 	<!--
 		Event listeners are singletons, therefore the dependency for a bean in tenant-scope
@@ -378,7 +377,7 @@
 	</bean>
 
 	<!-- Product Reference Lookup Strategies-->
-	<alias name="apparelCrossSellingProductReferenceTargetStrategy" alias="crossSellingProductReferenceTargetStrategy"/>
+	<!--<alias name="apparelCrossSellingProductReferenceTargetStrategy" alias="crossSellingProductReferenceTargetStrategy"/>
 	<bean id="apparelCrossSellingProductReferenceTargetStrategy"
 	      parent="defaultCrossSellingProductReferenceTargetStrategy">
 		<property name="productReferenceTargetStrategies">
@@ -392,7 +391,7 @@
 	      class="com.nuvoco.core.strategies.impl.ApparelSizeProductReferenceTargetStrategy">
 		<property name="commerceCategoryService" ref="commerceCategoryService"/>
 		<property name="rootCategoryCode" value="categories"/>
-	</bean>
+	</bean>-->
 
 	<!-- Sales quote process actions -->
 
