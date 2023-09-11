@@ -16,7 +16,7 @@
                 "persona": "development"
             },
             {
-                "location": "config/cloudlocal-stage.properties",
+                "location": "config/cloudlocal-staging.properties",
                 "persona": "staging"
             },
             {
