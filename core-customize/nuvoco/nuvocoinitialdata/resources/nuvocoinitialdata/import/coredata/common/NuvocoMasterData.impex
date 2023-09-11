@@ -1,0 +1,180 @@
+#Nuvoco Master Data
+
+INSERT_UPDATE PaymentTerms;code[unique=true];name;description
+                          ;5;;
+
+INSERT_UPDATE Organization;orgID[unique=true];name
+                          ;101;Nuvoco
+
+
+INSERT_UPDATE CustomerSubCategory;code[unique=true];name;parentCategory(code)
+                                 ;NT;NT;NT
+                                 ;RT;RT;TR
+
+INSERT_UPDATE CustomerOrderType;transactionTypeId[unique=true];name;description;orgID(orgID)
+                               ;1608;BC/NT/B64;SO FOR NT- PABHAT DEPOT;103
+                               ;1747;TC/NT/T61;SO FOR NT-   REWARI DEPOT;104
+                               ;1748;TC/TR/T61;SO FOR TR- REWARI DEPOT;104
+
+#for ccv2 dev
+INSERT_UPDATE OAuthClientDetails;clientId[unique=true] ;resourceIds ;scope ;authorizedGrantTypes ;authorities ;clientSecret ;registeredRedirectUri
+                                ;client-side ;hybris ;basic ;implicit,client_credentials ;ROLE_CLIENT,ROLE_CUSTOMERGROUP,ROLE_TRUSTED_CLIENT,ROLE_CUSTOMERMANAGERGROUP ;secret ;https://api.ck3oh5xguk-shreeceme1-d1-public.model-t.cc.commerce.ondemand.com/authorizationserver/oauth2_implicit_callback;
+                                ;mobile_android ;hybris ;basic ;authorization_code,refresh_token,password,client_credentials ;ROLE_CLIENT,ROLE_CUSTOMERGROUP,ROLE_TRUSTED_CLIENT,ROLE_CUSTOMERMANAGERGROUP ;secret ;https://api.ck3oh5xguk-shreeceme1-d1-public.model-t.cc.commerce.ondemand.com/authorizationserver/oauth2_callback;
+
+INSERT_UPDATE B2BUnit;description;uid[unique=true];name;locName[lang=en];groups(uid);
+                     ;SalesOfficerUnit;SalesOfficerUnit;Sales Officer Unit;Sales Officer Unit;;
+
+
+INSERT_UPDATE Usergroup;uid[unique=true];groups(uid);locname[lang=en];
+                       ;salesofficergroup;customermanagergroup;Sales Officer User Group;
+                       ;tsmgroup;customermanagergroup;TSM User Group;
+                       ;rhgroup;customermanagergroup;RH User Group;
+
+INSERT_UPDATE B2BUnit;uid[unique=true];description;name;locName[lang=en];groups(uid);
+                     ;NuvocoCustomerUnit;Nuvoco Customer Unit;Nuvoco Customer Unit;Nuvoco Customer Unit;;
+
+INSERT_UPDATE Usergroup;uid[unique=true];groups(uid);locname[lang=en];
+                       ;NuvocoCustomerGroup;b2bcustomergroup;Nuvoco Customer Group;Nuvoco Customer Group;
+
+INSERT_UPDATE NuvocoCustomer;description;uid[unique=true];originalUid;email;name;groups(uid);sessionCurrency(isocode)[default='USD'];
+                         ;nuvococustomer1;nuvococustomer1;nuvococustomer1@rustic-hw.com;nuvococustomer1@rustic-hw.com;Nuvoco customer 1;NuvocoCustomerUnit,NuvocoCustomerGroup;
+
+INSERT_UPDATE B2BUnit;description;uid[unique=true];name;locName[lang=en];groups(uid);
+                     ;NuvocoB2BUnit;NuvocoB2BUnit;Nuvoco B2B Unit;Nuvoco B2B Unit;;
+
+INSERT_UPDATE Usergroup;uid[unique=true];groups(uid);locname[lang=en];
+                       ;NuvocoDealerGroup;b2bcustomergroup;Nuvoco Dealer Group;Nuvoco Dealer Group;
+                       ;NuvocoRetailerGroup;b2bcustomergroup;Nuvoco Retailer Group;Nuvoco Retailer Group;
+                       ;NuvocoSiteGroup;b2bcustomergroup;Nuvoco Site Group;Nuvoco Site Group;
+                       #;NuvocoInfluencerGroup;b2bcustomergroup;Nuvoco Influencer Group;Nuvoco Influencer Group;
+                       ;NuvocoDealerOnboardingGroup;b2bcustomergroup;Nuvoco Dealer Onboarding Group;Nuvoco Dealer Onboarding Group;
+                       ;NuvocoRetailerOnboardingGroup;b2bcustomergroup;Nuvoco Retailer Onboarding Group;Nuvoco Retailer Onboarding Group;
+                       #;NuvocoInfluencerOnboardingGroup;b2bcustomergroup;Nuvoco Influencer Onboarding Group;Nuvoco Influencer Onboarding Group;
+                       #;NuvocoSalesPromoterOnboardingGroup;b2bcustomergroup;Nuvoco Sales Promoter Onboarding Group;Nuvoco Sales Promoter Onboarding Group;
+                       ;NuvocoEndCustomerGroup;b2bcustomergroup;Nuvoco End Customer Group;Nuvoco End Customer Group;
+
+
+INSERT_UPDATE Usergroup;uid[unique=true];groups(uid);locname[lang=en];
+                       ;spgroup;b2bcustomergroup;Nuvoco SP Group;Nuvoco SP Group;
+
+INSERT_UPDATE Currency;isocode[unique=true];conversion;digits;symbol
+                      ;INR;1;1;₹
+
+INSERT_UPDATE DeliveryMode;code[unique=true];name;active[default=true];
+                          ;ROAD;ROAD
+                          ;RAIL;RAIL
+
+
+INSERT_UPDATE DeliverySlotMaster;displayName[unique=true];start;end;sequence;slot(code)
+                                ;7 AM to 11 AM;07:00;11:00;1;SevenToEleven
+                                ;11 AM to 5 PM;11:00;17:00;2;ElevenToFive
+                                ;5 PM to 9 PM;17:00;21:00;3;FiveToNine
+
+
+INSERT_UPDATE TruckModelMaster;truckModel[unique=true];capacity[unique=true];vehicleType(code);vehicleMake;
+                              ;TATA-3600-TURBO;82;TURBO;TATA
+                              ;TATA-4018-TRAILER;80;TRAILER;TATA
+                              ;TATA-2518-TURBO;72;TURBO;TATA
+                              ;TATA-3118-TRUCK;67;TRUCK;TATA
+
+INSERT_UPDATE ServicelayerJob; code[unique=true];springId
+                             ;NuvocoOrderProcessingRetriesJob;NuvocoOrderProcessingRetriesJob
+
+
+INSERT_UPDATE CronJob; code[unique=true];job(code);singleExecutable;sessionLanguage(isocode)
+                     ;NuvocoOrderProcessingRetriesJob;NuvocoOrderProcessingRetriesJob;false;en
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronExpression
+                     ;NuvocoOrderProcessingRetriesJob;0 0/5 * 1/1 * ? *
+
+
+INSERT_UPDATE ServicelayerJob; code[unique=true];springId
+                             ;nuvocoCancelOrderUnProcessingOrdersJob;nuvocoCancelOrderUnProcessingOrdersJob
+
+INSERT_UPDATE CronJob; code[unique=true];job(code);singleExecutable;sessionLanguage(isocode)
+                     ;nuvocoCancelOrderUnProcessingOrdersJob;nuvocoCancelOrderUnProcessingOrdersJob;false;en
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronExpression
+                     ;nuvocoCancelOrderUnProcessingOrdersJob;0 0/15 * 1/1 * ? *
+
+
+INSERT_UPDATE ServicelayerJob; code[unique=true];springId
+                             ;nuvocoCancelOrderEntryUnProcessingOrdersJob;nuvocoCancelOrderEntryUnProcessingOrdersJob
+
+INSERT_UPDATE CronJob; code[unique=true];job(code);singleExecutable;sessionLanguage(isocode)
+                     ;nuvocoCancelOrderEntryUnProcessingOrdersJob;nuvocoCancelOrderEntryUnProcessingOrdersJob;false;en
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronExpression
+                     ;nuvocoCancelOrderEntryUnProcessingOrdersJob;0 0/15 * 1/1 * ? *
+
+
+
+INSERT_UPDATE ServicelayerJob ;code[unique=true]  ;springId
+                              ;efficacyReportUpdateJob ;efficacyReportUpdateJob
+
+INSERT_UPDATE CronJob ;code[unique=true]  ;job(code)    ; sessionLanguage(isocode); sessionCurrency(isocode)
+                      ;efficacyReportUpdateCronJob  ;efficacyReportUpdateJob  ;en ;INR
+
+INSERT_UPDATE Trigger ;cronjob(code)[unique=true] ;cronExpression
+                      ;efficacyReportUpdateCronJob   ;0 0 0 1 1/1 ? *
+
+INSERT_UPDATE ServicelayerJob ;code[unique=true]  ;springId
+                              ;marketIntelligenceReportUpdateJob ;marketIntelligenceReportUpdateJob
+
+INSERT_UPDATE CronJob ;code[unique=true]  ;job(code)    ; sessionLanguage(isocode); sessionCurrency(isocode)
+                      ;marketIntelligenceReportUpdateCronJob  ;marketIntelligenceReportUpdateJob  ;en ;INR
+
+INSERT_UPDATE Trigger ;cronjob(code)[unique=true] ;cronExpression
+                      ;marketIntelligenceReportUpdateCronJob   ;0 0 0 1 1/1 ? *
+
+INSERT_UPDATE ServicelayerJob ;code[unique=true]  ;springId
+                              ;newProductReportUpdateJob ;newProductReportUpdateJob
+
+INSERT_UPDATE CronJob ;code[unique=true]  ;job(code)    ; sessionLanguage(isocode); sessionCurrency(isocode)
+                      ;newProductReportUpdateCronJob  ;newProductReportUpdateJob  ;en ;INR
+
+INSERT_UPDATE Trigger ;cronjob(code)[unique=true] ;cronExpression
+                      ;newProductReportUpdateCronJob   ;0 0 0 1 1/1 ? *
+
+INSERT_UPDATE ServicelayerJob ;code[unique=true]  ;springId
+                              ;reinclusionObsoleteCounterReportUpdateJob ;reinclusionObsoleteCounterReportUpdateJob
+
+INSERT_UPDATE CronJob ;code[unique=true]  ;job(code)    ; sessionLanguage(isocode); sessionCurrency(isocode)
+                      ;reinclusionObsoleteCounterReportUpdateCronJob  ;reinclusionObsoleteCounterReportUpdateJob  ;en ;INR
+
+INSERT_UPDATE Trigger ;cronjob(code)[unique=true] ;cronExpression
+                      ;reinclusionObsoleteCounterReportUpdateCronJob   ;0 0 0 1 1/1 ? *
+
+
+
+INSERT_UPDATE ServicelayerJob ;code[unique=true]  ;springId
+                              ;nuvocoCustomerNetworkTypeUpdateJob ;nuvocoCustomerNetworkTypeUpdateJob
+
+INSERT_UPDATE CronJob ;code[unique=true]  ;job(code)    ; sessionLanguage(isocode); sessionCurrency(isocode)
+                      ;nuvocoCustomerNetworkTypeUpdateJob ;nuvocoCustomerNetworkTypeUpdateJob  ;en ;INR
+
+INSERT_UPDATE Trigger ;cronjob(code)[unique=true] ;cronExpression
+                      ;nuvocoCustomerNetworkTypeUpdateJob   ;0 0 0 1/1 * ? *
+
+INSERT_UPDATE ServicelayerJob ;code[unique=true]  ;springId
+                              ;salesSummaryJob ;salesSummaryJob
+
+INSERT_UPDATE CronJob ;code[unique=true]  ;job(code)    ; sessionLanguage(isocode); sessionCurrency(isocode)
+                      ;salesSummaryCronJob ;salesSummaryJob  ;en ;INR
+
+INSERT_UPDATE Trigger ;cronjob(code)[unique=true] ;cronExpression
+                      ;salesSummaryCronJob   ;0 0 */1 * * *
+
+
+
+INSERT_UPDATE SearchRestriction; code[unique = true]; name[lang = en];query ; principal(UID); restrictedType(code); active; generate
+                               ; OrderSubAreaRestrictionForDealer ; OrderSubAreaRestrictionForDealer; {item:user} = ?session.user AND {item:site} = ?session.currentSite AND {item:versionID} IS NULL; NuvocoDealerGroup ; Order   ; true  ; true
+                               ; OrderRequistionForDealer ; OrderRequistionForDealer; {item:active} = 1 and {item:fromCustomer} = ?session.user; NuvocoDealerGroup ; OrderRequisition   ; true  ; true
+                               ; PointRequisitionForDealer ; PointRequisitionForDealer; {item:isActive} = 1 and {item:requestRaisedTo} = ?session.user ; NuvocoDealerGroup ; PointRequisition   ; true  ; true
+                               ; NetworkAssistanceForDealer ; NetworkAssistanceForDealer; {item:brand} = ?session.currentSite AND  {item:raisedBy} = ?session.user; NuvocoDealerGroup ; NetworkAssistance   ; true  ; true
+
+INSERT_UPDATE SearchRestriction; code[unique = true]; name[lang = en];query ; principal(UID); restrictedType(code); active; generate
+                               ; OrderSubAreaRestrictionForRetailer ; OrderSubAreaRestrictionForRetailer; {item:user} = ?session.user AND {item:site} = ?session.currentSite AND {item:versionID} IS NULL; NuvocoRetailerGroup ; Order   ; true  ; true
+                               ; OrderRequistionForRetailer ; OrderRequistionForRetailer; {item:active} = 1 and {item:toCustomer} = ?session.user; NuvocoRetailerGroup ; OrderRequisition   ; true  ; true
+                               ; PointRequisitionForRetailer ; PointRequisitionForRetailer; {item:isActive} = 1 and {item:requestRaisedTo} = ?session.user ; NuvocoRetailerGroup ; PointRequisition   ; true  ; true
+                               ; NetworkAssistanceFoRetailer ; NetworkAssistanceFoRetailer;  {item:brand} = ?session.currentSite AND {item:raisedBy} = ?session.user; NuvocoRetailerGroup ; NetworkAssistance   ; true  ; true
