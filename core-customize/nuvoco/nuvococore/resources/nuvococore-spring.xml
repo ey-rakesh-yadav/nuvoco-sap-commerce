@@ -22,6 +22,7 @@
 	<bean id="acceleratorCoreSystemSetup" class="com.nuvoco.core.setup.CoreSystemSetup"
 	       parent="abstractCoreSystemSetup"/>
 
+
 	<!-- Solr field value providers -->
 
 	<bean id="volumeAwareProductPriceValueProvider" class="com.nuvoco.core.search.solrfacetsearch.provider.impl.VolumeAwareProductPriceValueProvider"  parent="abstractPropertyFieldValueProvider">
@@ -551,4 +552,28 @@
 	<alias alias="dynamicAttributesOrderEntryQtyMT" name="dynamicAttributesOrderEntryQtyMT"/>
 	<bean id="dynamicAttributesOrderEntryQtyMT" class="com.nuvoco.core.orderhandler.DynamicAttributesOrderEntryQtyMT">
 	</bean>
+
+<!--Nuvoco beans-->
+	<bean id="nuvocoCustomerNetworkTypeUpdateJob" class="com.nuvoco.core.job.NuvocoCustomerNetworkTypeUpdateJob">
+	</bean>
+
+	<!--<bean id="salesSummaryJob" class="com.scl.core.job.SalesSummaryJob"></bean>
+
+	<bean id="territoryManagementService" class="com.nuvoco.core.services.impl.TerritoryManagementServiceImpl">
+	</bean>
+
+	<bean id="efficacyReportUpdateJob" class="com.scl.core.job.EfficacyReportUpdateJob">
+	</bean>
+
+	<bean id="newProductReportUpdateJob" class="com.scl.core.job.NewProductReportUpdateJob">
+	</bean>
+
+	<bean id="reinclusionObsoleteCounterReportUpdateJob" class="com.scl.core.job.ReinclusionObsoleteCounterReportUpdateJob">
+	</bean>
+
+	<bean id="marketIntelligenceReportUpdateJob" class="com.scl.core.job.MarketIntelligenceReportUpdateJob">
+	</bean>-->
+
+
+
 </beans>
