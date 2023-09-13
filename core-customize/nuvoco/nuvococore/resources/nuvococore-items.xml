@@ -4796,6 +4796,88 @@
                 </attributes>
             </itemtype>
 
+            <itemtype code="Address" autocreate="false" generate="false">
+                <description>Address</description>
+                <attributes>
+                    <attribute qualifier="state" type="java.lang.String">
+                        <description>State</description>
+                        <modifiers />
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="city" type="java.lang.String">
+                        <description>City</description>
+                        <modifiers />
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="taluka" type="java.lang.String">
+                        <description>Taluka</description>
+                        <modifiers />
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="type" type="java.lang.String">
+                        <description>Address Type Permanent/Correspondence </description>
+                        <modifiers />
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="id" type="java.lang.String">
+                        <description>Address ID</description>
+                        <modifiers />
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="isPrimaryAddress"
+                               type="java.lang.Boolean">
+                        <defaultvalue>false</defaultvalue>
+                        <description>Primary Address</description>
+                        <modifiers />
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="erpCity" type="java.lang.String">
+                        <description>ERP City</description>
+                        <modifiers />
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="erpAddressId"
+                               type="java.lang.String">
+                        <description>ERP Address Id</description>
+                        <modifiers />
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="erpAddressStatusDesc"
+                               type="java.lang.String">
+                        <modifiers/>
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="erpAddressStatus"
+                               type="java.lang.String">
+                        <modifiers/>
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="retailerUid"
+                               type="java.lang.String">
+                        <modifiers/>
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="retailerName"
+                               type="java.lang.String">
+                        <modifiers/>
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="addressIndicator"
+                               type="java.lang.String">
+                        <modifiers/>
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="accountName"
+                               type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="retailerAddressPk"
+                               type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                </attributes>
+            </itemtype>
+
 
             <itemtype code="UserSubAreaMapping" autocreate="true" generate="true">
                 <deployment table="UserSubAreaMapping" typecode="14035" />
@@ -6812,6 +6894,84 @@
                     </attribute>
                 </attributes>
             </itemtype>
+
+            <itemtype code="CustomerAppBuildMaster" autocreate="true" generate="true">
+                <deployment table="CustomerAppBuildMaster" typecode="14063" />
+                <attributes>
+                    <attribute qualifier="buildNumber" type="java.lang.String">
+                        <modifiers unique = "true"/>
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="versionNumber" type="java.lang.String">
+                        <modifiers unique = "true"/>
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="status" type="java.lang.Boolean">
+                        <modifiers />
+                        <defaultvalue>true</defaultvalue>
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="forceUpdate" type="java.lang.Boolean">
+                        <modifiers/>
+                        <defaultvalue>true</defaultvalue>
+                        <persistence type="property"/>
+                    </attribute>
+                    <attribute qualifier="synced" type="java.lang.Boolean">
+                        <modifiers />
+                        <defaultvalue>false</defaultvalue>
+                        <persistence type="property"/>
+                    </attribute>
+                </attributes>
+            </itemtype>
+
+            <itemtype code="DataConstraint" autocreate="true" generate="true">
+                <deployment table="DataConstraint" typecode="14064"/>
+                <attributes>
+                    <attribute qualifier="constraintName" type="java.lang.String">
+                        <modifiers unique="true"/>
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="day" type="java.lang.Integer">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="description" type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="version" type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                </attributes>
+            </itemtype>
+
+            <itemtype code="AppBuildMaster" autocreate="true" generate="true">
+                <deployment table="AppBuildMaster" typecode="14065" />
+                <attributes>
+                    <attribute qualifier="buildNumber" type="java.lang.String">
+                        <modifiers unique = "true"/>
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="versionNumber" type="java.lang.String">
+                        <modifiers unique = "true"/>
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="status" type="java.lang.Boolean">
+                        <modifiers />
+                        <defaultvalue>true</defaultvalue>
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="forceUpdate" type="java.lang.Boolean">
+                        <modifiers/>
+                        <defaultvalue>true</defaultvalue>
+                        <persistence type="property"/>
+                    </attribute>
+                    <attribute qualifier="synced" type="java.lang.Boolean">
+                        <modifiers />
+                        <defaultvalue>false</defaultvalue>
+                        <persistence type="property" />
+                    </attribute>
+                </attributes>
+            </itemtype>
+
         </typegroup>
 
         <typegroup name="Electronics">

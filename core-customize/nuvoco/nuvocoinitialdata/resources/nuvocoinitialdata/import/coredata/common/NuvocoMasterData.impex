@@ -18,8 +18,8 @@ INSERT_UPDATE CustomerOrderType;transactionTypeId[unique=true];name;description;
 
 #for ccv2 dev
 INSERT_UPDATE OAuthClientDetails;clientId[unique=true] ;resourceIds ;scope ;authorizedGrantTypes ;authorities ;clientSecret ;registeredRedirectUri
-                                ;client-side ;hybris ;basic ;implicit,client_credentials ;ROLE_CLIENT,ROLE_CUSTOMERGROUP,ROLE_TRUSTED_CLIENT,ROLE_CUSTOMERMANAGERGROUP ;secret ;https://api.ck3oh5xguk-shreeceme1-d1-public.model-t.cc.commerce.ondemand.com/authorizationserver/oauth2_implicit_callback;
-                                ;mobile_android ;hybris ;basic ;authorization_code,refresh_token,password,client_credentials ;ROLE_CLIENT,ROLE_CUSTOMERGROUP,ROLE_TRUSTED_CLIENT,ROLE_CUSTOMERMANAGERGROUP ;secret ;https://api.ck3oh5xguk-shreeceme1-d1-public.model-t.cc.commerce.ondemand.com/authorizationserver/oauth2_callback;
+                                ;client-side ;hybris ;basic ;implicit,client_credentials ;ROLE_CLIENT,ROLE_CUSTOMERGROUP,ROLE_TRUSTED_CLIENT,ROLE_CUSTOMERMANAGERGROUP ;secret ;https://api.cuivbcudlo-ernstandy1-d1-public.model-t.cc.commerce.ondemand.com/authorizationserver/oauth2_implicit_callback;
+                                ;mobile_android ;hybris ;basic ;authorization_code,refresh_token,password,client_credentials ;ROLE_CLIENT,ROLE_CUSTOMERGROUP,ROLE_TRUSTED_CLIENT,ROLE_CUSTOMERMANAGERGROUP ;secret ;https://api.cuivbcudlo-ernstandy1-d1-public.model-t.cc.commerce.ondemand.com/authorizationserver/oauth2_callback;
 
 INSERT_UPDATE B2BUnit;description;uid[unique=true];name;locName[lang=en];groups(uid);
                      ;SalesOfficerUnit;SalesOfficerUnit;Sales Officer Unit;Sales Officer Unit;;

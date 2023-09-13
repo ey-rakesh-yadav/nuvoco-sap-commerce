@@ -573,7 +573,23 @@
 
 	<bean id="marketIntelligenceReportUpdateJob" class="com.scl.core.job.MarketIntelligenceReportUpdateJob">
 	</bean>-->
+<!-- Nuvoco beans -->
+	<bean id="ssoLoginService" class="com.nuvoco.core.services.impl.SSOLoginServiceImpl"/>
 
+
+	<bean id="territoryManagementService" class="com.nuvoco.core.services.impl.TerritoryManagementServiceImpl"/>
+
+	<alias name="dealerTransitService" alias="dealerTransitService"/>
+	<bean id="dealerTransitService" class="com.nuvoco.core.services.impl.DealerTransitServiceImpl">
+	</bean>
+
+   	<bean id="territoryManagementDao" class="com.nuvoco.core.dao.impl.TerritoryManagementDaoImpl"/>
+
+	<bean id="dealerVehicleDetailsDao" class="com.nuvoco.core.dao.impl.DealerVehicleDetailsDaoImpl"/>
+
+	<bean id="dealerDriverDetailsDao" class="com.nuvoco.core.dao.impl.DealerDriverDetailsDaoImpl"/>
+
+	<bean id="nuvocoCustomerService" class="com.nuvoco.core.services.impl.NuvocoCustomerServiceImpl"/>
 
 
 </beans>
