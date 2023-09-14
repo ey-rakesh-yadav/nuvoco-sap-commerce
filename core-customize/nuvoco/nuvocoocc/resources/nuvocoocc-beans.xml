@@ -17,4 +17,26 @@
 	</bean>
 	-->
 
+
+	<bean class="com.nuvoco.occ.dto.vehicle.DealerVehicleDetailsWsDTO">
+		<property name="vehicleNumber" type="String"/>
+		<property name="make" type="String"/>
+		<property name="model" type="String"/>
+		<property name="capacity" type="String"/>
+	</bean>
+	<bean class="com.nuvoco.occ.dto.vehicle.DealerVehicleDetailsListWsDTO">
+		<property name="dealer" type="de.hybris.platform.commercewebservicescommons.dto.user.UserWsDTO"/>
+		<property name="fleetCount" type="String"/>
+		<property name="totalCapacity" type="String"/>
+		<property name="vehicleDetails" type="java.util.List&lt;com.nuvoco.occ.dto.vehicle.DealerVehicleDetailsWsDTO>"/>
+	</bean>
+	<bean class="com.nuvoco.occ.dto.vehicle.DealerDriverDetailsWsDTO">
+		<property name="driverName" type="String"/>
+		<property name="contactNumber" type="String"/>
+	</bean>
+	<bean class="com.nuvoco.occ.dto.vehicle.DealerDriverDetailsListWsDTO">
+		<property name="dealer" type="de.hybris.platform.commercewebservicescommons.dto.user.UserWsDTO"/>
+		<property name="noOfDrivers" type="String"/>
+		<property name="driverDetails" type="java.util.List&lt;com.nuvoco.occ.dto.vehicle.DealerDriverDetailsWsDTO>"/>
+	</bean>
 </beans>

@@ -12,7 +12,7 @@
                 		
         
         <requires-extension name="acceleratorfacades"/>
-                		
+        <requires-extension name="b2bacceleratorfacades"/>
         
         <requires-extension name="nuvococore"/>
                 		

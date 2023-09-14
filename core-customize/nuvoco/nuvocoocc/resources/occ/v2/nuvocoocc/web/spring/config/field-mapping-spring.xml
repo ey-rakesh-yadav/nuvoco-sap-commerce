@@ -10,7 +10,7 @@
 
     <bean parent="fieldSetLevelMapping" id="dealerVehicleDetailsWsDTOFieldSetLevelMapping">
         <property name="dtoClass"
-                  value="com.scl.occ.dto.order.vehicle.DealerVehicleDetailsWsDTO"/>
+                  value="com.nuvoco.occ.dto.vehicle.DealerVehicleDetailsWsDTO"/>
         <property name="levelMapping">
             <map>
                 <entry key="BASIC" value="make,model,capacity"/>
@@ -21,7 +21,7 @@
     </bean>
     <bean parent="fieldSetLevelMapping" id="dealerDriverDetailsWsDTOFieldSetLevelMapping">
         <property name="dtoClass"
-                  value="com.scl.occ.dto.order.vehicle.DealerDriverDetailsWsDTO"/>
+                  value="com.nuvoco.occ.dto.vehicle.DealerDriverDetailsWsDTO"/>
         <property name="levelMapping">
             <map>
                 <entry key="BASIC" value="driverName,contactNumber"/>
@@ -33,7 +33,7 @@
 
     <bean parent="fieldSetLevelMapping" id="dealerVehicleDetailsListWsDTOFieldSetLevelMapping">
         <property name="dtoClass"
-                  value="com.scl.occ.dto.order.vehicle.DealerVehicleDetailsListWsDTO"/>
+                  value="com.nuvoco.occ.dto.vehicle.DealerVehicleDetailsListWsDTO"/>
         <property name="levelMapping">
             <map>
                 <entry key="BASIC" value="vehicleDetails(BASIC)"/>
@@ -45,7 +45,7 @@
 
     <bean parent="fieldSetLevelMapping" id="dealerDriverDetailsListWsDTOFieldSetLevelMapping">
         <property name="dtoClass"
-                  value="com.scl.occ.dto.order.vehicle.DealerDriverDetailsListWsDTO"/>
+                  value="com.nuvoco.occ.dto.vehicle.DealerDriverDetailsListWsDTO"/>
         <property name="levelMapping">
             <map>
                 <entry key="BASIC" value="dealer(BASIC),noOfDrivers,driverDetails(BASIC)"/>
