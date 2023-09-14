@@ -12,4 +12,111 @@
 		<property name="code" type="String"/>
 		<property name="name" type="String"/>
 	</bean>
+	<bean class="com.nuvoco.facades.data.SSOLoginData">
+		<property name="brandId" type="String"/>
+		<property name="isUserPresent" type="Boolean"/>
+		<property name="userGroup" type="String"/>
+	</bean>
+
+	<bean class="com.nuvoco.facades.data.FilterTalukaData">
+		<property name="talukaName" type="String"/>
+		<property name="districtCode" type="String"/>
+		<property name="regionCode" type="String"/>
+	</bean>
+
+	<bean class="com.nuvoco.facades.data.NuvocoCustomerData">
+		<property name="name" type="String"/>
+		<property name="uid" type="String"/>
+		<property name="emailId" type="String"/>
+		<property name="profilePic" type="com.nuvoco.facades.data.NuvocoImageData"/>
+		<property name="contactNumber" type="String"/>
+		<property name="address" type="com.nuvoco.facades.data.NuvocoAddressData"/>
+		<property name="salesOfficer" type="String"/>
+		<property name="fleetCount" type="Integer"/>
+		<property name="retailerCount" type="Integer"/>
+		<property name="influencerCount" type="Integer"/>
+		<property name="yearsOfAssociation" type="Integer"/>
+		<property name="salesOfficerProfilePic" type="String"/>
+		<property name="salesOfficerMobileNumber" type="String"/>
+		<property name="erpCustomerNo" type="String"/>
+		<property name="panNo" type="String"/>
+		<property name="tanNo" type="String"/>
+		<property name="gstIn" type="String"/>
+	</bean>
+
+	<bean class="com.nuvoco.facades.data.NuvocoDealerData">
+		<property name="name" type="String"/>
+		<property name="gstin" type="String"/>
+		<property name="aadharNo" type="String"/>
+		<property name="stateOfRegistration" type="String"/>
+		<property name="registeredAddress" type="com.nuvoco.facades.data.NuvocoAddressData"/>
+		<property name="shippingAddress" type="java.util.List&lt;com.nuvoco.facades.data.NuvocoAddressData&gt;"/>
+		<property name="contactNumber" type="String"/>
+		<property name="email" type="String"/>
+		<property name="image" type="com.nuvoco.facades.data.NuvocoImageData"/>
+		<property name="gstinCertificate" type="com.nuvoco.facades.data.NuvocoImageData"/>
+		<property name="aadharDoc" type="com.nuvoco.facades.data.NuvocoImageData"/>
+		<property name="brand" type="String"/>
+		<property name="formSS" type="com.nuvoco.facades.data.NuvocoImageData"/>
+	</bean>
+
+	<bean class="com.nuvoco.facades.data.NuvocoImageData">
+		<property name="byteStream" type="String"/>
+		<property name="fileName" type="String"/>
+		<property name="url" type="String"/>
+	</bean>
+	<bean class="com.nuvoco.facades.data.NuvocoAddressData">
+		<property name="line1" type="String"/>
+		<property name="line2" type="String"/>
+		<property name="state" type="String"/>
+		<property name="district" type="String"/>
+		<property name="city" type="String"/>
+		<property name="taluka" type="String"/>
+		<property name="pincode" type="String"/>
+		<property name="dateOfBirth" type="String"/>
+		<property name="email" type="String"/>
+		<property name="contactNumber" type="String"/>
+	</bean>
+	<bean class="com.nuvoco.facades.data.EpodFeedbackData">
+		<property name="orderCode" type="String" />
+		<property name="entryNumber" type="Integer"/>
+		<property name="driverRating" type="String" />
+		<property name="deliveryProcess" type="String"/>
+		<property name="materialReceipt" type="String" />
+		<property name="serviceLevel" type="String" />
+		<property name="overallDeliveryExperience" type="String"/>
+		<property name="comments" type="String"/>
+	</bean>
+
+	<bean class="com.nuvoco.facades.data.OrderRequisitionEntryData">
+		<property name="quantity" type="Double" />
+		<property name="deliveredDate" type="java.util.Date"/>
+		<property name="entryNumber" type="Integer"/>
+		<property name="cancelledDate" type="java.util.Date"/>
+	</bean>
+
+	<bean class="com.nuvoco.facades.data.vehicle.DealerVehicleDetailsData">
+		<property name="vehicleNumber" type="String"/>
+		<property name="make" type="String"/>
+		<property name="model" type="String"/>
+		<property name="capacity" type="String"/>
+	</bean>
+	<bean class="com.nuvoco.facades.data.vehicle.DealerVehicleDetailsListData">
+		<property name="dealer" type="de.hybris.platform.commercefacades.user.data.CustomerData"/>
+		<property name="fleetCount" type="String"/>
+		<property name="totalCapacity" type="String"/>
+		<property name="vehicleDetails" type="java.util.List&lt;com.nuvoco.facades.data.vehicle.DealerVehicleDetailsData>"/>
+	</bean>
+	<bean class="com.nuvoco.facades.data.vehicle.DealerDriverDetailsData">
+		<property name="driverName" type="String"/>
+		<property name="contactNumber" type="String"/>
+	</bean>
+	<bean class="com.nuvoco.facades.data.vehicle.DealerDriverDetailsListData">
+		<property name="dealer" type="de.hybris.platform.commercefacades.user.data.CustomerData"/>
+		<property name="noOfDrivers" type="String"/>
+		<property name="driverDetails" type="java.util.List&lt;com.nuvoco.facades.data.vehicle.DealerDriverDetailsData>"/>
+	</bean>
+
+
+
 </beans>

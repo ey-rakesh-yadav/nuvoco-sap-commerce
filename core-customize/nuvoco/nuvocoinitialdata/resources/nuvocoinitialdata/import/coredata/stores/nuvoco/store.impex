@@ -23,7 +23,7 @@ $pickupInStoreMode=BUY_AND_COLLECT
 $customerAllowedToIgnoreSuggestions=true
 $paymentProvider=Mockup
 $promoGrp=nuvocoPromoGroup
-$checkoutFlowGroup=defaultCheckoutGroup
+$checkoutFlowGroup=nuvocoCheckoutGroup
 
 INSERT_UPDATE PromotionGroup;Identifier[unique=true];
 ;$promoGrp;

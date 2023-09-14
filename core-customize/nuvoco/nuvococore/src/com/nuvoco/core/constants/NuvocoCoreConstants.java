@@ -25,4 +25,20 @@ public final class NuvocoCoreConstants extends GeneratedNuvocoCoreConstants
 	public static final String QUOTE_EXPIRED_EMAIL_PROCESS = "quote-expired-email-process";
 	public static final String QUOTE_POST_CANCELLATION_PROCESS = "quote-post-cancellation-process";
 
+	public static class CUSTOMER {
+		public static final String DEALER_USER_GROUP_UID = "NuvocoDealerGroup";
+		public static final String SITE_USER_GROUP_UID = "NuvocoSiteGroup";
+		public static final String RETAILER_USER_GROUP_UID = "NuvocoRetailerGroup";
+		public static final String SALES_PROMOTER_USER_GROUP_UID = "salespromotergroup";
+
+		public static final String DEALER_USER_GROUP_TYPE = "Dealer";
+		public static final String SITE_USER_GROUP_TYPE = "Site";
+		public static final String RETAILER_USER_GROUP_TYPE = "Retailer";
+		public static final String DEFAULT_Nuvoco_CUSTOMER_UNIT = "NuvocoCustomerUnit";
+
+		public static final String DEALER_ONBOARDING_USER_GROUP_UID = "NuvocoDealerOnboardingGroup";
+		public static final String RETAILER_ONBOARDING_USER_GROUP_UID = "NuvocoRetailerOnboardingGroup";
+
+	}
+
 }

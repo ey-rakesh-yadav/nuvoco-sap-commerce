@@ -174,10 +174,57 @@
 		<property name="priceDataFactory" ref="priceDataFactory"/>
 	</bean>
 
-	<alias name="yacceleratorSearchPagePointOfServiceDistancePopulator" alias="searchPagePointOfServiceDistancePopulator" />
+<!--	<alias name="yacceleratorSearchPagePointOfServiceDistancePopulator" alias="searchPagePointOfServiceDistancePopulator" />
 	<bean id="yacceleratorSearchPagePointOfServiceDistancePopulator" class="com.nuvoco.facades.storefinder.populators.SearchPagePointOfServiceDistancePopulator" >
 		<property name="pointOfServiceDistanceConverter" ref="pointOfServiceDistanceConverter"/>
-	</bean>
+	</bean>-->
 
 	<bean id="genderData" class="com.nuvoco.facades.product.data.GenderData" scope="prototype"/>
+
+<!--Nuvoco beans-->
+	<bean id="ssoLoginFacade" class="com.nuvoco.facades.impl.SSOLoginFacadeImpl"/>
+
+	<bean id="dealerFacade" class="com.nuvoco.facades.impl.DealerFacadeImpl"/>
+
+	<bean id="nuvocoAddressPopulator" class="com.nuvoco.facades.populators.NuvocoAddressPopulator"/>
+	<bean id="nuvocoAddressConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.nuvoco.facades.data.NuvocoAddressData"/>
+		<property name="populators">
+			<list>
+				<ref bean="nuvocoAddressPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="dealerVehicleDetailsPopulator" class="com.nuvoco.facades.populators.DealerVehicleDetailsPopulator">
+	</bean>
+
+	<bean id="dealerVehicleDetailsConverter" parent="abstractPopulatingConverter" >
+		<property name="targetClass" value="com.nuvoco.facades.data.vehicle.DealerVehicleDetailsData"/>
+		<property name="populators">
+			<list>
+				<ref bean="dealerVehicleDetailsPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="dealerDriverDetailsPopulator" class="com.nuvoco.facades.populators.DealerDriverDetailsPopulator">
+	</bean>
+
+	<bean id="dealerDriverDetailsConverter" parent="abstractPopulatingConverter" >
+		<property name="targetClass" value="com.nuvoco.facades.data.vehicle.DealerDriverDetailsData"/>
+		<property name="populators">
+			<list>
+				<ref bean="dealerDriverDetailsPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="dealerVehicleDetailsReversePopulator" class="com.nuvoco.facades.populators.DealerVehicleDetailsReversePopulator">
+	</bean>
+	<bean id="dealerDriverDetailsReversePopulator" class="com.nuvoco.facades.populators.DealerDriverDetailsReversePopulator">
+	</bean>
+
+
+
 </beans>

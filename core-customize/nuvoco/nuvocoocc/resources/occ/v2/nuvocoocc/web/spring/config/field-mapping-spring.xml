@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Field mapping configuration -->
+
+    <bean parent="fieldSetLevelMapping" id="dealerVehicleDetailsWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.nuvoco.occ.dto.vehicle.DealerVehicleDetailsWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="make,model,capacity"/>
+                <entry key="DEFAULT" value="vehicleNumber,make,model,capacity"/>
+                <entry key="FULL" value="vehicleNumber,make,model,capacity"/>
+            </map>
+        </property>
+    </bean>
+    <bean parent="fieldSetLevelMapping" id="dealerDriverDetailsWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.nuvoco.occ.dto.vehicle.DealerDriverDetailsWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="driverName,contactNumber"/>
+                <entry key="DEFAULT" value="driverName,contactNumber"/>
+                <entry key="FULL" value="driverName,contactNumber"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="dealerVehicleDetailsListWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.nuvoco.occ.dto.vehicle.DealerVehicleDetailsListWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="vehicleDetails(BASIC)"/>
+                <entry key="DEFAULT" value="dealer(DEFAULT),fleetCount,totalCapacity,vehicleDetails(DEFAULT)"/>
+                <entry key="FULL" value="dealer(FULL),fleetCount,totalCapacity,vehicleDetails(FULL)"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="dealerDriverDetailsListWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.nuvoco.occ.dto.vehicle.DealerDriverDetailsListWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="dealer(BASIC),noOfDrivers,driverDetails(BASIC)"/>
+                <entry key="DEFAULT" value="dealer(DEFAULT),noOfDrivers,driverDetails(DEFAULT)"/>
+                <entry key="FULL" value="dealer(FULL),noOfDrivers,driverDetails(FULL)"/>
+            </map>
+        </property>
+    </bean>
+
+
+
+</beans>
