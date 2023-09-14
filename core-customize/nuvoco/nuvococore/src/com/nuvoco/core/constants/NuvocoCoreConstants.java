@@ -34,7 +34,7 @@ public final class NuvocoCoreConstants extends GeneratedNuvocoCoreConstants
 		public static final String DEALER_USER_GROUP_TYPE = "Dealer";
 		public static final String SITE_USER_GROUP_TYPE = "Site";
 		public static final String RETAILER_USER_GROUP_TYPE = "Retailer";
-		public static final String DEFAULT_SCL_CUSTOMER_UNIT = "NuvocoCustomerUnit";
+		public static final String DEFAULT_Nuvoco_CUSTOMER_UNIT = "NuvocoCustomerUnit";
 
 		public static final String DEALER_ONBOARDING_USER_GROUP_UID = "NuvocoDealerOnboardingGroup";
 		public static final String RETAILER_ONBOARDING_USER_GROUP_UID = "NuvocoRetailerOnboardingGroup";
