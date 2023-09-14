@@ -225,13 +225,6 @@
 	<bean id="dealerDriverDetailsReversePopulator" class="com.nuvoco.facades.populators.DealerDriverDetailsReversePopulator">
 	</bean>
 
-<!--	<bean id="sclCustomerPopulator" class="com.scl.facades.populators.SclCustomerPopulator" >
-		<property name="addressConverter" ref="addressConverter"/>
-		<property name="imageConverter" ref="imageConverter"/>
-	</bean>
-	<bean parent="modifyPopulatorList">
-		<property name="list" ref="customerConverter"/>
-		<property name="add" ref="sclCustomerPopulator"/>
-	</bean>-->
+
 
 </beans>

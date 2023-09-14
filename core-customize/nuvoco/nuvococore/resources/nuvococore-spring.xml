@@ -557,21 +557,21 @@
 	<bean id="nuvocoCustomerNetworkTypeUpdateJob" class="com.nuvoco.core.job.NuvocoCustomerNetworkTypeUpdateJob">
 	</bean>
 
-	<!--<bean id="salesSummaryJob" class="com.scl.core.job.SalesSummaryJob"></bean>
+	<!--<bean id="salesSummaryJob" class="com.nuvoco.core.job.SalesSummaryJob"></bean>
 
 	<bean id="territoryManagementService" class="com.nuvoco.core.services.impl.TerritoryManagementServiceImpl">
 	</bean>
 
-	<bean id="efficacyReportUpdateJob" class="com.scl.core.job.EfficacyReportUpdateJob">
+	<bean id="efficacyReportUpdateJob" class="com.nuvoco.core.job.EfficacyReportUpdateJob">
 	</bean>
 
-	<bean id="newProductReportUpdateJob" class="com.scl.core.job.NewProductReportUpdateJob">
+	<bean id="newProductReportUpdateJob" class="com.nuvoco.core.job.NewProductReportUpdateJob">
 	</bean>
 
-	<bean id="reinclusionObsoleteCounterReportUpdateJob" class="com.scl.core.job.ReinclusionObsoleteCounterReportUpdateJob">
+	<bean id="reinclusionObsoleteCounterReportUpdateJob" class="com.nuvoco.core.job.ReinclusionObsoleteCounterReportUpdateJob">
 	</bean>
 
-	<bean id="marketIntelligenceReportUpdateJob" class="com.scl.core.job.MarketIntelligenceReportUpdateJob">
+	<bean id="marketIntelligenceReportUpdateJob" class="com.nuvoco.core.job.MarketIntelligenceReportUpdateJob">
 	</bean>-->
 <!-- Nuvoco beans -->
 	<bean id="ssoLoginService" class="com.nuvoco.core.services.impl.SSOLoginServiceImpl"/>

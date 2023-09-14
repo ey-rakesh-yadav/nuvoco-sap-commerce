@@ -203,8 +203,8 @@ public class DealerFacadeImpl implements DealerFacade {
     @Override
     public DealerDriverDetailsListData getDealerDriverDetails(String dealerUid) {
 
-        final NuvocoCustomerModel sclCustomer = nuvocoCustomerService.getCustomerForUid(dealerUid);
-        List<DealerDriverDetailsModel> dealerDriverDetailsModelList = dealerTransitService.fetchDriverDetailsForDealer(sclCustomer);
+        final NuvocoCustomerModel nuvocoCustomer = nuvocoCustomerService.getCustomerForUid(dealerUid);
+        List<DealerDriverDetailsModel> dealerDriverDetailsModelList = dealerTransitService.fetchDriverDetailsForDealer(nuvocoCustomer);
         List<DealerDriverDetailsData> dealerDriverDetailsDataList = new ArrayList<>();
         DealerDriverDetailsListData dealerDriverDetailsList = new DealerDriverDetailsListData();
         if(CollectionUtils.isNotEmpty(dealerDriverDetailsModelList)){
@@ -215,7 +215,7 @@ public class DealerFacadeImpl implements DealerFacade {
             }
         }
         final CustomerData customerData = new CustomerData();
-        customerConverter.convert(sclCustomer,customerData);
+        customerConverter.convert(nuvocoCustomer,customerData);
 
         dealerDriverDetailsList.setDriverDetails(dealerDriverDetailsDataList);
         dealerDriverDetailsList.setDealer(customerData);
