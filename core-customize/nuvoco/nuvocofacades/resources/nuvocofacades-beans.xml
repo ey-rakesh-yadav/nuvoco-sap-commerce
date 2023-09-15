@@ -117,6 +117,79 @@
 		<property name="driverDetails" type="java.util.List&lt;com.nuvoco.facades.data.vehicle.DealerDriverDetailsData>"/>
 	</bean>
 
+	<bean class="com.nuvoco.facades.CreditLimitData">
+		<property name="isCreditLimitBreached" type="Boolean" />
+		<property name="isOutstandingAmountMoreThan30Days" type="Boolean" />
+	</bean>
 
+
+	<bean class="com.nuvoco.facades.prosdealer.data.DealerListData">
+		<property name="dealers" type="java.util.List&lt;de.hybris.platform.commercefacades.user.data.CustomerData>"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.user.data.CustomerData">
+		<property name="sapCode" type="String"/>
+		<property name="productPortfolio" type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.ProductData>"/>
+		<property name="employeeId" type="String"/>
+		<property name="dateOfJoining" type="String"/>
+		<property name="lastVisitDate" type="java.util.Date"/>
+		<property name="contactPersonName" type="String"/>
+		<property name="contactPersonContact" type="String"/>
+		<property name="customerNo" type="String"/>
+		<property name="state" type="String"/>
+		<property name="partnerType" type="String"/>
+		<property name="potential" type="Double"/>
+		<property name="lastVisit" type="String"/>
+		<property name="dealerCategory" type="String"/>
+		<property name="PAN" type="String"/>
+		<property name="GST" type="String"/>
+		<property name="TAN" type="String"/>
+		<property name="flaggedDate" type="java.util.Date"/>
+		<property name="flaggedBy" type="String"/>
+		<property name="flaggedReason" type="String"/>
+		<property name="dealerName" type="String"/>
+		<property name="dealerCode" type="String"/>
+		<property name="dealerContactNumber" type="String"/>
+		<property name="dealerAddress" type="de.hybris.platform.commercefacades.user.data.AddressData"/>
+		<property name="unFlagRequestTime" type="java.util.Date"/>
+		<property name="counterVisitIdforUnFlag" type="String"/>
+	</bean>
+
+	<bean class="com.nuvoco.facades.data.SalesQuantityData">
+		<property name="retailerSaleQuantity" type="Double" />
+		<property name="actual" type="Double"/>
+		<property name="lastMonth" type="Double"/>
+		<property name="current" type="Double"/>
+		<property name="lastYear" type="Double"/>
+	</bean>
+	<bean class="com.nuvoco.facades.data.DealerCurrentNetworkData">
+		<property name="code" type="String" />
+		<property name="contactNumber" type="String"/>
+		<property name="name" type="String"/>
+		<property name="customerNo" type="String" />
+		<property name="rank" type="String"/>
+		<property name="potential" type="String" />
+		<property name="counterShare" type="String" />
+		<property name="target" type="String" />
+		<property name="salesQuantity" type="com.nuvoco.facades.data.SalesQuantityData" />
+		<property name="yoyGrowth" type="String" />
+		<property name="growthRate" type="String" />
+		<property name="outstandingAmount" type="String" />
+		<property name="daySinceLastOrder" type="String" />
+		<property name="district" type="String" />
+		<property name="taluka" type="String" />
+		<property name="salesYtd" type="String" />
+	</bean>
+
+	<bean class="com.nuvoco.facades.data.DealerCurrentNetworkListData">
+		<property name="dealerCurrentNetworkList" type="java.util.List&lt;com.nuvoco.facades.data.DealerCurrentNetworkData>"/>
+	</bean>
+
+	<bean class="com.nuvoco.facades.data.TruckModelData">
+		<property name="truckModel" type="String"/>
+		<property name="capacity" type="Double"/>
+		<property name="vehicleType" type="String"/>
+		<property name="vehicleMake" type="String"/>
+	</bean>
 
 </beans>

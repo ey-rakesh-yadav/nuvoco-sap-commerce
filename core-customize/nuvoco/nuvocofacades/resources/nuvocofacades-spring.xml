@@ -225,6 +225,22 @@
 	<bean id="dealerDriverDetailsReversePopulator" class="com.nuvoco.facades.populators.DealerDriverDetailsReversePopulator">
 	</bean>
 
+	<bean id="dealerBasicPopulator" class="com.nuvoco.facades.populators.DealerBasicPopulator">
+		<property name="imageConverter" ref="imageConverter"/>
+	</bean>
+	<bean id="dealerBasicConverter" parent="abstractPopulatingConverter" >
+		<property name="targetClass" value="de.hybris.platform.commercefacades.user.data.CustomerData"/>
+		<property name="populators">
+			<list>
+				<ref bean="dealerBasicPopulator"/>
+			</list>
+		</property>
+	</bean>
+	<alias name="nuvocoCustomerFacade" alias="nuvocoCustomerFacade" />
+	<bean id="nuvocoCustomerFacade" class="com.nuvoco.facades.impl.NuvocoCustomerFacadeImpl">
+	</bean>
 
-
+	<alias name="djpVisitFacade" alias="djpVisitFacade" />
+	<bean id="djpVisitFacade" class="com.nuvoco.facades.impl.DJPVisitFacadeImpl">
+	</bean>
 </beans>

@@ -10,7 +10,9 @@ public final class NuvocoCoreConstants extends GeneratedNuvocoCoreConstants
 {
 	public static final String EXTENSIONNAME = "nuvococore";
 
+	public static final String UNDERSCORE_CHARACTER = "_";
 
+	public static final String IMAGE_MEDIA_FOLDER_NAME = "images";
 	private NuvocoCoreConstants()
 	{
 		//empty

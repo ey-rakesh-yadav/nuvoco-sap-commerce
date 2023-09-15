@@ -591,5 +591,13 @@
 
 	<bean id="nuvocoCustomerService" class="com.nuvoco.core.services.impl.NuvocoCustomerServiceImpl"/>
 
+	<alias name="orderRequisitionDao" alias="orderRequisitionDao"/>
+	<bean id="orderRequisitionDao" class="com.nuvoco.core.dao.impl.OrderRequisitionDaoImpl">
+	</bean>
 
+	<bean id="salesPerformanceDao" class="com.nuvoco.core.dao.impl.SalesPerformanceDaoImpl"/>
+
+	<bean id="nuvocoTruckDao" class="com.nuvoco.core.dao.impl.NuvocoTruckDaoImpl"/>
+
+	<bean id="djpVisitService" class="com.nuvoco.core.services.impl.DJPVisitServiceImpl"/>
 </beans>

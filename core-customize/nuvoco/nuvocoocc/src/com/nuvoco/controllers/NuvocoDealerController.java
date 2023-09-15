@@ -1,5 +1,6 @@
 package com.nuvoco.controllers;
 
+import com.nuvoco.facades.CreditLimitData;
 import com.nuvoco.facades.DealerFacade;
 import com.nuvoco.facades.data.NuvocoCustomerData;
 import de.hybris.platform.commerceservices.request.mapping.annotation.ApiVersion;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/{baseSiteId}/dealer")
@@ -31,4 +34,6 @@ public class NuvocoDealerController {
     public NuvocoCustomerData getCustomerProfile(@Parameter(description = "uid") @RequestParam String uid) throws Exception {
         return dealerFacade.getCustomerProfile(uid);
     }
+
+
 }

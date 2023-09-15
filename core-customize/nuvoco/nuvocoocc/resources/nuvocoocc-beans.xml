@@ -39,4 +39,188 @@
 		<property name="noOfDrivers" type="String"/>
 		<property name="driverDetails" type="java.util.List&lt;com.nuvoco.occ.dto.vehicle.DealerDriverDetailsWsDTO>"/>
 	</bean>
+	<bean class="com.nuvoco.occ.dto.SalesQuantityDTO">
+		<property name="retailerSaleQuantity" type="String"/>
+		<property name="actual" type="String"/>
+		<property name="lastMonth" type="String"/>
+	</bean>
+
+	<bean class="com.nuvoco.occ.dto.DealerCurrentNetworkDto">
+		<property name="code" type="String" />
+		<property name="contactNumber" type="String"/>
+		<property name="name" type="String"/>
+		<property name="customerNo" type="String"/>
+		<property name="rank" type="String"/>
+		<property name="potential" type="String" />
+		<property name="counterShare" type="String" />
+		<property name="target" type="String" />
+		<property name="salesQuantity" type="com.nuvoco.occ.dto.SalesQuantityDTO" />
+		<property name="yoyGrowth" type="String" />
+		<property name="growthRate" type="String" />
+		<property name="outstandingAmount" type="String" />
+		<property name="daySinceLastOrder" type="String" />
+		<property name="district" type="String" />
+		<property name="taluka" type="String" />
+		<property name="salesYtd" type="String" />
+	</bean>
+
+
+	<bean class="com.nuvoco.occ.dto.DealerCurrentNetworkListDto">
+		<property name="dealerCurrentNetworkList" type="java.util.List&lt;com.nuvoco.occ.dto.DealerCurrentNetworkDto>"/>
+	</bean>
+
+	<!-- confirm order details - add to cart -->
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.AbstractOrderWsDTO">
+		<property name="orderType" type="String" />
+		<property name="orderSource" type="String"/> <!-- to do -->
+		<property name="isDealerProvideOwnTransport" type="Boolean"/>
+		<property name="customerCategory" type="String"/>
+		<property name="totalQuantity" type="Double"/>
+		<property name="productName" type="String"/>
+		<property name="productCode" type="String"/>
+		<property name="retailerName" type="String"/>
+		<property name="retailerCode" type="String"/>
+		<property name="warehouse" type="de.hybris.platform.warehousingwebservices.dto.store.WarehouseWsDto"/>
+		<property name="erpCityCode" type="String"/>
+		<property name="destination" type="String"/>
+		<property name="rejectionReasons" type="java.util.List&lt;String>"/>
+		<property name="suggestionMap" type="java.util.Map&lt;String,String>"/>
+		<property name="modificationReason" type="String"/>
+		<property name="uiStatus" type="String"/>
+		<property name="routeId" type="String"/>
+		<property name="erpOrderNo" type="String"/>
+		<property name="destinationName" type="String"/>
+		<property name="orderRequistions" type="java.util.List&lt;String>"/>
+		<property name="stateCode" type="String"/>
+		<property name="districtCode" type="String" />
+		<property name="regionCode" type="String" />
+		<property name="subAreaCode" type="String" />
+		<property name="placedBy" type="String" />
+		<property name="creditLimitBreached" type="Boolean" />
+		<property name="spApprovalStatus" type="String" />
+		<property name="requestedDeliveryDate" type="String"/>
+		<property name="requestedDeliverySlot" type="String"/>
+		<property name="showApprovalButton" type="Boolean"/>
+		<property name="requestDeliverySlotName" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO">
+		<property name="minOrderQuantity" type="Integer" />
+		<property name="maxOrderQuantity" type="Integer" />
+	</bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.OrderHistoryWsDTO">
+		<property name="counterCode" type="String"/>
+		<property name="counterName" type="String"/>
+		<property name="deliveryAddress" type="de.hybris.platform.commercewebservicescommons.dto.user.AddressWsDTO"/>
+		<property name="productCode" type="String"/>
+		<property name="productName" type="String"/>
+		<property name="quantity" type="Long"/>
+		<property name="entryNumber" type="Integer"/>
+		<property name="rejectionReason" type="String"/>
+		<property name="transporterName" type="String"/>
+		<property name="truckNumber" type="String"/>
+		<property name="driverName" type="String"/>
+	</bean>
+
+	<bean class="com.nuvoco.occ.dto.dealer.DealerWsDTO">
+		<property name="uid" type="String" />
+		<property name="name" type="String" />
+		<property name="email" type="String" />
+		<property name="contactNumber" type="String" />
+		<property name="customerId" type="String" />
+		<property name="state" type="String"/>
+		<property name="partnerType" type="String"/>
+		<property name="potential" type="Double"/>
+		<property name="lastVisit" type="String"/>
+		<property name="dealerCategory" type="String"/>
+		<property name="flaggedDate" type="java.util.Date"/>
+		<property name="flaggedBy" type="String"/>
+		<property name="flaggedReason" type="String"/>
+		<property name="dealerName" type="String"/>
+		<property name="dealerCode" type="String"/>
+		<property name="dealerContactNumber" type="String"/>
+		<property name="defaultAddress" type="de.hybris.platform.commercewebservicescommons.dto.user.AddressWsDTO"/>
+		<property name="unFlagRequestTime" type="java.util.Date"/>
+		<property name="counterVisitIdforUnFlag" type="String"/>
+	</bean>
+
+	<bean class="com.nuvoco.occ.dto.dealer.DealerListWsDTO">
+		<description>Representation of Dealer List</description>
+		<hints>
+			<hint name="wsRelated"/>
+			<hint name="alias">DealerList</hint>
+		</hints>
+		<property name="dealers"
+				  type="java.util.List&lt;com.nuvoco.occ.dto.dealer.DealerWsDTO>">
+			<description>List of Dealers</description>
+		</property>
+	</bean>
+
+	<bean class="com.nuvoco.occ.dto.success.SuccessWsDTO">
+		<description>Success message</description>
+		<hints>
+			<hint name="wsRelated"/>
+			<hint name="alias">success</hint>
+		</hints>
+		<property name="message" type="String">
+			<description>Descriptive, human readable error message.</description>
+		</property>
+		<property name="success" type="Boolean">
+			<description>Is Success</description>
+		</property>
+	</bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.OrderEntryWsDTO">
+		<property name="truckNo" type="String"/>
+		<property name="driverContactNo" type="String"/>
+		<property name="selectedDeliveryDate" type="String"/>
+		<property name="selectedDeliverySlot" type="String"/>
+		<property name="calculatedDeliveryDate" type="String"/>
+		<property name="calculatedDeliverySlot" type="String"/>
+		<property name="sequence" type="Integer"/>
+		<property name="isDateReduced" type="Boolean"/>
+		<property name="uiAction" type="String"/>
+		<property name="truckDispatchDate" type="java.util.Date"/>
+		<property name="erpOrderNo" type="String"/>
+		<property name="erpLineItemId" type="String"/>
+		<property name="quantityMT" type="Double"/>
+		<property name="warehouseCode" type="String"/>
+		<property name="warehouseName" type="String"/>
+		<property name="status" type="String"/>
+		<property name="routeId" type="String"/>
+		<property name="deliveryQty" type="Double"/>
+		<property name="remarks" type="String"/>
+	</bean>
+
+	<bean class="com.nuvoco.occ.dto.order.SCLOrderWSDTO">
+		<property name="code" type="String"/>
+		<property name="entryNumber" type="String"/>
+		<property name="products" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO>"/>
+		<property name="deliveryAddress" type="de.hybris.platform.commercefacades.user.data.AddressData"/>
+		<property name="status" type="String"/>
+		<property name="quantity" type="Double"/>
+		<property name="estimatedDeliveryDate" type="java.util.Date"/>
+		<property name="trackingDetails" type="java.util.List&lt;com.nuvoco.occ.dto.order.TrackingWSDTO>"/>
+		<property name="user" type="de.hybris.platform.commercewebservicescommons.dto.user.PrincipalWsDTO"/>
+		<property name="dealerProfilePicture" type="de.hybris.platform.commercewebservicescommons.dto.product.ImageWsDTO"/>
+		<property name="erpOrderNo" type="String"/>
+		<property name="erpLineItemId" type="String"/>
+		<property name="destinationCode" type="String"/>
+		<property name="destinationName" type="String"/>
+		<property name="subAreaMasterId" type="String"/>
+		<property name="expectedDeliveryDate" type="java.util.Date"/>
+		<property name="showApprovalButton" type="Boolean"/>
+	</bean>
+
+	<bean class="com.nuvoco.occ.dto.order.TrackingWSDTO">
+		<property name="name" type="String"/>
+		<property name="code" type="String"/>
+		<property name="actualTime" type="java.util.Date"/>
+		<property name="comment" type="java.util.List&lt;String>" />
+		<property name="index" type="Integer"/>
+		<property name="parent" type="String"/>
+		<property name="estimatedTime" type="java.util.Date"/>
+	</bean>
+
 </beans>

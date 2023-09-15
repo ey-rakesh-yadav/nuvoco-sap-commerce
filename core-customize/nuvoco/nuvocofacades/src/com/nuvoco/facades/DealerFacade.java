@@ -6,9 +6,12 @@ import com.nuvoco.facades.data.vehicle.DealerVehicleDetailsListData;
 import de.hybris.platform.webservicescommons.dto.error.ErrorListWsDTO;
 import de.hybris.platform.webservicescommons.dto.error.ErrorWsDTO;
 
+import java.util.List;
+
 public interface DealerFacade {
 
     NuvocoCustomerData getCustomerProfile(String uid);
+
 
 
     DealerVehicleDetailsListData getDealerVehicleDetails(final String dealerUid);

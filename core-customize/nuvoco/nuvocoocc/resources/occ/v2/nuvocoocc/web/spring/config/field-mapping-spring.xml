@@ -54,7 +54,15 @@
             </map>
         </property>
     </bean>
-
+    <bean parent="fieldSetLevelMapping" id="dealerCurrentNetworkListDtoFieldSetLevelMapping">
+        <property name="dtoClass" value="com.nuvoco.occ.dto.DealerCurrentNetworkListDto"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="DEFAULT" value="dealerCurrentNetworkList(DEFAULT)"/>
+                <entry key="FULL" value="dealerCurrentNetworkList(FULL)"/>
+            </map>
+        </property>
+    </bean>
 
 
 </beans>
