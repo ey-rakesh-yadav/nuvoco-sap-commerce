@@ -243,4 +243,6 @@
 	<alias name="djpVisitFacade" alias="djpVisitFacade" />
 	<bean id="djpVisitFacade" class="com.nuvoco.facades.impl.DJPVisitFacadeImpl">
 	</bean>
+	<bean id="nuvocoNetworkFacade" class="com.nuvoco.facades.impl.NuvocoNetworkFacadeImpl"/>
+
 </beans>
