@@ -245,4 +245,6 @@
 	</bean>
 	<bean id="nuvocoNetworkFacade" class="com.nuvoco.facades.impl.NuvocoNetworkFacadeImpl"/>
 
+	<bean id="territoryManagementFacade" class="com.nuvoco.facades.impl.TerritoryManagementFacadeImpl"/>
+
 </beans>
