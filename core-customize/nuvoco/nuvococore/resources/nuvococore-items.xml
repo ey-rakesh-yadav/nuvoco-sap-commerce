@@ -6972,6 +6972,468 @@
                 </attributes>
             </itemtype>
 
+
+            <itemtype code="DestinationSourceMaster" generate="true"
+                      autocreate="true">
+                <deployment table="DestinationSource" typecode="14066" />
+                <attributes>
+                    <!-- <attribute qualifier="code" type="java.lang.Integer"> <modifiers
+                        read="true" write="true" search="true" unique="true"/> <persistence type="property"
+                        /> </attribute> -->
+                    <attribute qualifier="distance" type="java.lang.Integer">
+                        <persistence type="property"/>
+                    </attribute>
+                    <attribute qualifier="type" type="WarehouseType">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="source" type="Warehouse">
+                        <persistence type="property" />
+                        <modifiers unique="true" />
+                    </attribute>
+                    <attribute qualifier="destination" type="Warehouse">
+                        <persistence type="property" />
+                        <modifiers unique="true" />
+                    </attribute>
+                    <attribute qualifier="sourcePriority"
+                               type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="ncrCost" type="java.lang.Double">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="deliveryMode" type="DeliveryMode">
+                        <persistence type="property" />
+                        <modifiers unique="true" />
+                    </attribute>
+                    <attribute qualifier="minQuantity"
+                               type="java.lang.Double">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="maxQuantity"
+                               type="java.lang.Double">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="brand" type="BaseSite">
+                        <persistence type="property" />
+                        <modifiers unique="true" />
+                    </attribute>
+                    <attribute qualifier="orderType" type="OrderType">
+                        <persistence type="property" />
+                        <modifiers unique="true" />
+                    </attribute>
+                    <!-- <attribute qualifier="depotIdentifier" type="DepotIdentifier">
+                        <persistence type="property"/> </attribute> <attribute qualifier="workingHourStartTime"
+                        type="java.lang.String"> <persistence type="property"/> </attribute> <attribute
+                        qualifier="workingHourEndTime" type="java.lang.String"> <persistence type="property"/>
+                        </attribute> -->
+                    <attribute qualifier="customerCategory"
+                               type="CustomerCategory">
+                        <persistence type="property" />
+                        <modifiers unique="true" />
+                    </attribute>
+                    <attribute qualifier="sourceState"
+                               type="java.lang.String">
+                        <persistence type="property" />
+                        <modifiers unique="true" />
+                    </attribute>
+                    <attribute qualifier="sourceDistrict"
+                               type="java.lang.String">
+                        <persistence type="property" />
+                        <modifiers unique="true" />
+                    </attribute>
+                    <attribute qualifier="sourceCity" type="java.lang.String">
+                        <persistence type="property" />
+                        <modifiers unique="true" />
+                    </attribute>
+                    <attribute qualifier="destinationState"
+                               type="java.lang.String">
+                        <persistence type="property" />
+                        <modifiers unique="true" />
+                    </attribute>
+                    <attribute qualifier="destinationDistrict"
+                               type="java.lang.String">
+                        <persistence type="property" />
+                        <modifiers unique="true" />
+                    </attribute>
+                    <attribute qualifier="destinationCity"
+                               type="java.lang.String">
+                        <persistence type="property" />
+                        <modifiers unique="true" />
+                    </attribute>
+                    <attribute qualifier="grade" type="java.lang.String">
+                        <persistence type="property" />
+                        <modifiers unique="true" />
+                    </attribute>
+                    <attribute qualifier="packaging" type="java.lang.String">
+                        <persistence type="property" />
+                        <modifiers unique="true" />
+                    </attribute>
+                    <attribute qualifier="contributionPerMT"
+                               type="java.lang.Double">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="tlcPerMT" type="java.lang.Double">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="route" type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="secondaryRoute" type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="destinationTaluka"
+                               type="java.lang.String">
+                        <persistence type="property" />
+                        <modifiers unique="true" />
+                    </attribute>
+                    <attribute qualifier="sourceTaluka"
+                               type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                </attributes>
+            </itemtype>
+
+
+            <itemtype code="CustDepotDealerMapping" autocreate="true" generate="true">
+                <deployment table="CustDepotDealerMapping" typecode="14067" />
+                <attributes>
+                    <attribute qualifier="custDepotCode" type="CustDepotMaster">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="dealerCode" type="NuvocoCustomer">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="brand" type="CMSSite">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="active" type="java.lang.Boolean">
+                        <defaultvalue>Boolean.TRUE</defaultvalue>
+                        <persistence type="property" />
+                    </attribute>
+                </attributes>
+            </itemtype>
+
+
+
+            <itemtype code="GeographicalMaster" generate="true"
+                      autocreate="true">
+                <deployment table="GeographicalMaster" typecode="14068" />
+                <attributes>
+                    <attribute qualifier="zone" type="java.lang.String">
+                        <persistence type="property" />
+                        <modifiers unique="true" />
+                    </attribute>
+                    <attribute qualifier="state" type="java.lang.String">
+                        <persistence type="property" />
+                        <modifiers unique="true" />
+                    </attribute>
+                    <attribute qualifier="geographicalState"
+                               type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="googleMapState"
+                               type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="region" type="java.lang.String">
+                        <persistence type="property" />
+                        <modifiers unique="true" />
+                    </attribute>
+                    <attribute qualifier="district" type="java.lang.String">
+                        <persistence type="property" />
+                        <modifiers unique="true" />
+                    </attribute>
+                    <attribute qualifier="googleMapSubAdminArea"
+                               type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="taluka" type="java.lang.String">
+                        <persistence type="property" />
+                        <modifiers unique="true" />
+                    </attribute>
+                    <attribute qualifier="erpCity" type="java.lang.String">
+                        <persistence type="property" />
+                        <modifiers unique="true" />
+                    </attribute>
+                    <attribute qualifier="pincode" type="java.lang.String">
+                        <persistence type="property" />
+                        <modifiers unique="true" />
+                    </attribute>
+                    <attribute qualifier="gstState" type="java.lang.String">
+                        <persistence type="property" />
+                        <modifiers unique="true" />
+                    </attribute>
+                </attributes>
+            </itemtype>
+
+            <itemtype code="SalesOrderDeliverySLA" generate="true"
+                      autocreate="true">
+                <description>Sales Order Delivery SLA Master</description>
+                <deployment table="SalesOrderDeliverySLA"
+                            typecode="14069" />
+                <attributes>
+                    <attribute qualifier="brand" type="BaseSite">
+                        <modifiers read="true" write="true" search="true" />
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="source" type="Warehouse">
+                        <modifiers read="true" write="true" search="true" />
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="commonTruckCapacity"
+                               type="java.lang.Integer">
+                        <modifiers read="true" write="true" search="true" />
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="deliverySLA"
+                               type="java.lang.Integer">
+                        <modifiers read="true" write="true" search="true" />
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="maxTruckPerDayPerCustomer"
+                               type="java.lang.Integer">
+                        <modifiers read="true" write="true" search="true" />
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="route" type="java.lang.String">
+                        <persistence type="property" />
+                        <modifiers unique="true" />
+                    </attribute>
+                    <attribute qualifier="sourceCity" type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="destinationCity"
+                               type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="destinationDistrict"
+                               type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="destinationPincode"
+                               type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="packType" type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="grade" type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="customerCategory"
+                               type="CustomerCategory">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="plantDispatchSla"
+                               type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="noEntryRestrictionStart1"
+                               type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="noEntryRestrictionEnd1"
+                               type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="noEntryRestrictionStart2"
+                               type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="noEntryRestrictionEnd2"
+                               type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="noEntryRestrictionStart3"
+                               type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="noEntryRestrictionEnd3"
+                               type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="noEntryRestrictionStart4"
+                               type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="noEntryRestrictionEnd4"
+                               type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="dispatchSla"
+                               type="java.lang.Integer">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="deliverySlaHour"
+                               type="java.lang.Double">
+                        <modifiers read="true" write="true" search="true" />
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="dispatchSlaHour"
+                               type="java.lang.Double">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="secondaryRouteId" type="java.lang.String">
+                        <persistence type="property" />
+                        <modifiers unique="true" />
+                    </attribute>
+                    <attribute qualifier="isModifiedFromSlctIntegration" type="java.lang.Boolean">
+                        <modifiers />
+                        <defaultvalue>false</defaultvalue>
+                        <persistence type="property" />
+                    </attribute>
+                </attributes>
+            </itemtype>
+
+
+            <itemtype code="TsoTalukaMapping" autocreate="true" generate="true">
+                <deployment table="TsoTalukaMapping" typecode="14070" />
+                <attributes>
+                    <attribute qualifier="subAreaMaster" type="SubAreaMaster">
+                        <persistence type="property" />
+                        <modifiers unique="true"/>
+                    </attribute>
+                    <attribute qualifier="tsoUser" type="NuvocoUser">
+                        <persistence type="property" />
+                        <modifiers unique="true"/>
+                    </attribute>
+                    <attribute qualifier="isActive" type="java.lang.Boolean">
+                        <defaultvalue>Boolean.TRUE</defaultvalue>
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="brand" type="BaseSite">
+                        <modifiers unique="true"/>
+                        <persistence type="property" />
+                    </attribute>
+                </attributes>
+            </itemtype>
+
+
+
+
+            <itemtype code="TsmDistrictMapping" autocreate="true" generate="true">
+                <deployment table="TsmDistrictMapping" typecode="14072" />
+                <attributes>
+                    <attribute qualifier="district" type="DistrictMaster">
+                        <persistence type="property" />
+                        <modifiers unique="true"/>
+                    </attribute>
+                    <attribute qualifier="tsmUser" type="NuvocoUser">
+                        <persistence type="property" />
+                        <modifiers unique="true"/>
+                    </attribute>
+                    <attribute qualifier="isActive" type="java.lang.Boolean">
+                        <defaultvalue>Boolean.TRUE</defaultvalue>
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="brand" type="CMSSite">
+                        <modifiers unique="true"/>
+                        <persistence type="property" />
+                    </attribute>
+                </attributes>
+            </itemtype>
+
+            <itemtype code="RhRegionMapping" autocreate="true" generate="true">
+                <deployment table="RhRegionMapping" typecode="14073" />
+                <attributes>
+                    <attribute qualifier="region" type="RegionMaster">
+                        <persistence type="property" />
+                        <modifiers unique="true"/>
+                    </attribute>
+                    <attribute qualifier="rhUser" type="NuvocoUser">
+                        <persistence type="property" />
+                        <modifiers unique="true"/>
+                    </attribute>
+                    <attribute qualifier="isActive" type="java.lang.Boolean">
+                        <defaultvalue>Boolean.TRUE</defaultvalue>
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="brand" type="CMSSite">
+                        <modifiers unique="true"/>
+                        <persistence type="property" />
+                    </attribute>
+                </attributes>
+            </itemtype>
+
+            <itemtype code="NuvocoAddressProcess" extends="BusinessProcess" autocreate="true"
+                      generate="true">
+                <attributes>
+                    <attribute qualifier="address" type="Address">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="customer" type="Customer">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="baseSite" type="BaseSite">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="nuvocoUser" type="NuvocoUser">
+                        <persistence type="property" />
+                    </attribute>
+                </attributes>
+            </itemtype>
+
+
+            <itemtype code="ReceiptAllocaltion" autocreate="true" generate="true">
+                <deployment table="ReceiptAllocaltion" typecode="14074" />
+                <attributes>
+                    <attribute qualifier="receipt" type="java.lang.Integer">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="salesToRetailer" type="java.lang.Integer">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="salesToInfluencer" type="java.lang.Integer">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="stockAvlForRetailer" type="java.lang.Integer">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="stockAvlForInfluencer" type="java.lang.Integer">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="product" type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="dealerCode" type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="startDate" type="java.util.Date">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="endDate" type="java.util.Date">
+                        <persistence type="property" />
+                    </attribute>
+                </attributes>
+            </itemtype>
+
+            <itemtype code="RetailerRecAllocate" autocreate="true" generate="true">
+                <deployment table="RetailerRecAllocate" typecode="14075" />
+                <attributes>
+                    <attribute qualifier="receipt" type="java.lang.Integer">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="salesToInfluencer" type="java.lang.Integer">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="stockAvlForInfluencer" type="java.lang.Integer">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="product" type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="dealerCode" type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="startDate" type="java.util.Date">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="endDate" type="java.util.Date">
+                        <persistence type="property" />
+                    </attribute>
+                </attributes>
+            </itemtype>
+
         </typegroup>
 
         <typegroup name="Electronics">

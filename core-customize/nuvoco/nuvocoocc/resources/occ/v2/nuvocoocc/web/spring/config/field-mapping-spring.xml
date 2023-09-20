@@ -64,5 +64,28 @@
         </property>
     </bean>
 
+    <bean parent="fieldSetLevelMapping" id="nuvocoOrderHistoryListWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.nuvoco.facades.data.NuvocoOrderHistoryData"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="ordersList"/>
+                <entry key="DEFAULT" value="BASIC"/>
+                <entry key="FULL" value="DEFAULT"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="destinationSourceListWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.nuvoco.occ.dto.DestinationSourceListWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="destinationSourceDataList,defaultSource"/>
+                <entry key="DEFAULT" value="destinationSourceDataList,defaultSource"/>
+                <entry key="FULL" value="destinationSourceDataList,defaultSource"/>
+            </map>
+        </property>
+    </bean>
 
 </beans>

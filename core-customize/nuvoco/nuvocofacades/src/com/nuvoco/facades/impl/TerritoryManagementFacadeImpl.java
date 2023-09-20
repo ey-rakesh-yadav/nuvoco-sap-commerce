@@ -42,8 +42,8 @@ public class TerritoryManagementFacadeImpl implements TerritoryManagementFacade 
         SearchPageData<NuvocoCustomerModel> retailerListForDealer = territoryManagementService.getDealerListForRetailerPagination(searchPageData,filter);
         result.setPagination(retailerListForDealer.getPagination());
         result.setSorts(retailerListForDealer.getSorts());
-        List<CustomerData> sclCustomerData = dealerBasicConverter.convertAll(retailerListForDealer.getResults());
-        result.setResults(sclCustomerData);
+        List<CustomerData> customerData = dealerBasicConverter.convertAll(retailerListForDealer.getResults());
+        result.setResults(customerData);
         return result;
     }
 
@@ -62,8 +62,8 @@ public class TerritoryManagementFacadeImpl implements TerritoryManagementFacade 
         SearchPageData<NuvocoCustomerModel> retailerListForDealer = territoryManagementService.getRetailerListForDealerPagination(searchPageData, networkType, isNew, filter);
         result.setPagination(retailerListForDealer.getPagination());
         result.setSorts(retailerListForDealer.getSorts());
-        List<CustomerData> sclCustomerData = dealerBasicConverter.convertAll(retailerListForDealer.getResults());
-        result.setResults(sclCustomerData);
+        List<CustomerData> customerData = dealerBasicConverter.convertAll(retailerListForDealer.getResults());
+        result.setResults(customerData);
         return result;
     }
 
@@ -144,5 +144,32 @@ public class TerritoryManagementFacadeImpl implements TerritoryManagementFacade 
     @Override
     public List<String> getAllSubAreaForCustomer(String customerId) {
         return territoryManagementService.getAllSubAreaForCustomer(customerId);
+    }
+
+    /**
+     * @param subArea
+     * @param dealerCode
+     * @return
+     */
+    @Override
+    public DealerListData getAllRetailersForSubAreaTOP(String subArea, String dealerCode) {
+        List<NuvocoCustomerModel> retailerList = territoryManagementService.getAllRetailersForSubAreaTOP(subArea,dealerCode);
+        List<CustomerData> retailerData = new ArrayList<CustomerData>();
+        if(retailerList!=null && !retailerList.isEmpty()) {
+            retailerData=Optional.of(retailerList.stream()
+                    .map(b2BCustomer -> dealerBasicConverter
+                            .convert(b2BCustomer)).collect(Collectors.toList())).get();
+        }
+        DealerListData dataList = new DealerListData();
+        dataList.setDealers(retailerData);
+        return dataList;
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public List<String> getAllStatesForSO() {
+        return territoryManagementService.getAllStatesForSO();
     }
 }

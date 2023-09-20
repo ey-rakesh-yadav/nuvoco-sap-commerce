@@ -1,6 +1,7 @@
 package com.nuvoco.facades;
 
 import com.nuvoco.facades.data.NuvocoCustomerData;
+import com.nuvoco.facades.data.NuvocoDealerSalesAllocationData;
 import com.nuvoco.facades.data.vehicle.DealerDriverDetailsListData;
 import com.nuvoco.facades.data.vehicle.DealerVehicleDetailsListData;
 import de.hybris.platform.webservicescommons.dto.error.ErrorListWsDTO;
@@ -12,6 +13,7 @@ public interface DealerFacade {
 
     NuvocoCustomerData getCustomerProfile(String uid);
 
+    NuvocoDealerSalesAllocationData getStockAllocationForDealer(String productCode);
 
 
     DealerVehicleDetailsListData getDealerVehicleDetails(final String dealerUid);

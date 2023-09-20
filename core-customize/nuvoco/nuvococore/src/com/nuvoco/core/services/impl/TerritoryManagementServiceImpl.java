@@ -2,9 +2,14 @@ package com.nuvoco.core.services.impl;
 
 import com.nuvoco.core.constants.NuvocoCoreConstants;
 import com.nuvoco.core.dao.TerritoryManagementDao;
+import com.nuvoco.core.enums.CounterType;
+import com.nuvoco.core.model.CustDepotMasterModel;
 import com.nuvoco.core.model.NuvocoCustomerModel;
+import com.nuvoco.core.model.NuvocoUserModel;
 import com.nuvoco.core.model.SubAreaMasterModel;
 import com.nuvoco.core.services.TerritoryManagementService;
+import com.nuvoco.facades.data.FilterTalukaData;
+import de.hybris.platform.b2b.model.B2BCustomerModel;
 import de.hybris.platform.basecommerce.model.site.BaseSiteModel;
 import de.hybris.platform.core.model.user.UserModel;
 import de.hybris.platform.core.servicelayer.data.SearchPageData;
@@ -40,6 +45,15 @@ public class TerritoryManagementServiceImpl implements TerritoryManagementServic
         BaseSiteModel site = baseSiteService.getCurrentBaseSite();
         return territoryManagementDao.getRetailerListForDealer(customerModel,site);
 
+    }
+
+    /**
+     * @param customerId
+     * @return
+     */
+    @Override
+    public List<SubAreaMasterModel> getTerritoriesForCustomer(String customerId) {
+        return getTerritoriesForCustomer((NuvocoCustomerModel)userService.getUserForUID(customerId));
     }
 
     /**
@@ -100,6 +114,16 @@ public class TerritoryManagementServiceImpl implements TerritoryManagementServic
     public SearchPageData<NuvocoCustomerModel> getCustomerByTerritoriesAndCounterType(SearchPageData searchPageData, List<SubAreaMasterModel> subAreaMaster, String counterType, String networkType, boolean isNew, String filter, String influencerType, String dealerCategory) {
         return territoryManagementDao.getCustomerByTerritoriesAndCounterType(searchPageData, subAreaMaster, counterType, networkType, isNew, filter, influencerType, dealerCategory);
     }
+
+    /**
+     * @param customer
+     * @return
+     */
+    @Override
+    public CustDepotMasterModel getCustDepotForCustomer(NuvocoCustomerModel customer) {
+        return territoryManagementDao.getCustDepotForCustomer(customer);
+    }
+
     /**
      * @return
      */
@@ -121,15 +145,24 @@ public class TerritoryManagementServiceImpl implements TerritoryManagementServic
     }
 
     /**
+     * @param customer
+     * @return
+     */
+    @Override
+    public NuvocoUserModel getSOforCustomer(NuvocoCustomerModel customer) {
+        return territoryManagementDao.getSOForSubArea(customer);
+    }
+
+    /**
      * @return
      */
     @Override
     public List<NuvocoCustomerModel> getDealersForSubArea() {
         List<SubAreaMasterModel> list = new ArrayList<SubAreaMasterModel>();
         UserModel user = userService.getCurrentUser();
-      /*  if(user instanceof SclUserModel) {
+       if(user instanceof NuvocoUserModel) {
             list = getTerritoriesForSO();
-        }*/
+        }
         if(user instanceof NuvocoCustomerModel){
             list = getTerritoriesForCustomer((NuvocoCustomerModel)user);
         }
@@ -171,5 +204,66 @@ public class TerritoryManagementServiceImpl implements TerritoryManagementServic
     @Override
     public List<SubAreaMasterModel> getTerritoriesForSO() {
         return territoryManagementDao.getTerritoriesForSO();
+    }
+
+    /**
+     * @param uid
+     * @return
+     */
+    @Override
+    public List<SubAreaMasterModel> getTerritoriesForSO(String uid) {
+        return territoryManagementDao.getTerritoriesForSO((NuvocoUserModel) userService.getUserForUID(uid));
+    }
+
+    /**
+     * @param subArea
+     * @param dealerCode
+     * @return
+     */
+    @Override
+    public List<NuvocoCustomerModel> getAllRetailersForSubAreaTOP(String subArea, String dealerCode) {
+        BaseSiteModel site = baseSiteService.getCurrentBaseSite();
+        B2BCustomerModel currentUser=(B2BCustomerModel) userService.getCurrentUser();
+        List<SubAreaMasterModel> subAreaMasterList  = new ArrayList<SubAreaMasterModel>();
+        if(StringUtils.isBlank(subArea)) {
+            if(currentUser instanceof NuvocoUserModel) {
+                FilterTalukaData filterTalukaData = new FilterTalukaData();
+                subAreaMasterList  =  getTaulkaForUser(filterTalukaData);
+            }
+            else if(currentUser instanceof NuvocoCustomerModel){
+                NuvocoUserModel userModel = getSOforCustomer((NuvocoCustomerModel) currentUser);
+                subAreaMasterList  =  getTerritoriesForSO(userModel.getUid());
+            }
+        }
+        else {
+            subAreaMasterList.add(territoryManagementDao.getTerritoryById(subArea));
+        }
+
+        List<NuvocoCustomerModel> resultList = territoryManagementDao.getAllRetailersForSubAreaTOP(subAreaMasterList, site,dealerCode).stream().filter(r->(r.getGroups()).contains(userService.getUserGroupForUID(NuvocoCoreConstants.CUSTOMER.RETAILER_USER_GROUP_UID))).collect(Collectors.toList());
+        return resultList;
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public List<String> getAllStatesForSO() {
+        B2BCustomerModel customer=(B2BCustomerModel) userService.getCurrentUser();
+        BaseSiteModel site = baseSiteService.getCurrentBaseSite();
+        return territoryManagementDao.getAllStatesForSO(customer,site);
+    }
+
+
+    public List<SubAreaMasterModel> getTaulkaForUser(FilterTalukaData filterTalukaData) {
+        B2BCustomerModel currentUser=(B2BCustomerModel) userService.getCurrentUser();
+        if(currentUser instanceof NuvocoUserModel) {
+            return territoryManagementDao.getTalukaForUser(filterTalukaData);
+        } /*else if ((((NuvocoCustomerModel) currentUser).getCounterType()!=null) &&
+                (((NuvocoCustomerModel) currentUser).getCounterType().equals(CounterType.SP))) {
+            return territoryManagementDao.getTalukaForSP(filterTalukaData);
+
+        }*/ else {
+            return getTerritoriesForCustomer((NuvocoCustomerModel)currentUser);
+        }
     }
 }

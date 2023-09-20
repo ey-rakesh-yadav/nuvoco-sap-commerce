@@ -192,4 +192,296 @@
 		<property name="vehicleMake" type="String"/>
 	</bean>
 
+	<bean class="com.nuvoco.facades.data.NuvocoOrderHistoryListData">
+	<property name="ordersList" type="java.util.List&lt;com.nuvoco.facades.data.NuvocoOrderHistoryData>"/>
+</bean>
+
+	<bean class="com.nuvoco.facades.data.NuvocoOrderHistoryData">
+		<property name="orderNo" type="String"/>
+		<property name="dealerCode" type="String"/>
+		<property name="dealerName" type="String"/>
+		<property name="status" type="String"/>
+		<property name="productCode" type="String"/>
+		<property name="productName" type="String"/>
+		<property name="quantity" type="Double"/>
+		<property name="deliveryAddress" type="de.hybris.platform.commercefacades.user.data.AddressData"/>
+		<property name="rejectionReason" type="String"/>
+		<property name="vehicleArrivalTime" type="java.util.Date"/>
+		<property name="estimatedArrivalTime" type="java.util.Date"/>
+		<property name="transporterName" type="String"/>
+		<property name="truckNumber" type="String"/>
+		<property name="driverPhone" type="String"/>
+		<property name="transporterPhone" type="String"/>
+		<property name="driverName" type="String"/>
+		<property name="erpOrderNo" type="String"/>
+		<property name="entryNumber" type="Integer"/>
+		<property name="entries"
+				  type="java.util.List&lt;de.hybris.platform.commercefacades.order.data.OrderEntryData>"/>
+		<property name="totalPrice" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="orderDate" type="java.util.Date"/>
+		<property name="dealerProfilePicture" type="de.hybris.platform.commercefacades.product.data.ImageData" />
+		<property name="deliveredDate" type="java.util.Date"/>
+		<property name="erpLineItemId" type="String"/>
+		<property name="destinationCode" type="String"/>
+		<property name="destinationName" type="String"/>
+		<property name="erpEtaDate" type="java.util.Date"/>
+		<property name="shortageQuantity" type="Double"/>
+		<property name="epodInitiateDate" type="java.util.Date"/>
+		<property name="subAreaMasterId" type="String"/>
+		<property name="spApprovalStatus" type="String" />
+		<property name="expectedDeliveryDate" type="java.util.Date"/>
+		<property name="soContactNumber" type="String"/>
+		<property name="dealerContactNumber" type="String"/>
+		<property name="cancelledDate" type="java.util.Date"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.user.data.AddressData">
+		<property name="state" type="String"/>
+		<property name="taluka" type="String"/>
+		<property name="city" type="String"/>
+		<property name="pinCode" type="String" />
+		<property name="mobileNo" type="String"/>
+		<property name="alternateMobileNo" type="String"/>
+		<property name="latitude" type="Double"/>
+		<property name="longitude" type="Double"/>
+		<property name="erpCity" type="String"/>
+		<property name="createdDate" type="String"/>
+		<property name="modifiedDate" type="String"/>
+		<property name="retailerUid" type="String"/>
+		<property name="retailerName" type="String"/>
+		<property name="isPrimaryAddress" type="Boolean"/>
+		<property name="erpId" type="String"/>
+		<property name="accountName" type="String"/>
+		<property name="retailerAddressPk" type="String"/>
+	</bean>
+
+	<bean class="com.nuvoco.facades.data.DestinationSourceMasterData">
+		<property name="city" type="String"/>
+		<property name="sourcePriority" type="String"/>
+		<property name="sourceType" type="String"/>
+		<property name="ncrCost" type="Double"/>
+		<property name="sla" type="Integer"/>
+		<property name="sourceCode" type="String"/>
+		<property name="sourceName" type="String"/>
+		<property name="deliveryMode" type="String"/>
+		<property name="routeId" type="String"/>
+		<property name="distance" type="Double"/>
+		<property name="priority" type="Integer"/>
+	</bean>
+
+	<bean class="com.nuvoco.facades.data.DestinationSourceListData">
+		<property name="destinationSourceDataList" type="java.util.List&lt;com.nuvoco.facades.data.DestinationSourceMasterData>"/>
+		<property name="defaultSource" type="com.nuvoco.facades.data.DestinationSourceMasterData"/>
+	</bean>
+
+	<bean class="de.hybris.platform.b2bacceleratorfacades.checkout.data.PlaceOrderData">
+		<property name="isNTOrder" type="Boolean"/>
+		<property name="ncrGapAcceptanceReason" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.order.data.AbstractOrderData">
+		<property name="orderType" type="String" />
+		<property name="orderSource" type="String"/> <!-- to do -->
+		<property name="isDealerProvideOwnTransport" type="Boolean"/>
+		<property name="customerCategory" type="String"/>
+		<property name="totalQuantity" type="Double"/>
+		<property name="productName" type="String"/>
+		<property name="productCode" type="String"/>
+		<property name="retailerName" type="String"/>
+		<property name="retailerCode" type="String"/>
+		<property name="warehouse" type="de.hybris.platform.warehousingfacades.storelocator.data.WarehouseData"/>
+		<property name="ncrGapAcceptanceReason" type="String"/>
+		<property name="erpCityCode" type="String"/>
+		<property name="destination" type="String"/>
+		<property name="rejectionReasons" type="java.util.List&lt;String>"/>
+		<property name="suggestionMap" type="java.util.Map&lt;String,String>"/>
+		<property name="modificationReason" type="String"/>
+		<property name="uiStatus" type="String"/>
+		<property name="routeId" type="String"/>
+		<property name="erpOrderNo" type="String"/>
+		<property name="erpLineItemId" type="String"/>
+		<property name="destinationName" type="String"/>
+		<property name="bankAccountNo" type="String"/>
+		<property name="statusDisplay" type="String"/>
+		<property name="erpOrderType" type="String"/>
+		<property name="stateCode" type="String"/>
+		<property name="districtCode" type="String" />
+		<property name="regionCode" type="String" />
+		<property name="subAreaCode" type="String" />
+		<property name="placedBy" type="String" />
+		<property name="creditLimitBreached" type="Boolean" />
+		<property name="spApprovalStatus" type="String" />
+		<property name="requestedDeliveryDate" type="String"/>
+		<property name="requestedDeliverySlot" type="String"/>
+		<property name="showApprovalButton" type="Boolean"/>
+		<property name="requestDeliverySlotName" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.order.data.OrderEntryData">
+		<property name="truckNo" type="String"/>
+		<property name="driverContactNo" type="String"/>
+		<property name="selectedDeliveryDate" type="String"/>
+		<property name="selectedDeliverySlot" type="String"/>
+		<property name="calculatedDeliveryDate" type="String"/>
+		<property name="calculatedDeliverySlot" type="String"/>
+		<property name="sequence" type="Integer"/>
+		<property name="isDateReduced" type="Boolean"/>
+		<property name="uiAction" type="String"/>
+		<property name="destination" type="String"/>
+		<property name="truckDispatchDate" type="java.util.Date"/>
+		<property name="erpLineItemId" type="String"/>
+		<property name="quantityMT" type="Double"/>
+		<property name="warehouseCode" type="String"/>
+		<property name="warehouseName" type="String"/>
+		<property name="status" type="String"/>
+		<property name="routeId" type="String"/>
+		<property name="deliveryQty" type="Double"/>
+		<property name="remarks" type="String"/>
+		<property name="requestedDeliveryDate" type="String"/>
+		<property name="requestedDeliverySlot" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commerceservices.service.data.CommerceCheckoutParameter">
+		<property name="orderType" type="String" />
+		<property name="selectedDeliveryDate" type="java.util.Date"/>
+		<property name="selectedDeliverySlot" type="String"/>
+		<property name="orderSource" type="String"/> <!-- to do -->
+		<property name="isDealerProvideOwnTransport" type="Boolean"/>
+		<property name="truckNo" type="String"/>
+		<property name="contactNo" type="String"/>
+		<property name="totalQuantity" type="Double"/>
+		<property name="retailerCode" type="String"/>
+		<property name="productName" type="String"/>
+		<property name="productCode" type="String"/>
+		<property name="destination" type="String"/>
+		<property name="routeId" type="String"/>
+		<property name="requestedDeliveryDate" type="java.util.Date"/>
+		<property name="requestedDeliverySlot" type="String"/>
+	</bean>
+
+	<bean class="com.nuvoco.facades.data.TrackingData">
+		<property name="name" type="String"/>
+		<property name="code" type="String"/>
+		<property name="actualTime" type="java.util.Date"/>
+		<property name="comment" type="java.util.List&lt;String>" />
+		<property name="index" type="Integer"/>
+		<property name="parent" type="String"/>
+		<property name="estimatedTime" type="java.util.Date"/>
+		<property name="deliverySlot" type="String"/>
+	</bean>
+	<bean class="com.nuvoco.facades.data.NuvocoOrderData">
+		<property name="code" type="String"/>
+		<property name="entryNumber" type="String"/>
+		<property name="products" type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.ProductData>"/>
+		<property name="deliveryAddress" type="de.hybris.platform.commercefacades.user.data.AddressData"/>
+		<property name="status" type="String"/>
+		<property name="quantity" type="Double"/>
+		<property name="estimatedDeliveryDate" type="java.util.Date"/>
+		<property name="trackingDetails" type="java.util.List&lt;com.nuvoco.facades.data.TrackingData>"/>
+		<property name="user" type="de.hybris.platform.commercefacades.user.data.PrincipalData"/>
+		<property name="dealerProfilePicture" type="de.hybris.platform.commercefacades.product.data.ImageData" />
+		<property name="erpOrderNo" type="String"/>
+		<property name="erpLineItemId" type="String"/>
+		<property name="destinationCode" type="String"/>
+		<property name="destinationName" type="String"/>
+		<property name="transporterName" type="String"/>
+		<property name="truckNumber" type="String"/>
+		<property name="driverPhone" type="String"/>
+		<property name="transporterPhone" type="String"/>
+		<property name="shortageQty" type="Double"/>
+		<property name="dispatchQty" type="Double"/>
+		<property name="erpEtaDate" type="java.util.Date"/>
+		<property name="subAreaMasterId" type="String"/>
+		<property name="expectedDeliveryDate" type="java.util.Date"/>
+		<property name="showApprovalButton" type="Boolean"/>
+	</bean>
+
+
+	<bean class="com.nuvoco.facades.data.DeliveryDateAndSlotData">
+		<property name="deliveryDate" type="String"/>
+		<property name="deliverySlot" type="String"/>
+		<property name="order" type="Integer"/>
+		<property name="quantity" type="Double"/>
+		<property name="truckCapcity" type="Double"/>
+		<property name="maxTruckPerDay" type="Integer"/>
+	</bean>
+
+	<bean class="com.nuvoco.facades.data.DeliveryDateAndSlotListData">
+		<property name="deliveryDateAndSlots" type="java.util.List&lt;com.nuvoco.facades.data.DeliveryDateAndSlotData>"/>
+	</bean>
+
+
+
+	<bean class="com.nuvoco.facades.data.DeliverySlotMasterData">
+		<property name="start" type="String"/>
+		<property name="end" type="String"/>
+		<property name="sequence" type="Integer"/>
+		<property name="displayName" type="String"/>
+		<property name="enumName" type="String"/>
+		<property name="truckCapcity" type="Double"/>
+	</bean>
+
+
+
+	<bean class="com.nuvoco.facades.data.DealerFleetData">
+		<property name="id" type="String"/>
+		<property name="capacity" type="Double"/>
+		<!--<property name="dealerCode" type="String"/>-->
+		<property name="truckModel" type="com.nuvoco.facades.data.TruckModelData"/>
+		<property name="count" type="Integer"/>
+		<property name="totalFleetCount" type="Integer"/>
+		<property name="totalFleetCapacity" type="Double"/>
+		<!-- <property name="counter" type="de.hybris.platform.cmsfacades.data.UserData"/> -->
+	</bean>
+	<bean class="com.nuvoco.facades.data.DealerFleetListData">
+		<property name="dealerFleetList" type="java.util.List&lt;com.nuvoco.facades.data.DealerFleetData>"/>
+		<property name="totalFleetCount" type="Integer"/>
+		<property name="totalFleetCapacity" type="Double"/>
+	</bean>
+
+	<bean class="com.nuvoco.facades.data.OrderRequisitionData">
+	<property name="requisitionId" type="String"/>
+	<property name="requisitionDate" type="String"/>
+	<property name="fromCustomerNo" type="String"/>
+	<property name="fromCustomerUid" type="String"/>
+	<property name="fromCustomerName" type="String"/>
+	<property name="toCustomerNo" type="String"/>
+	<property name="toCustomerUid" type="String"/>
+	<property name="toCustomerName" type="String"/>
+	<property name="deliveryAddress" type="de.hybris.platform.commercefacades.user.data.AddressData"/>
+	<property name="trackingDetails" type="java.util.List&lt;com.nuvoco.facades.data.TrackingData>"/>
+	<property name="requisitionEntryDetails" type="java.util.List&lt;com.nuvoco.facades.data.OrderRequisitionEntryData>"/>
+	<property name="productCode" type="String"/>
+	<property name="productName" type="String"/>
+	<property name="quantity" type="double"/>
+	<property name="receivedQuantity" type="double"/>
+	<property name="expectedDeliveryDate" type="String"/>
+	<property name="expectedDeliverySlot" type="String"/>
+	<property name="deliverySlotName" type="String"/>
+	<property name="status" type="String"/>
+	<property name="serviceType" type="String"/>
+	<property name="orderCode" type="String"/>
+	<property name="erpOrderNo" type="String"/>
+	<property name="isDraft" type="Boolean"/>
+	<property name="profilePicture" type="de.hybris.platform.commercefacades.product.data.ImageData" />
+	<property name="baseSiteUid" type="String"/>
+	<property name="cancelReason" type="String"/>
+</bean>
+
+	<bean class="com.nuvoco.facades.data.OrderRequisitionListData">
+		<property name="requisitions" type="java.util.List&lt;com.nuvoco.facades.data.OrderRequisitionData>"/>
+	</bean>
+
+
+	<bean class="com.nuvoco.facades.data.NuvocoDealerSalesAllocationData">
+		<property name="productCode" type="String"/>
+		<property name="dealerCode" type="String"/>
+		<property name="stockAvailableForRetailer" type="Integer"/>
+		<property name="stockAvailableForInfluencer" type="Integer"/>
+	</bean>
+
+
+	<bean class="com.nuvoco.facades.data.NuvocoDealerSalesAllocationListData">
+		<property name="qualityTests" type="java.util.List&lt;com.nuvoco.facades.data.NuvocoDealerSalesAllocationData>"/>
+	</bean>
 </beans>

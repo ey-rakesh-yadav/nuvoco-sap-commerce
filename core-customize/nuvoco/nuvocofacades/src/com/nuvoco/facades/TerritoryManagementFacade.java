@@ -24,4 +24,9 @@ public interface TerritoryManagementFacade {
     DealerListData getAllRetailersForSubArea();
 
     List<String> getAllSubAreaForCustomer(String customerId);
+
+    DealerListData getAllRetailersForSubAreaTOP(String subArea, String dealerCode);
+
+
+    List<String> getAllStatesForSO();
 }

@@ -1,20 +1,20 @@
 package com.nuvoco.controllers;
 
+import com.nuvoco.annotation.ApiBaseSiteIdAndUserIdAndTerritoryParam;
 import com.nuvoco.facades.CreditLimitData;
 import com.nuvoco.facades.DealerFacade;
 import com.nuvoco.facades.data.NuvocoCustomerData;
+import com.nuvoco.facades.data.NuvocoDealerSalesAllocationData;
 import de.hybris.platform.commerceservices.request.mapping.annotation.ApiVersion;
 import de.hybris.platform.webservicescommons.swagger.ApiBaseSiteIdParam;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,5 +35,16 @@ public class NuvocoDealerController {
         return dealerFacade.getCustomerProfile(uid);
     }
 
+
+    @Secured({"ROLE_CUSTOMERGROUP", "ROLE_TRUSTED_CLIENT", "ROLE_CUSTOMERMANAGERGROUP"})
+    @RequestMapping(value = "/getDealerStockAllocation", method = RequestMethod.GET)
+    @Operation(operationId = "getDealerStockAllocation", summary = "Get stock allocation for dealer and for a specified product")
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    @ApiBaseSiteIdAndUserIdAndTerritoryParam
+    public NuvocoDealerSalesAllocationData getStockAllocationForDealer(@Parameter(description = "productCode", required=false) @RequestParam String productCode) {
+        String dealerCode = null;
+        return dealerFacade.getStockAllocationForDealer(productCode);
+    }
 
 }

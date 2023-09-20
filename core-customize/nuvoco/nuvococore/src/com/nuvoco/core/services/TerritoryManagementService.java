@@ -1,6 +1,8 @@
 package com.nuvoco.core.services;
 
+import com.nuvoco.core.model.CustDepotMasterModel;
 import com.nuvoco.core.model.NuvocoCustomerModel;
+import com.nuvoco.core.model.NuvocoUserModel;
 import com.nuvoco.core.model.SubAreaMasterModel;
 import de.hybris.platform.core.servicelayer.data.SearchPageData;
 
@@ -9,6 +11,8 @@ import java.util.List;
 public interface TerritoryManagementService {
 
     List<NuvocoCustomerModel> getRetailerListForDealer();
+
+    List<SubAreaMasterModel> getTerritoriesForCustomer(String customerId);
 
     List<String> getAllSubAreaForCustomer(String customerId);
 
@@ -25,9 +29,13 @@ public interface TerritoryManagementService {
                                                                             List<SubAreaMasterModel> subAreaMaster, String counterType, String networkType, boolean isNew,
                                                                             String filter, String influencerType, String dealerCategory);
 
+    CustDepotMasterModel getCustDepotForCustomer(NuvocoCustomerModel customer);
+
     Integer getDealerCountForRetailer();
 
     Integer getRetailerCountForDealer();
+
+    NuvocoUserModel getSOforCustomer(NuvocoCustomerModel customer);
 
     List<NuvocoCustomerModel> getDealersForSubArea();
     List<NuvocoCustomerModel> getRetailersForSubArea();
@@ -37,5 +45,11 @@ public interface TerritoryManagementService {
     List<NuvocoCustomerModel> getAllCustomerForSubArea(List<SubAreaMasterModel> subAreas);
 
     List<SubAreaMasterModel> getTerritoriesForSO();
+
+    List<SubAreaMasterModel> getTerritoriesForSO(String uid);
+
+    List<NuvocoCustomerModel> getAllRetailersForSubAreaTOP(String subArea, String dealerCode);
+
+    List<String> getAllStatesForSO();
 
 }

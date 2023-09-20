@@ -2,8 +2,11 @@ package com.nuvoco.controllers;
 
 
 import com.nuvoco.facades.NuvocoCustomerFacade;
+import com.nuvoco.facades.prosdealer.data.DealerListData;
+import com.nuvoco.occ.dto.dealer.DealerListWsDTO;
 import de.hybris.platform.commerceservices.request.mapping.annotation.ApiVersion;
 import de.hybris.platform.webservicescommons.errors.exceptions.WebserviceValidationException;
+import de.hybris.platform.webservicescommons.mapping.DataMapper;
 import de.hybris.platform.webservicescommons.swagger.ApiBaseSiteIdAndUserIdParam;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,11 +22,17 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.nuvoco.controllers.TerritoryManagementController.BASIC_FIELD_SET;
+
 @Controller
 @RequestMapping(value = "/{baseSiteId}/users")
 @ApiVersion("v2")
 @Tag(name = "Nuvoco Users Management")
 public class NuvocoUserController {
+
+
+    @Autowired
+    private DataMapper dataMapper;
 
     protected static final String FILE_EMPTY_ERROR =  "File can not be empty";
     protected static final String INVALID_FILE_TYPE_ERROR =  "Please upload valid .png/.jpeg /.jpg /.pdf file only";
@@ -37,6 +46,7 @@ public class NuvocoUserController {
 @Autowired
 private NuvocoCustomerFacade nuvocoCustomerFacade;
 
+
     @RequestMapping(value = "/{userId}/setProfilePicture", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.ACCEPTED)
     @Operation(operationId = "setProfilePicture", summary = "Set Profile Picture", description = "Set Profile Picture")
@@ -47,6 +57,20 @@ private NuvocoCustomerFacade nuvocoCustomerFacade;
         String url = nuvocoCustomerFacade.setProfilePicture(file);
         return ResponseEntity.status(HttpStatus.CREATED).body(url);
     }
+
+
+    @RequestMapping(method = RequestMethod.GET,value = "/{userId}/dealerslist")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    @Operation(operationId = "getDealersList", summary = "Returns Dealers List ", description = "Returns List of dealers attached with the user.")
+    @ApiBaseSiteIdAndUserIdParam
+    public DealerListWsDTO getDealers(){
+        DealerListData dealers = nuvocoCustomerFacade.getDealersForCurrentUser();
+        return dataMapper.map(dealers,DealerListWsDTO.class, BASIC_FIELD_SET);
+    }
+
+
+
 
 
     private void validateDocument(final MultipartFile file)

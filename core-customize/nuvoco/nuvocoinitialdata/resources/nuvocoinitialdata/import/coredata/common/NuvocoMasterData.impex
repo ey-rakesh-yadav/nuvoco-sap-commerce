@@ -167,6 +167,33 @@ INSERT_UPDATE Trigger ;cronjob(code)[unique=true] ;cronExpression
 
 
 
+
+INSERT_UPDATE NuvocoCustomer; uid[unique=true];crmRefCode;customerNo;customerId;groups(uid);counterType(code);name;customerCategory(code);state	;mobileNumber;email[default='dummy@test.com'];dateOfJoining[dateformat=dd-MM-yyyy];defaultB2BUnit(uid);bankAccountNo;bankName;ifscCode;gstIN;panCard
+;1000174335	;1000174335;910849;17491912;NuvocoRetailerGroup;Retailer;RINKU CEMENT STORE	;TR	;Maharashtra;	9466029116	;rinkucement729@gmail.com;	16-02-2023;	NuvocoB2BUnit	;6130063112;LDCC Bank	;LD000123;	06AXSPG5656K1ZV;KYQPS6983E
+;1000174336	;1000174336	;786655;17015745;NuvocoDealerGroup;Dealer;K.S. TRADERS	;TR	;Maharashtra	;9953649161	;	k.s123@gmail.com;     05-03-2023;        	NuvocoB2BUnit	;6132163211 ;	LDCC Bank	;LD0001234;06AXSPG5656K1XC;	GDYPS7983B
+
+
+INSERT_UPDATE Address; owner(NuvocoCustomer.customerNo)[unique=true];erpAddressId[unique=true];accountName;firstName;streetname	;streetnumber;state	;district;taluka;erpCity;postalcode	;cellphone;email;isPrimaryAddress[default=false];billingAddress	;	shippingAddress;duplicate[default=false];	country(isocode)[default=IN]	;visibleInAddressBook[default=true]
+;910849	;;RINKU KUMAR DHURUA;RINKU KUMAR DHURUA;Abc chowk;4863;Maharashtra;Pune;Mulshi;PUNE;411057;9777574386;rinkukumar411@gmail.com;TRUE	;TRUE;FALSE
+;786655	;;KISHAN KUMAR SUYOG;KISHAN KUMAR SUYOG;Laxmi chowk;1232;Maharashtra;Pune;Mulshi;Pimpari;411057;9777574386;kishankumar263@gmail.com;TRUE;FALSE;TRUE
+
+
+INSERT_UPDATE SubAreaMaster;	district[unique=true]	;taluka[unique=true]
+;PUNE	;MULSHI
+;PUNE	;HAVELI
+
+INSERT_UPDATE CustomerSubAreaMapping; nuvocoCustomer(uid)[unique=true];	counterType;subArea[unique=true];district[unique=true];state[unique=true];brand(uid)[unique=true];subAreaMaster(district,taluka)[unique=true];isOtherBrand[default=false];isActive[default=false]
+;1000174335	;Retailer;PUNE;MULSHI	;Maharashtra	;nuvoco	;PUNE:MULSHI
+;1000174336	;Dealer;PUNE;HAVELI	;Maharashtra;	nuvoco;	PUNE:HAVELI
+
+
+
+
+
+
+
+
+
 INSERT_UPDATE SearchRestriction; code[unique = true]; name[lang = en];query ; principal(UID); restrictedType(code); active; generate
                                ; OrderSubAreaRestrictionForDealer ; OrderSubAreaRestrictionForDealer; {item:user} = ?session.user AND {item:site} = ?session.currentSite AND {item:versionID} IS NULL; NuvocoDealerGroup ; Order   ; true  ; true
                                ; OrderRequistionForDealer ; OrderRequistionForDealer; {item:active} = 1 and {item:fromCustomer} = ?session.user; NuvocoDealerGroup ; OrderRequisition   ; true  ; true
