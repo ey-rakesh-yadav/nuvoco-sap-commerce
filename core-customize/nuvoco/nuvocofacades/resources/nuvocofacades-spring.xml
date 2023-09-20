@@ -355,6 +355,10 @@
 
 	<bean id="deliverySlotsFacade" class="com.nuvoco.facades.impl.DeliverySlotsFacadeImpl"/>
 
+	<bean id="nuvocoB2BOrderfacade" class="com.nuvoco.facades.impl.NuvocoB2BOrderfacadeImpl"/>
+
+	<bean id="deliveryModesFacade" class="com.nuvoco.facades.impl.DealerFacadeImpl"/>
+
 	<bean id="orderRequisitionFacade" class="com.nuvoco.facades.impl.OrderRequisitionFacadeImpl"/>
 
 
