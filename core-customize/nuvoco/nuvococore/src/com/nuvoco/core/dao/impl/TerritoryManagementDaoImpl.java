@@ -55,7 +55,7 @@ public class TerritoryManagementDaoImpl implements TerritoryManagementDao {
     @Override
     public List<NuvocoCustomerModel> getRetailerListForDealer(NuvocoCustomerModel nuvocoCustomer, BaseSiteModel site) {
         final Map<String, Object> params = new HashMap<String, Object>();
-        final StringBuilder builder = new StringBuilder("select {d.retailer} from {DealerRetailerMap as d join NuvocoCustomer as c  on {d.retailer}={c.pk} } WHERE {d.dealer}=?sclCustomer AND {d.active}=?active AND {d.brand}=?brand");
+        final StringBuilder builder = new StringBuilder("select {d.retailer} from {DealerRetailerMap as d join NuvocoCustomer as c  on {d.retailer}={c.pk} } WHERE {d.dealer}=?nuvocoCustomer AND {d.active}=?active AND {d.brand}=?brand");
         boolean active = Boolean.TRUE;
         params.put("nuvocoCustomer", nuvocoCustomer);
         params.put("active", active);
