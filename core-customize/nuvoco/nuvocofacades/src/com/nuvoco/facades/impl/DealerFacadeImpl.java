@@ -6,6 +6,7 @@ import com.nuvoco.core.dao.DealerVehicleDetailsDao;
 import com.nuvoco.core.model.DealerDriverDetailsModel;
 import com.nuvoco.core.model.DealerVehicleDetailsModel;
 import com.nuvoco.core.model.NuvocoCustomerModel;
+import com.nuvoco.core.services.DealerService;
 import com.nuvoco.core.services.DealerTransitService;
 import com.nuvoco.core.services.NuvocoCustomerService;
 import com.nuvoco.core.services.TerritoryManagementService;
@@ -13,6 +14,7 @@ import com.nuvoco.facades.CreditLimitData;
 import com.nuvoco.facades.DealerFacade;
 import com.nuvoco.facades.data.NuvocoAddressData;
 import com.nuvoco.facades.data.NuvocoCustomerData;
+import com.nuvoco.facades.data.NuvocoDealerSalesAllocationData;
 import com.nuvoco.facades.data.NuvocoImageData;
 import com.nuvoco.facades.data.vehicle.DealerDriverDetailsData;
 import com.nuvoco.facades.data.vehicle.DealerDriverDetailsListData;
@@ -51,6 +53,9 @@ public class DealerFacadeImpl implements DealerFacade {
 
     @Resource
     private DealerTransitService dealerTransitService;
+
+    @Autowired
+    DealerService dealerService;
 
     @Resource
     private Converter<DealerDriverDetailsModel, DealerDriverDetailsData> dealerDriverDetailsConverter;
@@ -166,8 +171,14 @@ public class DealerFacadeImpl implements DealerFacade {
         return data;
     }
 
-
-
+    /**
+     * @param productCode
+     * @return
+     */
+    @Override
+    public NuvocoDealerSalesAllocationData getStockAllocationForDealer(String productCode) {
+        return dealerService.getStockAllocationForDealer(productCode);
+    }
 
 
     /**

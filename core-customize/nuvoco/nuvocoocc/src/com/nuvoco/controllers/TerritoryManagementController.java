@@ -152,4 +152,27 @@ public class TerritoryManagementController {
         return territoryManagementFacade.getAllSubAreaForCustomer(customerId);
     }
 
+
+    @Secured({ NuvocoSecuredAccessConstants.ROLE_B2BADMINGROUP, NuvocoSecuredAccessConstants.ROLE_TRUSTED_CLIENT,NuvocoSecuredAccessConstants.ROLE_CUSTOMERGROUP,NuvocoSecuredAccessConstants.ROLE_CUSTOMERMANAGERGROUP })
+    @RequestMapping(value="/retailersForSubAreaTOP", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.CREATED)
+    @ResponseBody
+    @ApiBaseSiteIdAndUserIdAndTerritoryParam
+    public DealerListWsDTO getAllRetailersForSubAreaTOP(@RequestParam(required = false) final String subArea,@RequestParam final String dealerCode)
+    {
+        DealerListData dataList = territoryManagementFacade.getAllRetailersForSubAreaTOP(subArea,dealerCode);
+        return dataMapper.map(dataList,DealerListWsDTO.class, BASIC_FIELD_SET);
+
+    }
+
+
+    @Secured({NuvocoSecuredAccessConstants.ROLE_TRUSTED_CLIENT,NuvocoSecuredAccessConstants.ROLE_CUSTOMERGROUP,NuvocoSecuredAccessConstants.ROLE_CUSTOMERMANAGERGROUP })
+    @RequestMapping(value="/getAllStatesForSO", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.CREATED)
+    @ResponseBody
+    @ApiBaseSiteIdAndUserIdParam
+    public List<String> getAllStatesForSO()
+    {
+        return territoryManagementFacade.getAllStatesForSO();
+    }
 }

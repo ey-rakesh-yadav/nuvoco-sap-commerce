@@ -594,10 +594,63 @@
 	<alias name="orderRequisitionDao" alias="orderRequisitionDao"/>
 	<bean id="orderRequisitionDao" class="com.nuvoco.core.dao.impl.OrderRequisitionDaoImpl">
 	</bean>
-
 	<bean id="salesPerformanceDao" class="com.nuvoco.core.dao.impl.SalesPerformanceDaoImpl"/>
 
 	<bean id="nuvocoTruckDao" class="com.nuvoco.core.dao.impl.NuvocoTruckDaoImpl"/>
 
 	<bean id="djpVisitService" class="com.nuvoco.core.services.impl.DJPVisitServiceImpl"/>
+	<bean id="dealerService" class="com.nuvoco.core.services.impl.DealerServiceImpl"/>
+
+	<alias name="nuvocoB2BOrderService" alias="b2bOrderService"/>
+	<bean id="nuvocoB2BOrderService" class="com.nuvoco.core.services.impl.NuvocoB2BOrderServiceImpl" parent="defaultB2BOrderService" >
+		<!--<property name="submitOrderStrategies">
+			<list>
+				&lt;!&ndash; implementation that sends SubmitOrderEvent &ndash;&gt;
+				<ref bean="eventPublishingSubmitOrderStrategy"/>
+			</list>
+		</property>-->
+	</bean>
+
+	<alias name="nuvocoOrderCountDao" alias="nuvocoOrderCountDao"/>
+	<bean id="nuvocoOrderCountDao" class="com.nuvoco.core.dao.impl.NuvocoOrderCountDaoImpl"/>
+
+	<bean id="nuvocoOrderService" class="com.nuvoco.core.services.impl.NuvocoOrderServiceImpl"/>
+
+	<bean id="nuvocoCartService" class="com.nuvoco.core.services.impl.NuvocoCartServiceImpl"/>
+
+	<bean id="geoGraphicalRegionService" class="com.nuvoco.core.services.impl.GeographicalRegionServiceImpl"/>
+
+
+	<bean id="nuvocoDeliveryDao" class="com.nuvoco.core.dao.impl.DeliveryModeDaoImpl"/>
+	<bean id="districtMasterDao" class="com.nuvoco.core.dao.impl.DistrictMasterDaoImpl"/>
+	<bean id="regionMasterDao" class="com.nuvoco.core.dao.impl.RegionMasterDaoImpl"/>
+
+	<bean id="stateMasterDao" class="com.nuvoco.core.dao.impl.StateMasterDaoImpl"/>
+	<bean id="nuvocoWarehouseDao" class="com.nuvoco.core.dao.impl.NuvocoWarehouseDaoImpl"/>
+	<bean id="geographicalRegionDao" class="com.nuvoco.core.dao.impl.GeographicalRegionDaoImpl"/>
+
+	<bean id="deliverySlotMasterDao" class="com.nuvoco.core.dao.impl.DeliverySlotMasterDaoImpl"/>
+
+	<bean id="nuvocoSalesOrderDeliverySLADao" class="com.nuvoco.core.dao.impl.NuvocoSalesOrderDeliverySLADaoImpl"/>
+	<bean id="depotOperationDao" class="com.nuvoco.core.dao.impl.DepotOperationDaoImpl"/>
+	<bean id="nuvocoOrderHistoryService" class="com.nuvoco.core.services.impl.NuvocoOrderHistoryServiceImpl"/>
+	<bean id="nuvocoCommerceCheckoutService" class="com.nuvoco.core.services.impl.NuvocoCommerceCheckoutServiceImpl"/>
+
+
+	<bean id="dataConstraintDao" class="com.nuvoco.core.dao.impl.DataConstraintDaoImpl"/>
+	<bean id="tradeOrderService" class="com.nuvoco.core.services.impl.TradeOrderServiceImpl"/>
+	<bean id="nuvocoUserDao" class="com.nuvoco.core.dao.impl.NuvocoUserDaoImpl"/>
+
+	<bean id="dealerDao" class="com.nuvoco.core.dao.impl.DealerDaoImpl"/>
+
+	<bean id="orderRequisitionService" class="com.nuvoco.core.services.impl.OrderRequisitionServiceImpl"/>
+
+
+	<bean id="orderRequisitionIdGenerator" class="de.hybris.platform.servicelayer.keygenerator.impl.PersistentKeyGenerator">
+		<property name="key" value="${keygen.orderRequisition.id.name}"/>
+		<property name="digits" value="${keygen.orderRequisition.id.digits}"/>
+		<property name="start" value="${keygen.orderRequisition.id.start}"/>
+		<property name="numeric" value="${keygen.orderRequisition.id.numeric}"/>
+		<property name="template" value="${keygen.orderRequisition.id.template}"/>
+	</bean>
 </beans>

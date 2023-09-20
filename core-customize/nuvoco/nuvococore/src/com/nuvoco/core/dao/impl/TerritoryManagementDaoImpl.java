@@ -2,14 +2,16 @@ package com.nuvoco.core.dao.impl;
 
 import com.nuvoco.core.dao.TerritoryManagementDao;
 import com.nuvoco.core.enums.DealerCategory;
-import com.nuvoco.core.model.CustomerSubAreaMappingModel;
-import com.nuvoco.core.model.NuvocoCustomerModel;
-import com.nuvoco.core.model.SubAreaMasterModel;
+import com.nuvoco.core.enums.NuvocoUserType;
+import com.nuvoco.core.model.*;
+import com.nuvoco.facades.data.FilterTalukaData;
+import de.hybris.platform.b2b.model.B2BCustomerModel;
 import de.hybris.platform.b2b.services.B2BUnitService;
 import de.hybris.platform.basecommerce.model.site.BaseSiteModel;
 import de.hybris.platform.core.model.user.UserModel;
 import de.hybris.platform.core.servicelayer.data.SearchPageData;
 import de.hybris.platform.search.restriction.SearchRestrictionService;
+import de.hybris.platform.servicelayer.exceptions.UnknownIdentifierException;
 import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.servicelayer.search.SearchResult;
@@ -19,8 +21,10 @@ import de.hybris.platform.servicelayer.session.SessionExecutionBody;
 import de.hybris.platform.servicelayer.session.SessionService;
 import de.hybris.platform.servicelayer.user.UserService;
 import de.hybris.platform.site.BaseSiteService;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 import java.time.LocalDate;
@@ -47,6 +51,47 @@ public class TerritoryManagementDaoImpl implements TerritoryManagementDao {
 
     @Autowired
     private SearchRestrictionService searchRestrictionService;
+
+    /**
+     * @param nuvocoCustomer
+     * @return
+     */
+    @Override
+    public NuvocoUserModel getSOForSubArea(NuvocoCustomerModel nuvocoCustomer) {
+        final Map<String, Object> params = new HashMap<String, Object>();
+
+        final StringBuilder builder = new StringBuilder("SELECT {u:nuvocoUser} FROM {CustomerSubAreaMapping as c JOIN UserSubAreaMapping as u on {u:subAreaMaster}={c:subAreaMaster} and {u:brand}={c:brand} } WHERE {c.nuvocoCustomer} =?nuvocoCustomer and {u.isActive}=?active");
+        boolean active = Boolean.TRUE;
+        params.put("nuvocoCustomer", nuvocoCustomer);
+        params.put("active", active);
+
+        FlexibleSearchQuery query = new FlexibleSearchQuery(builder.toString());
+        query.setResultClassList(Collections.singletonList(NuvocoUserModel.class));
+        query.addQueryParameters(params);
+        final SearchResult<NuvocoUserModel> searchResult = flexibleSearchService.search(query);
+        return searchResult.getResult() != null && !searchResult.getResult().isEmpty() ? searchResult.getResult().get(0) : null;
+
+    }
+
+    /**
+     * @param customer
+     * @return
+     */
+    @Override
+    public CustDepotMasterModel getCustDepotForCustomer(NuvocoCustomerModel customer) {
+        final Map<String, Object> params = new HashMap<String, Object>();
+        final StringBuilder builder = new StringBuilder("SELECT {custDepotCode} FROM {CustDepotDealerMapping} WHERE {dealerCode} = ?customer AND {active} = ?active AND {brand} = ?brand ");
+        params.put("customer", customer);
+        params.put("active", Boolean.TRUE);
+        params.put("brand", baseSiteService.getCurrentBaseSite());
+        FlexibleSearchQuery query = new FlexibleSearchQuery(builder.toString());
+        query.setResultClassList(Arrays.asList(CustDepotMasterModel.class));
+        query.addQueryParameters(params);
+        final SearchResult<CustDepotMasterModel> searchResult = flexibleSearchService.search(query);
+        List<CustDepotMasterModel> result = searchResult.getResult();
+        return result != null && !result.isEmpty() ? result.get(0) : null;
+    }
+
     /**
      * @param nuvocoCustomer
      * @param site
@@ -172,6 +217,23 @@ public class TerritoryManagementDaoImpl implements TerritoryManagementDao {
         return result.getResult().get(0);
     }
 
+
+    @Override
+    public List<SubAreaMasterModel> getTerritoriesForSO(NuvocoUserModel user) {
+        final Map<String, Object> params = new HashMap<>();
+        String builder = "SELECT {subAreaMaster} FROM {UserSubAreaMapping} WHERE {nuvocoUser} = ?user AND {isActive} = 1 AND {brand} = ?brand";
+        params.put("user", user);
+        params.put("brand", baseSiteService.getCurrentBaseSite());
+        FlexibleSearchQuery query = new FlexibleSearchQuery(builder);
+        query.setResultClassList(List.of(SubAreaMasterModel.class));
+        query.addQueryParameters(params);
+        final SearchResult<SubAreaMasterModel> searchResult = flexibleSearchService.search(query);
+        List<SubAreaMasterModel> result = searchResult.getResult();
+        if (CollectionUtils.isNotEmpty(result)) {
+            return result;
+        }
+        return Collections.emptyList();
+    }
     /**
      * @return
      */
@@ -294,6 +356,153 @@ public class TerritoryManagementDaoImpl implements TerritoryManagementDao {
         query.getQueryParameters().putAll(params);
         parameter.setFlexibleSearchQuery(query);
         return paginatedFlexibleSearchService.search(parameter);
+    }
+
+    /**
+     * @param territoryId
+     * @return
+     */
+    @Override
+    public SubAreaMasterModel getTerritoryById(String territoryId) {
+        final Map<String, Object> params = new HashMap<String, Object>();
+        final String queryString = "SELECT {pk} FROM {SubAreaMaster} WHERE {pk} = ?territoryId ";
+        params.put("territoryId", territoryId);
+
+        FlexibleSearchQuery query = new FlexibleSearchQuery(queryString);
+        query.addQueryParameters(params);
+        final SearchResult<SubAreaMasterModel> searchResult = flexibleSearchService.search(query);
+        if (CollectionUtils.isNotEmpty(searchResult.getResult())) {
+            return searchResult.getResult().get(0);
+        }
+        return null;
+    }
+
+    /**
+     * @param subAreas
+     * @param site
+     * @param dealerCode
+     * @return
+     */
+    @Override
+    public List<NuvocoCustomerModel> getAllRetailersForSubAreaTOP(List<SubAreaMasterModel> subAreas, BaseSiteModel site, String dealerCode) {
+        final Map<String, Object> params = new HashMap<String, Object>();
+        final StringBuilder builder = new StringBuilder("select {cs.nuvocoCustomer} from {CustomerSubAreaMapping as cs left join DealerRetailerMap as dr on {cs.nuvocoCustomer}={dr.retailer} and {dr.dealer}=?dealer} where {cs.subAreaMaster} in (?subAreas) AND {isActive} = ?active AND {brand} = ?brand and {cs.nuvocoCustomer} is not null and {cs.isOtherBrand}=?isOtherBrand order by {dr.orderCount} desc");
+        boolean active = Boolean.TRUE;
+        params.put("subAreas", subAreas);
+        params.put("active", active);
+        params.put("brand", site);
+        params.put("dealer", userService.getUserForUID(dealerCode));
+        params.put(CustomerSubAreaMappingModel.ISOTHERBRAND, Boolean.FALSE);
+
+        FlexibleSearchQuery query = new FlexibleSearchQuery(builder.toString());
+        query.setResultClassList(Collections.singletonList(NuvocoCustomerModel.class));
+        query.addQueryParameters(params);
+        final SearchResult<NuvocoCustomerModel> searchResult = flexibleSearchService.search(query);
+        List<NuvocoCustomerModel> result = searchResult.getResult();
+
+        return result != null && !result.isEmpty() ? result : Collections.emptyList();
+    }
+
+    /**
+     * @param filterTalukaData
+     * @return
+     */
+    @Override
+    public List<SubAreaMasterModel> getTalukaForUser(FilterTalukaData filterTalukaData) {
+        final Map<String, Object> params = new HashMap<String, Object>();
+        NuvocoUserModel currentUser = (NuvocoUserModel) userService.getCurrentUser();
+        final StringBuilder builder = new StringBuilder();
+
+        if (currentUser instanceof NuvocoUserModel) {
+            if (currentUser.getUserType() != null) {
+                if (currentUser.getUserType().getCode().equals("SO")) {
+                    builder.append("select {s:pk} from {UserSubAreaMapping as u join SubAreaMaster as s on {u:subAreaMaster}={s:pk}}" +
+                            " where {u:nuvocoUser} = ?nuvocoUser and {u:brand} = ?brand and {u:isActive} = ?active");
+                    params.put("nuvocoUser", currentUser);
+                } else if (currentUser.getUserType().getCode().equals("TSM")) {
+                    builder.append("select {s:pk} from {TsmDistrictMapping as tsm join DistrictMaster as d on {tsm:district}={d:pk}" +
+                            " join SubAreaMaster as s on {d:name}={s:district}} where {tsm:tsmUser} = ?tsmUser and {tsm:brand} = ?brand" +
+                            " and {tsm:isActive} = ?active");
+                    params.put("tsmUser", currentUser);
+                    if (filterTalukaData != null && !ObjectUtils.isEmpty(filterTalukaData) && filterTalukaData.getDistrictCode() != null && !filterTalukaData.getDistrictCode().isEmpty()) {
+                        builder.append(" and {d:code} = ?districtCode");
+                        params.put("districtCode", filterTalukaData.getDistrictCode());
+                    }
+                } else if (currentUser.getUserType().getCode().equals("RH")) {
+                    builder.append("select {s:pk} from {RhRegionMapping as rh join RegionMaster as r on {rh:region}={r:pk}" +
+                            " join DistrictMaster as d on {d:region}={r:pk} join SubAreaMaster as s on {d:name}={s:district}}" +
+                            " where {rh:rhUser} = ?rhUser and {rh:brand} = ?brand and {rh:isActive} = ?active");
+                    params.put("rhUser", currentUser);
+                    if (filterTalukaData != null && !ObjectUtils.isEmpty(filterTalukaData) && filterTalukaData.getRegionCode() != null && !filterTalukaData.getRegionCode().isEmpty()) {
+                        builder.append(" and {r:code} = ?regionCode");
+                        params.put("regionCode", filterTalukaData.getRegionCode());
+                        if (filterTalukaData.getDistrictCode() != null && !ObjectUtils.isEmpty(filterTalukaData) && !filterTalukaData.getDistrictCode().isEmpty()) {
+                            builder.append(" and {d:code} = ?districtCode");
+                            params.put("districtCode", filterTalukaData.getDistrictCode());
+                        }
+                    }
+                } else if (currentUser.getUserType().equals(NuvocoUserType.TSO)) {
+                    builder.append("select {s:pk} from {TsoTalukaMapping as t join SubAreaMaster as s on {t:subAreaMaster}={s:pk}}" +
+                            " where {t:tsoUser} = ?nuvocoUser and {t:brand} = ?brand and {t:isActive} = ?active");
+                    params.put("nuvocoUser", currentUser);
+
+                }
+
+                if (filterTalukaData != null && !ObjectUtils.isEmpty(filterTalukaData) && filterTalukaData.getTalukaName() != null && !filterTalukaData.getTalukaName().isEmpty()) {
+                    builder.append(" and {s:taluka} like ?talukaName");
+                    params.put("talukaName", filterTalukaData.getTalukaName().toUpperCase() + "%");
+                }
+                builder.append(" order by {s:pk}");
+                params.put("active", Boolean.TRUE);
+                params.put("brand", baseSiteService.getCurrentBaseSite());
+
+            } else {
+                throw new UnknownIdentifierException("User Type not set for the user");
+            }
+
+        }
+        FlexibleSearchQuery query = new FlexibleSearchQuery(builder.toString());
+        query.setResultClassList(Collections.singletonList(SubAreaMasterModel.class));
+        query.addQueryParameters(params);
+        final SearchResult<SubAreaMasterModel> searchResult = flexibleSearchService.search(query);
+        if (searchResult.getResult() != null && !searchResult.getResult().isEmpty()) {
+            return searchResult.getResult();
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
+    /**
+     * @param filterTalukaData
+     * @return
+     */
+    @Override
+    public List<SubAreaMasterModel> getTalukaForSP(FilterTalukaData filterTalukaData) {
+       /* final Map<String, Object> params = new HashMap<String, Object>();
+        final StringBuilder builder = new StringBuilder("Select distinct{c.subAreaMaster} from {CustDepotDealerMapping as d join SpCustDepotMapping as s on {d.custDepotCode}={s.custDepotCode} join CustomerSubAreaMapping as c on {c.sclCustomer}={d.dealerCode} } Where ")
+                .append(" {s.spCode} = ?currentUser AND {s.brand} = ?brand AND {d.brand}= ?brand AND {s.active} = ?active ");
+        params.put("active", Boolean.TRUE);
+        params.put("brand", baseSiteService.getCurrentBaseSite());
+        params.put("currentUser", userService.getCurrentUser());
+        FlexibleSearchQuery query = new FlexibleSearchQuery(builder.toString());
+        query.setResultClassList(Collections.singletonList(SubAreaMasterModel.class));
+        query.addQueryParameters(params);
+        final SearchResult<SubAreaMasterModel> searchResult = flexibleSearchService.search(query);
+        List<SubAreaMasterModel> result = searchResult.getResult();*/
+        //return result != null && !result.isEmpty() ? result : Collections.emptyList();
+        return Collections.emptyList();
+    }
+
+    /**
+     * @param nuvocoUser
+     * @param site
+     * @return
+     */
+    @Override
+    public List<String> getAllStatesForSO(UserModel nuvocoUser, BaseSiteModel site) {
+        List<String> result = new ArrayList<String>();
+        result.add(((B2BCustomerModel) nuvocoUser).getState());
+        return result != null && !result.isEmpty() ? result : Collections.emptyList();
     }
 
     private void appendFilterQuery(StringBuilder builder, Map<String, Object> params, String networkType, boolean isNew, String filter, String influencerType, String dealerCategory) {

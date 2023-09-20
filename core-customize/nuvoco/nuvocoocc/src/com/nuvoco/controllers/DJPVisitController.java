@@ -29,7 +29,8 @@ public class DJPVisitController {
     @Resource
     private DJPVisitFacade djpVisitFacade;
 
-    @Secured({NuvocoSecuredAccessConstants.ROLE_TRUSTED_CLIENT })
+
+    @Secured({ NuvocoSecuredAccessConstants.ROLE_B2BADMINGROUP, NuvocoSecuredAccessConstants.ROLE_TRUSTED_CLIENT,NuvocoSecuredAccessConstants.ROLE_CUSTOMERGROUP,NuvocoSecuredAccessConstants.ROLE_CUSTOMERMANAGERGROUP })
     @RequestMapping(value="/truckList", method = RequestMethod.POST)
     @ResponseBody
     @Operation(operationId = "getAllTrucks", summary = " Truck List", description = "Get list of Truck data")
