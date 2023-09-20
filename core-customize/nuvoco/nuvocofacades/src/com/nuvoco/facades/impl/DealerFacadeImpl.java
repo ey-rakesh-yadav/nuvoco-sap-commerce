@@ -176,6 +176,15 @@ public class DealerFacadeImpl implements DealerFacade {
      * @return
      */
     @Override
+    public NuvocoDealerSalesAllocationData getStockAllocationForRetailer(String productCode) {
+        return dealerService.getStockAllocationForRetailer(productCode);
+    }
+
+    /**
+     * @param productCode
+     * @return
+     */
+    @Override
     public NuvocoDealerSalesAllocationData getStockAllocationForDealer(String productCode) {
         return dealerService.getStockAllocationForDealer(productCode);
     }

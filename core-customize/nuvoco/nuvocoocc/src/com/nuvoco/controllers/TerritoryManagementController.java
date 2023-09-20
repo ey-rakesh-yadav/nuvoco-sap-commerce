@@ -2,7 +2,10 @@ package com.nuvoco.controllers;
 
 import com.nuvoco.annotation.ApiBaseSiteIdAndUserIdAndTerritoryParam;
 import com.nuvoco.facades.TerritoryManagementFacade;
+import com.nuvoco.facades.data.CustomerListData;
+import com.nuvoco.facades.data.RequestCustomerData;
 import com.nuvoco.facades.prosdealer.data.DealerListData;
+import com.nuvoco.occ.dto.CustomerListWsDTO;
 import com.nuvoco.occ.dto.dealer.DealerListWsDTO;
 import com.nuvoco.security.NuvocoSecuredAccessConstants;
 import de.hybris.platform.commercefacades.user.data.CustomerData;
@@ -174,5 +177,16 @@ public class TerritoryManagementController {
     public List<String> getAllStatesForSO()
     {
         return territoryManagementFacade.getAllStatesForSO();
+    }
+
+
+   @RequestMapping(value="/getCustomerForUser", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.CREATED)
+    @ResponseBody
+    @ApiBaseSiteIdAndUserIdAndTerritoryParam
+    public CustomerListWsDTO getCustomerForUser(@RequestBody final RequestCustomerData customerData)
+    {
+        CustomerListData dataList =  territoryManagementFacade.getCustomerForUser(customerData);
+        return dataMapper.map(dataList,CustomerListWsDTO.class, BASIC_FIELD_SET);
     }
 }

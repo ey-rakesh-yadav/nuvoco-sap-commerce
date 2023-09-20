@@ -11,6 +11,10 @@ import java.util.List;
 
 public interface NuvocoB2BOrderfacade {
 
+    Boolean getVehicleArrivalConfirmationForOrder(boolean vehicleArrived, String orderCode, String entryNumber);
+
+
+    Boolean updateEpodStatusForOrder(double shortageQuantity, String orderCode, int entryNumber);
 
     Boolean getOrderFromRetailersRequest(String requisitionId, String status);
 

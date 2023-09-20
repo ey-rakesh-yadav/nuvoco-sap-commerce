@@ -484,4 +484,30 @@
 	<bean class="com.nuvoco.facades.data.NuvocoDealerSalesAllocationListData">
 		<property name="qualityTests" type="java.util.List&lt;com.nuvoco.facades.data.NuvocoDealerSalesAllocationData>"/>
 	</bean>
+
+
+	<bean class="com.nuvoco.facades.data.RequestCustomerData">
+		<property name="networkType" type="String" />
+		<property name="influencerType" type="String"/>
+		<property name="isNew" type="Boolean"/>
+		<property name="dealerCategory" type="String"/>
+		<property name="searchKey" type="String"/>
+		<property name="customerUid" type="String"/>
+		<property name="includeNonSclCustomer" type="Boolean"/>
+		<property name="subAreaMasterPk" type="String"/>
+		<property name="retailersForTop" type="Boolean"/>
+		<property name="removeFlaggedCustomer" type="Boolean"/>
+		<property name="counterType" type="java.util.List&lt;String>"/>
+		<property name="topPerformers" type="Integer" />
+		<property name="startDate" type="String" />
+		<property name="endDate" type="String" />
+		<property name="isFlag" type="Boolean"/>
+		<property name="isUnFlag" type="Boolean"/>
+	</bean>
+
+	<bean class="com.nuvoco.facades.data.CustomerListData">
+		<property name="customers" type="java.util.List&lt;de.hybris.platform.commercefacades.user.data.CustomerData>"/>
+		<property name="totalCount" type="Long"/>
+	</bean>
+
 </beans>

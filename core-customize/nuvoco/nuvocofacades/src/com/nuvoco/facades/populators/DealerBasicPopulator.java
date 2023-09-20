@@ -36,10 +36,10 @@ public class DealerBasicPopulator implements Populator<NuvocoCustomerModel, Cust
         target.setName(source.getName());
         target.setEmail(source.getEmail());
         if(source.getGroups().contains(userService.getUserGroupForUID(NuvocoCoreConstants.CUSTOMER.DEALER_USER_GROUP_UID))){
-          //  target.setPartnerType("Dealer");
+           target.setPartnerType("Dealer");
         }
         else if(source.getGroups().contains(userService.getUserGroupForUID(NuvocoCoreConstants.CUSTOMER.RETAILER_USER_GROUP_UID))) {
-          //  target.setPartnerType("Retailer");
+           target.setPartnerType("Retailer");
         }
 
 

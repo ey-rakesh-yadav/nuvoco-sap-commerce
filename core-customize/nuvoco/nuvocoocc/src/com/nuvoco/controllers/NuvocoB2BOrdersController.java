@@ -305,21 +305,33 @@ public class NuvocoB2BOrdersController extends NuvocooccController {
                                                                        @ApiFieldsParam @RequestParam(defaultValue = DEFAULT_FIELD_SET) final String fields,final HttpServletResponse response, @Parameter(description = "Filters by Month") @RequestParam(required = false, defaultValue = "0") Integer month,
                                                                        @Parameter(description = "Filters by Year") @RequestParam(required = false, defaultValue = "0") Integer year)
     {
-        NuvocoOrderHistoryListData sclOrderHistoryListData = new NuvocoOrderHistoryListData();
+        NuvocoOrderHistoryListData orderHistoryListData = new NuvocoOrderHistoryListData();
 
         final SearchPageData searchPageData = PaginatedSearchUtils.createSearchPageDataWithPagination(pageSize, currentPage, true);
 
         SearchPageData<NuvocoOrderHistoryData> orderHistoryForOrderEntry = nuvocoB2BOrderfacade.getCancelOrderHistoryForOrderEntry(searchPageData, orderStatus, filter,productName,orderType,spApprovalFilter,month,year);
-        sclOrderHistoryListData.setOrdersList(orderHistoryForOrderEntry.getResults());
+        orderHistoryListData.setOrdersList(orderHistoryForOrderEntry.getResults());
 
         if (orderHistoryForOrderEntry.getPagination() != null)
         {
             response.setHeader(HEADER_TOTAL_COUNT, String.valueOf(orderHistoryForOrderEntry.getPagination().getTotalNumberOfResults()));
         }
 
-        return dataMapper.map(sclOrderHistoryListData, NuvocoOrderHistoryListWsDTO.class, fields);
+        return dataMapper.map(orderHistoryListData, NuvocoOrderHistoryListWsDTO.class, fields);
     }
 
+
+
+
+    @Secured({ "ROLE_CUSTOMERGROUP", "ROLE_CLIENT", "ROLE_TRUSTED_CLIENT", "ROLE_CUSTOMERMANAGERGROUP" })
+    @RequestMapping(value = "/getVehicleArrivalConfirmationForOrder", method = RequestMethod.GET)
+    @ResponseBody
+    @Operation(operationId = "getVehicleArrivalConfirmationForOrder", summary = "Get vehicle arrival confirmation as per status", description = "Vehicle Arrival Confirmation.")
+    @ApiBaseSiteIdAndUserIdAndTerritoryParam
+    public Boolean getVehicleArrivalConfirmationForOrder(@RequestParam boolean vehicleArrived, @RequestParam String orderCode, @RequestParam String entryNumber)
+    {
+        return nuvocoB2BOrderfacade.getVehicleArrivalConfirmationForOrder(vehicleArrived, orderCode, entryNumber);
+    }
 
 
     @Secured(
@@ -454,6 +466,16 @@ public class NuvocoB2BOrdersController extends NuvocooccController {
 
     }
 
+
+    @Secured({ "ROLE_CUSTOMERGROUP", "ROLE_CLIENT", "ROLE_TRUSTED_CLIENT", "ROLE_CUSTOMERMANAGERGROUP" })
+    @RequestMapping(value = "/updateEpodStatusForOrder", method = RequestMethod.GET)
+    @ResponseBody
+    @Operation(operationId = "updateEpodStatusForOrder", summary = "Get EPOD status", description = "Get EPOD Status.")
+    @ApiBaseSiteIdAndUserIdAndTerritoryParam
+    public Boolean updateEpodStatusForOrder(@RequestParam double shortageQuantity, @RequestParam String orderCode, @RequestParam int entryNumber)
+    {
+        return nuvocoB2BOrderfacade.updateEpodStatusForOrder(shortageQuantity,orderCode, entryNumber);
+    }
 
 
     @Secured({ "ROLE_CUSTOMERGROUP", "ROLE_CLIENT", "ROLE_TRUSTED_CLIENT", "ROLE_CUSTOMERMANAGERGROUP" })

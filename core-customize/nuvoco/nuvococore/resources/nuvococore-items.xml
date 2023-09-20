@@ -7434,6 +7434,26 @@
                 </attributes>
             </itemtype>
 
+            <itemtype code="SpCustDepotMapping" autocreate="true" generate="true">
+                <deployment table="SpCustDepoMapping" typecode="14076" />
+                <attributes>
+                    <attribute qualifier="spCode" type="NuvocoCustomer">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="custDepotCode" type="CustDepotMaster">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="brand" type="CMSSite">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="active" type="java.lang.Boolean">
+                        <defaultvalue>Boolean.TRUE</defaultvalue>
+                        <persistence type="property" />
+                    </attribute>
+                </attributes>
+            </itemtype>
+
+
         </typegroup>
 
         <typegroup name="Electronics">

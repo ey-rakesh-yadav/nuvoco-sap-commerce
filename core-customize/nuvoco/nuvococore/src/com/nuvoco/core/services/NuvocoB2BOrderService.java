@@ -6,6 +6,8 @@ import com.nuvoco.facades.data.EpodFeedbackData;
 import com.nuvoco.facades.data.NuvocoOrderHistoryData;
 import de.hybris.platform.b2b.model.B2BCustomerModel;
 import de.hybris.platform.b2b.services.B2BOrderService;
+import de.hybris.platform.core.model.order.OrderEntryModel;
+import de.hybris.platform.core.model.order.OrderModel;
 import de.hybris.platform.core.servicelayer.data.SearchPageData;
 
 import java.time.LocalDateTime;
@@ -14,6 +16,11 @@ import java.util.List;
 public interface NuvocoB2BOrderService extends B2BOrderService  {
 
 
+    void getRequisitionStatusByOrderLines(OrderModel order);
+
+    Boolean updateEpodStatusForOrder(double shortageQuantity, String orderCode, int entryNumber);
+
+    Boolean getVehicleArrivalConfirmationForOrder(boolean vehicleArrived, String orderCode, String entryNumber);
     Boolean getOrderFromRetailersRequest(String requisitionId, String status);
 
     SearchPageData<NuvocoOrderHistoryData> getOrderHistoryForOrder(SearchPageData searchPageData, String orderStatus, String filter, String productName , String orderType, Boolean isCreditLimitBreached, String spApprovalFilter, Boolean approvalPending);
@@ -36,6 +43,8 @@ public interface NuvocoB2BOrderService extends B2BOrderService  {
     DeliveryDateAndSlotListData getOptimalDeliveryWindow(double orderQuantity, String routeId, B2BCustomerModel user,
                                                          LocalDateTime orderPunchedDate, String sourceCode, String isDealerProvidingTruck);
 
+
+    void saveOrderRequisitionEntryDetails(OrderModel order, OrderEntryModel orderEntry, String status);
 
     List<DeliverySlotMasterModel> getDeliverySlotList();
 

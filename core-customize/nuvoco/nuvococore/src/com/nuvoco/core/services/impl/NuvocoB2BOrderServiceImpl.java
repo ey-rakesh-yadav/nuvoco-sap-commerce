@@ -2,10 +2,7 @@ package com.nuvoco.core.services.impl;
 
 import com.nuvoco.core.constants.NuvocoCoreConstants;
 import com.nuvoco.core.dao.*;
-import com.nuvoco.core.enums.DeliverySlots;
-import com.nuvoco.core.enums.OrderType;
-import com.nuvoco.core.enums.RequisitionStatus;
-import com.nuvoco.core.enums.ServiceType;
+import com.nuvoco.core.enums.*;
 import com.nuvoco.core.model.*;
 import com.nuvoco.core.services.NuvocoB2BOrderService;
 import com.nuvoco.core.services.OrderRequisitionService;
@@ -19,6 +16,7 @@ import de.hybris.platform.b2b.services.impl.DefaultB2BOrderService;
 import de.hybris.platform.core.enums.OrderStatus;
 import de.hybris.platform.core.model.order.*;
 
+import de.hybris.platform.core.model.product.ProductModel;
 import de.hybris.platform.core.model.user.UserModel;
 import de.hybris.platform.core.servicelayer.data.SearchPageData;
 import de.hybris.platform.order.CartService;
@@ -97,6 +95,100 @@ public class NuvocoB2BOrderServiceImpl extends DefaultB2BOrderService implements
 
     @Autowired
     BaseSiteService baseSiteService;
+
+    /**
+     * @param order
+     */
+    @Override
+    public void getRequisitionStatusByOrderLines(OrderModel order) {
+
+        int orderLineCancelledCount = 0;
+        int orderLineDeliveredCount = 0;
+        Date partialDeliveredDate = null;
+
+        if(order.getRequisitions()!=null && !order.getRequisitions().isEmpty() && order.getRequisitions().size()==1) {
+            OrderRequisitionModel orderRequisitionModel = order.getRequisitions().get(0);
+            for(AbstractOrderEntryModel entryModel : order.getEntries()) {
+                if(entryModel.getCancelledDate()!=null) {
+                    orderLineCancelledCount += 1;
+                }
+                else if(entryModel.getDeliveredDate()!=null) {
+                    orderLineDeliveredCount += 1;
+                    partialDeliveredDate = entryModel.getDeliveredDate();
+                }
+            }
+
+            int orderLineCancelledAndDeliveredCount = orderLineDeliveredCount + orderLineCancelledCount;
+            if(orderLineCancelledAndDeliveredCount >= order.getEntries().size()) {
+                if(orderLineCancelledCount  >= 1 && orderLineDeliveredCount >= 1) {
+                    orderRequisitionModel.setStatus(RequisitionStatus.PARTIAL_DELIVERED);
+                    orderRequisitionModel.setPartialDeliveredDate(partialDeliveredDate);
+                    orderRequisitionModel.setDeliveredDate(partialDeliveredDate);
+                    orderRequisitionService.orderCountIncrementForDealerRetailerMap(orderRequisitionModel.getDeliveredDate(),orderRequisitionModel.getFromCustomer(), orderRequisitionModel.getToCustomer(), baseSiteService.getCurrentBaseSite());
+                }
+
+                if(orderLineCancelledCount == order.getEntries().size()) {
+                    orderRequisitionModel.setStatus(RequisitionStatus.CANCELLED);
+                }
+                getModelService().save(orderRequisitionModel);
+            }
+
+        }
+    }
+
+    /**
+     * @param shortageQuantity
+     * @param orderCode
+     * @param entryNumber
+     * @return
+     */
+    @Override
+    public Boolean updateEpodStatusForOrder(double shortageQuantity, String orderCode, int entryNumber) {
+        OrderModel order = getOrderForCode(orderCode);
+        OrderEntryModel orderEntry = (OrderEntryModel) order.getEntries().stream().filter(abstractOrderEntryModel -> abstractOrderEntryModel.getEntryNumber()==entryNumber).findAny().get();
+        orderEntry.setShortageQuantity(shortageQuantity);
+
+        if(shortageQuantity>0){
+            orderEntry.setEpodStatus(EpodStatus.DISPUTED);
+        }
+        else {
+            orderEntry.setEpodStatus(EpodStatus.APPROVED);
+        }
+        orderEntry.setStatus(OrderStatus.DELIVERED);
+        orderEntry.setDeliveredDate(new Date());
+        orderEntry.setEpodCompleted(true);
+        orderEntry.setEpodCompletedDate(new Date());
+        getModelService().save(orderEntry);
+
+        saveOrderRequisitionEntryDetails(order, orderEntry, "EPOD");
+
+        return true;
+    }
+
+    /**
+     * @param vehicleArrived
+     * @param orderCode
+     * @param entryNumber
+     * @return
+     */
+    @Override
+    public Boolean getVehicleArrivalConfirmationForOrder(boolean vehicleArrived, String orderCode, String entryNumber) {
+        OrderModel order = getOrderForCode(orderCode);
+        int entryNum = Integer.valueOf(entryNumber);
+        OrderEntryModel orderEntry = (OrderEntryModel) order.getEntries().stream().filter(abstractOrderEntryModel -> abstractOrderEntryModel.getEntryNumber()==entryNum).findAny().get();
+        Date date = new Date();
+        if(vehicleArrived == true){
+            orderEntry.setIsVehicleArrived(true);
+            orderEntry.setStatus(OrderStatus.EPOD_PENDING);
+            orderEntry.setEpodInitiateDate(date);
+            orderEntry.setEpodStatus(EpodStatus.PENDING);
+            getModelService().save(orderEntry);
+        }
+        else{
+            //TODO: Dependent on other persona
+        }
+        return true;
+    }
 
     /**
      * @param requisitionId
@@ -760,6 +852,95 @@ public class NuvocoB2BOrderServiceImpl extends DefaultB2BOrderService implements
             }
         }
         return list;
+    }
+
+    /**
+     * @param order
+     * @param orderEntry
+     * @param status
+     */
+    @Override
+    public void saveOrderRequisitionEntryDetails(OrderModel order, OrderEntryModel orderEntry, String status) {
+
+        if(order.getRequisitions()!=null && !order.getRequisitions().isEmpty()) {
+            if(order.getRequisitions().size() == 1) {
+                boolean isDeliveredDateNull = false;
+                OrderRequisitionModel orderRequisitionModel = order.getRequisitions().get(0);
+
+                OrderRequisitionEntryModel orderRequisitionEntryModel = getModelService().create(OrderRequisitionEntryModel.class);
+                orderRequisitionEntryModel.setQuantity(orderEntry.getInvoiceQuantity() * 20);
+                orderRequisitionEntryModel.setEntryNumber(orderEntry.getEntryNumber());
+                orderRequisitionEntryModel.setEntry(orderEntry);
+                orderRequisitionEntryModel.setOrderRequisition(orderRequisitionModel);
+                getModelService().save(orderRequisitionEntryModel);
+
+                if(status.equals("EPOD")) {
+                    orderRequisitionModel.setReceivedQty(orderRequisitionModel.getReceivedQty() + (orderEntry.getInvoiceQuantity() * 20));
+                    if(orderRequisitionModel.getFulfilledDate()==null) {
+                        orderRequisitionModel.setStatus(RequisitionStatus.PENDING_DELIVERY);
+                        orderRequisitionModel.setFulfilledDate(new Date());
+                    }
+
+                    for(AbstractOrderEntryModel entry : order.getEntries()) {
+                        if(entry.getDeliveredDate() == null) {
+                            isDeliveredDateNull = true;
+                            break;
+                        }
+                    }
+                    if(!isDeliveredDateNull) {
+                        orderRequisitionModel.setStatus(RequisitionStatus.DELIVERED);
+                        orderRequisitionModel.setDeliveredDate(new Date());
+                        orderRequisitionService.orderCountIncrementForDealerRetailerMap(orderRequisitionModel.getDeliveredDate(),orderRequisitionModel.getFromCustomer(), orderRequisitionModel.getToCustomer(), baseSiteService.getCurrentBaseSite());
+
+                        NuvocoCustomerModel currentUser = (NuvocoCustomerModel) userService.getCurrentUser();
+                        LOGGER.info("1. Retailer RECEIPT::: In DefaultSCLB2BOrderService:: Record found--- Requisition Status... " + orderRequisitionModel.getStatus()
+                                + " Current customer No -->" + currentUser.getCustomerNo());
+                        if (null != orderRequisitionModel.getFromCustomer() && null != currentUser) {
+                            updateRetailerReceipts(orderRequisitionModel.getProduct(), orderRequisitionModel.getFromCustomer(), orderRequisitionModel.getReceivedQty());
+                        }
+                    }
+                    else {
+                        getRequisitionStatusByOrderLines(order);
+                    }
+
+                }
+
+                getModelService().save(orderRequisitionModel);
+
+            }
+        }
+
+    }
+
+
+    private void updateRetailerReceipts(ProductModel productCode, NuvocoCustomerModel dealerCode, Double receivedQuantity) {
+        RetailerRecAllocateModel receiptRetailerAllocate = dealerDao.getRetailerAllocation(productCode, dealerCode);
+        if (null != receiptRetailerAllocate) {
+            LOGGER.info("1. Retailer RECEIPT:::DefaultSCLB2BOrderService:: Record found--- Receipts for Dealer " + receiptRetailerAllocate.getReceipt()
+                    + " Dealer No -->" + receiptRetailerAllocate.getDealerCode()
+                   /* + " Available stock for influencer -->" + receiptRetailerAllocate.getStockAvlForInfluencer()
+                    + " Available allocated or sales to influencer -->" + receiptRetailerAllocate.getSalesToInfluencer()*/);
+           // receiptRetailerAllocate.setSalesToInfluencer((new Double(receivedQuantity)).intValue());
+           // int stockRetailerToInfluencer = (int) ((1.0 * (receiptRetailerAllocate.getReceipt()	- receiptRetailerAllocate.getSalesToInfluencer())));
+            //receiptRetailerAllocate.setStockAvlForInfluencer(stockRetailerToInfluencer);
+            LOGGER.info("2. Retailer RECEIPT:::DefaultSCLB2BOrderService:: Updated " + receiptRetailerAllocate.getReceipt()
+                /*    + " Available stock for influencer -->" + receiptRetailerAllocate.getStockAvlForInfluencer()
+                    + " Allocated or sales to influencer -->" + receiptRetailerAllocate.getSalesToInfluencer()*/);
+            getModelService().save(receiptRetailerAllocate);
+        } else {
+            //If product and dealer is not found in the RetailerRecAllocate
+            //then it means new entry has to be made as orderrequisition is placed with this combination
+            RetailerRecAllocateModel receiptRetailerAllocateNew = modelService.create(RetailerRecAllocateModel.class);
+            receiptRetailerAllocateNew.setProduct(productCode.getPk().toString());
+            receiptRetailerAllocateNew.setDealerCode(dealerCode.getPk().toString());
+            Double updatedQty = receivedQuantity;
+            receiptRetailerAllocateNew.setReceipt((null != updatedQty)?updatedQty.intValue():0);
+            receiptRetailerAllocateNew.setSalesToInfluencer(0);
+          //  int stockRetailerInfluencer = (int) ((1.0 * (receiptRetailerAllocateNew.getReceipt() - receiptRetailerAllocateNew.getSalesToInfluencer())));
+           // receiptRetailerAllocateNew.setStockAvlForInfluencer(stockRetailerInfluencer);
+            getModelService().save(receiptRetailerAllocateNew);
+            getModelService().refresh(receiptRetailerAllocateNew);
+        }
     }
 
     /**

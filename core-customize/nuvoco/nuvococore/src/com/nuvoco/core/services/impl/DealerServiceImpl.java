@@ -3,6 +3,7 @@ package com.nuvoco.core.services.impl;
 import com.nuvoco.core.dao.DealerDao;
 import com.nuvoco.core.model.NuvocoCustomerModel;
 import com.nuvoco.core.model.ReceiptAllocaltionModel;
+import com.nuvoco.core.model.RetailerRecAllocateModel;
 import com.nuvoco.core.services.DealerService;
 import com.nuvoco.facades.CreditLimitData;
 import com.nuvoco.facades.data.NuvocoDealerSalesAllocationData;
@@ -27,6 +28,42 @@ public class DealerServiceImpl implements DealerService {
     DealerDao dealerDao;
 
 
+    /**
+     * @param productCode
+     * @return
+     */
+    @Override
+    public NuvocoDealerSalesAllocationData getStockAllocationForRetailer(String productCode) {
+        NuvocoDealerSalesAllocationData dealerAllocationData = new NuvocoDealerSalesAllocationData();
+        B2BCustomerModel currentUser = (B2BCustomerModel) userService.getCurrentUser();
+        NuvocoCustomerModel dealerModel = (NuvocoCustomerModel) currentUser;
+        // Check for Product code is null then always return the total values of stocks
+        // for dealer available for all products
+        if (dealerModel != null) {
+            if (productCode == null) {
+                List<List<Integer>> stockAvailList = dealerDao.getRetailerTotalAllocation(dealerModel);
+                // Always it should return one row with total stocks available
+                List<Integer> totalStocksAvail = (stockAvailList != null) ? stockAvailList.get(0)
+                        : new ArrayList<Integer>();
+                if (null != totalStocksAvail && !totalStocksAvail.isEmpty()) {
+                    dealerAllocationData.setStockAvailableForInfluencer(totalStocksAvail.get(0));
+                }
+            } else {
+                // When request for each product code and each dealer received
+                ProductModel productModel = productService.getProductForCode(productCode);
+                if (null != productModel) {
+                    RetailerRecAllocateModel retailerReceiptAllocation =
+                            dealerDao.getRetailerAllocation(productModel, dealerModel);
+                    if (retailerReceiptAllocation != null) {
+                        dealerAllocationData.setProductCode(productCode);
+                        dealerAllocationData.setStockAvailableForInfluencer(retailerReceiptAllocation.getStockAvlForInfluencer());
+                    }
+                }
+            }
+        }
+
+        return dealerAllocationData;
+    }
 
     /**
      * @param productCode

@@ -323,4 +323,12 @@
 	<bean class="com.nuvoco.occ.dto.OrderRequisitionListWsDTO">
 		<property name="requisitions" type="java.util.List&lt;com.nuvoco.occ.dto.OrderRequisitionWsDTO>"/>
 	</bean>
+
+
+	<bean class="com.nuvoco.occ.dto.CustomerListWsDTO">
+		<property name="customers"
+				  type="java.util.List&lt;com.nuvoco.occ.dto.dealer.DealerWsDTO>">
+		</property>
+		<property name="totalCount" type="Long"/>
+	</bean>
 </beans>
