@@ -16,4 +16,5 @@ public interface DealerDao {
     RetailerRecAllocateModel getRetailerAllocation(ProductModel productCode, NuvocoCustomerModel dealerCode);
 
 
+    List<List<Integer>>  getRetailerTotalAllocation(NuvocoCustomerModel dealerModel);
 }

@@ -82,4 +82,20 @@ public class DealerDaoImpl implements DealerDao {
         else
             return null;
     }
+
+    /**
+     * @param dealerCode
+     * @return
+     */
+    @Override
+    public List<List<Integer>> getRetailerTotalAllocation(NuvocoCustomerModel dealerCode) {
+        final Map<String, Object> params = new HashMap<String, Object>();
+        final StringBuilder builder = new StringBuilder("SELECT SUM({stockAvlForInfluencer}) FROM {RetailerRecAllocate} WHERE {dealerCode}=?dealerCode");
+        params.put("dealerCode", dealerCode);
+        final FlexibleSearchQuery query = new FlexibleSearchQuery(builder.toString());
+        query.setResultClassList(Arrays.asList(Integer.class,Integer.class));
+        query.addQueryParameters(params);
+        final SearchResult<List<Integer>> searchResult = flexibleSearchService.search(query);
+        return searchResult.getResult()!=null?searchResult.getResult():Collections.emptyList();
+    }
 }

@@ -5,6 +5,7 @@ import com.nuvoco.core.model.NuvocoCustomerModel;
 import com.nuvoco.core.model.NuvocoUserModel;
 import com.nuvoco.core.model.SubAreaMasterModel;
 import com.nuvoco.facades.data.FilterTalukaData;
+import com.nuvoco.facades.data.RequestCustomerData;
 import de.hybris.platform.basecommerce.model.site.BaseSiteModel;
 import de.hybris.platform.core.model.user.UserModel;
 import de.hybris.platform.core.servicelayer.data.SearchPageData;
@@ -13,7 +14,11 @@ import java.util.List;
 
 public interface TerritoryManagementDao {
 
-    NuvocoUserModel getSOForSubArea(NuvocoCustomerModel sclCustomer);
+    NuvocoUserModel getSOForSubArea(NuvocoCustomerModel nuvocoCustomer);
+
+    List<NuvocoCustomerModel> getDealersForSP(RequestCustomerData requestCustomerData);
+
+    List<NuvocoCustomerModel> getCustomerForUser(RequestCustomerData requestCustomerData, List<SubAreaMasterModel> subAreaMasterList);
 
     CustDepotMasterModel getCustDepotForCustomer(NuvocoCustomerModel customer);
     List<NuvocoCustomerModel> getRetailerListForDealer(NuvocoCustomerModel nuvocoCustomer, BaseSiteModel site);

@@ -1,10 +1,12 @@
 package com.nuvoco.core.dao.impl;
 
 import com.nuvoco.core.dao.TerritoryManagementDao;
+import com.nuvoco.core.enums.CounterType;
 import com.nuvoco.core.enums.DealerCategory;
 import com.nuvoco.core.enums.NuvocoUserType;
 import com.nuvoco.core.model.*;
 import com.nuvoco.facades.data.FilterTalukaData;
+import com.nuvoco.facades.data.RequestCustomerData;
 import de.hybris.platform.b2b.model.B2BCustomerModel;
 import de.hybris.platform.b2b.services.B2BUnitService;
 import de.hybris.platform.basecommerce.model.site.BaseSiteModel;
@@ -73,6 +75,118 @@ public class TerritoryManagementDaoImpl implements TerritoryManagementDao {
 
     }
 
+    /**
+     * @param requestCustomerData
+     * @return
+     */
+    @Override
+    public List<NuvocoCustomerModel> getDealersForSP(RequestCustomerData requestCustomerData) {
+        final Map<String, Object> params = new HashMap<String, Object>();
+        String strQuery = getDealersForSPQuery(requestCustomerData, params);
+
+        FlexibleSearchQuery query = new FlexibleSearchQuery(strQuery);
+        query.setResultClassList(Collections.singletonList(NuvocoCustomerModel.class));
+        query.addQueryParameters(params);
+        final SearchResult<NuvocoCustomerModel> searchResult = flexibleSearchService.search(query);
+        List<NuvocoCustomerModel> result = searchResult.getResult();
+        return result != null && !result.isEmpty() ? result : Collections.emptyList();
+    }
+
+
+
+    private String getDealersForSPQuery(RequestCustomerData requestCustomerData, Map<String, Object> params) {
+        final StringBuilder builder = new StringBuilder("Select {c.pk} from {CustDepotDealerMapping as d join SpCustDepotMapping as s on {d.custDepotCode}={s.custDepotCode} join NuvocoCustomer as c on {c.pk}={d.dealerCode} }")
+                .append(" where {s.spCode} = ?currentUser AND {s.brand} = ?brand AND {d.brand}= ?brand AND {s.active} = ?active ");
+        params.put("active", Boolean.TRUE);
+        params.put("brand", baseSiteService.getCurrentBaseSite());
+        params.put("currentUser", userService.getCurrentUser());
+        requestCustomerData.setIncludeNonSclCustomer(true);
+        appendFilterQuery(builder, params, requestCustomerData);
+        return builder.toString();
+    }
+
+    /**
+     * @param requestCustomerData
+     * @param subAreaMasterList
+     * @return
+     */
+    @Override
+    public List<NuvocoCustomerModel> getCustomerForUser(RequestCustomerData requestCustomerData, List<SubAreaMasterModel> subAreaMasterList) {
+        final Map<String, Object> params = new HashMap<String, Object>();
+        String strQuery = getCustomerForUserQuery(requestCustomerData, subAreaMasterList, params);
+        FlexibleSearchQuery query = new FlexibleSearchQuery(strQuery);
+        query.setResultClassList(Collections.singletonList(NuvocoCustomerModel.class));
+        query.addQueryParameters(params);
+        final SearchResult<NuvocoCustomerModel> searchResult = flexibleSearchService.search(query);
+        List<NuvocoCustomerModel> result = searchResult.getResult();
+
+        return result != null && !result.isEmpty() ? result : Collections.emptyList();
+    }
+
+
+    private String getCustomerForUserQuery(RequestCustomerData requestCustomerData, List<SubAreaMasterModel> subAreaMasterList, Map<String, Object> params) {
+        final StringBuilder builder = new StringBuilder("SELECT {c.pk} FROM {CustomerSubAreaMapping as m join NuvocoCustomer as c on {m.nuvocoCustomer}={c.pk} } WHERE {m.subAreaMaster} in (?subAreaList) ");
+        params.put("subAreaList", subAreaMasterList);
+        appendFilterQuery(builder, params, requestCustomerData);
+        return builder.toString();
+    }
+
+
+    public void appendFilterQuery(StringBuilder builder, Map<String, Object> params, RequestCustomerData requestCustomerData) {
+        if (requestCustomerData.getCounterType() != null && !requestCustomerData.getCounterType().isEmpty()) {
+            List<CounterType> counterTypes = new ArrayList<CounterType>();
+            for (String counterType : requestCustomerData.getCounterType()) {
+                if (StringUtils.isNotBlank(counterType) && CounterType.valueOf(counterType) != null) {
+                    counterTypes.add(CounterType.valueOf(counterType));
+                }
+            }
+            if (!counterTypes.isEmpty()) {
+                builder.append("and {c.counterType} in (?counterTypes) ");
+                params.put("counterTypes", counterTypes);
+            }
+        }
+        if (StringUtils.isNotBlank(requestCustomerData.getNetworkType())) {
+            builder.append("and {c.networkType}=?networkType ");
+            params.put("networkType", requestCustomerData.getNetworkType());
+        }
+        if (StringUtils.isNotBlank(requestCustomerData.getSearchKey())) {
+            builder.append("and (UPPER({c.name}) like (?filter) or {c.uid} like (?filter) or {c.customerNo} like (?filter) or {c.mobileNumber} like (?filter) ) ");
+            params.put("filter", "%" + requestCustomerData.getSearchKey() + "%");
+        }
+       /* if (StringUtils.isNotBlank(requestCustomerData.getInfluencerType())) {
+            builder.append("and {c.influencerType}=?influencerType ");
+            params.put("influencerType", InfluencerType.valueOf(requestCustomerData.getInfluencerType()));
+        }*/
+        if (StringUtils.isNotBlank(requestCustomerData.getCustomerUid())) {
+            builder.append("and {c.uid}=?uid ");
+            params.put("uid", requestCustomerData.getCustomerUid());
+        }
+        if (requestCustomerData.getRemoveFlaggedCustomer() != null && requestCustomerData.getRemoveFlaggedCustomer()) {
+            builder.append("and {c.isDealerFlag}=?isDealerFlag ");
+            params.put("isDealerFlag", Boolean.FALSE);
+        }
+        if (Objects.nonNull(requestCustomerData.getDealerCategory())) {
+            builder.append("and {c.dealerCategory}=?dealerCategory ");
+            params.put("dealerCategory", DealerCategory.valueOf(requestCustomerData.getDealerCategory()));
+        }
+        if (requestCustomerData.getIsNew() != null && requestCustomerData.getIsNew()) {
+            LocalDate lastNinetyDay = LocalDate.now().minusDays(90);
+            builder.append("and {c.dateOfJoining}>=?lastNinetyDay ");
+            params.put("lastNinetyDay", lastNinetyDay.toString());
+        }
+      /*  if (requestCustomerData.getIncludeNonCustomer() == null || !requestCustomerData.getIncludeNonSclCustomer()) {
+            builder.append("and {m.isOtherBrand}=?isOtherBrand ");
+            params.put(CustomerSubAreaMappingModel.ISOTHERBRAND, Boolean.FALSE);
+        }*/
+        if (requestCustomerData.getIsFlag() != null && requestCustomerData.getIsFlag().equals(Boolean.TRUE)) {
+            builder.append("and {c.isDealerFlag}=?isDealerFlag ");
+            params.put("isDealerFlag", Boolean.TRUE);
+        }
+        if (requestCustomerData.getIsUnFlag() != null && requestCustomerData.getIsUnFlag().equals(Boolean.TRUE)) {
+            builder.append("and {c.isUnFlagRequestRaised}=?isUnFlagRequestRaised ");
+            params.put("isUnFlagRequestRaised", Boolean.TRUE);
+        }
+    }
     /**
      * @param customer
      * @return

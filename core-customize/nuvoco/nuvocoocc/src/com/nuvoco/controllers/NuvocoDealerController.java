@@ -47,4 +47,15 @@ public class NuvocoDealerController {
         return dealerFacade.getStockAllocationForDealer(productCode);
     }
 
+
+    @Secured({"ROLE_CUSTOMERGROUP", "ROLE_TRUSTED_CLIENT", "ROLE_CUSTOMERMANAGERGROUP"})
+    @RequestMapping(value = "/getRetailerStockAllocation", method = RequestMethod.GET)
+    @Operation(operationId = "getRetailerStockAllocation", summary = "Get stock allocation of retailer for a specified product")
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    @ApiBaseSiteIdAndUserIdAndTerritoryParam
+    public NuvocoDealerSalesAllocationData getStockAllocationForRetailer(@Parameter(description = "productCode", required=false) @RequestParam String productCode) {
+        return dealerFacade.getStockAllocationForRetailer(productCode);
+    }
+
 }

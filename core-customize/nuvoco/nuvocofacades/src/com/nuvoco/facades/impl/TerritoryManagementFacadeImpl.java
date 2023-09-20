@@ -3,6 +3,8 @@ package com.nuvoco.facades.impl;
 import com.nuvoco.core.model.NuvocoCustomerModel;
 import com.nuvoco.core.services.TerritoryManagementService;
 import com.nuvoco.facades.TerritoryManagementFacade;
+import com.nuvoco.facades.data.CustomerListData;
+import com.nuvoco.facades.data.RequestCustomerData;
 import com.nuvoco.facades.prosdealer.data.DealerListData;
 import de.hybris.platform.commercefacades.user.data.AddressData;
 import de.hybris.platform.commercefacades.user.data.CustomerData;
@@ -65,6 +67,39 @@ public class TerritoryManagementFacadeImpl implements TerritoryManagementFacade 
         List<CustomerData> customerData = dealerBasicConverter.convertAll(retailerListForDealer.getResults());
         result.setResults(customerData);
         return result;
+    }
+
+    /**
+     * @param customerData
+     * @return
+     */
+    @Override
+    public CustomerListData getCustomerForUser(RequestCustomerData customerData) {
+        List<NuvocoCustomerModel> customerList = territoryManagementService.getCustomerforUser(customerData);
+        List<CustomerData> allData = new ArrayList<CustomerData>();
+        if(customerList!=null && !customerList.isEmpty()) {
+
+            for(NuvocoCustomerModel source: customerList) {
+                CustomerData target = new CustomerData();
+                target.setUid(source.getUid());
+                target.setName(source.getName());
+                target.setEmail(source.getEmail());
+                target.setState(source.getState());
+                target.setCustomerId(source.getCustomerNo());
+                target.setContactNumber(source.getMobileNumber());
+                target.setDealerCategory(source.getDealerCategory()!=null?source.getDealerCategory().getCode():"");
+                if(source.getCounterType()!=null) {
+                    target.setPartnerType(source.getCounterType().getCode());
+                }
+//				if(null!=source.getProfilePicture()){
+//					populateProfilePicture(source.getProfilePicture(),target);
+//				}
+                allData.add(target);
+            }
+        }
+        CustomerListData dataList = new CustomerListData();
+        dataList.setCustomers(allData);
+        return dataList;
     }
 
     /**

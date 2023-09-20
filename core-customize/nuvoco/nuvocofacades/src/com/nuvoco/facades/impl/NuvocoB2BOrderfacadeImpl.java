@@ -36,6 +36,28 @@ public class NuvocoB2BOrderfacadeImpl extends DefaultB2BOrderFacade implements N
     private Converter<OrderModel, NuvocoOrderData> nuvocoOrderCardConverter;
 
     /**
+     * @param vehicleArrived
+     * @param orderCode
+     * @param entryNumber
+     * @return
+     */
+    @Override
+    public Boolean getVehicleArrivalConfirmationForOrder(boolean vehicleArrived, String orderCode, String entryNumber) {
+        return nuvocoB2BOrderService.getVehicleArrivalConfirmationForOrder(vehicleArrived,orderCode,entryNumber);
+    }
+
+    /**
+     * @param shortageQuantity
+     * @param orderCode
+     * @param entryNumber
+     * @return
+     */
+    @Override
+    public Boolean updateEpodStatusForOrder(double shortageQuantity, String orderCode, int entryNumber) {
+        return nuvocoB2BOrderService.updateEpodStatusForOrder(shortageQuantity, orderCode, entryNumber);
+    }
+
+    /**
      * @param requisitionId
      * @param status
      * @return

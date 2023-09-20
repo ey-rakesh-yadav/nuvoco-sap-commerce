@@ -9,6 +9,7 @@ import com.nuvoco.core.model.NuvocoUserModel;
 import com.nuvoco.core.model.SubAreaMasterModel;
 import com.nuvoco.core.services.TerritoryManagementService;
 import com.nuvoco.facades.data.FilterTalukaData;
+import com.nuvoco.facades.data.RequestCustomerData;
 import de.hybris.platform.b2b.model.B2BCustomerModel;
 import de.hybris.platform.basecommerce.model.site.BaseSiteModel;
 import de.hybris.platform.core.model.user.UserModel;
@@ -34,6 +35,37 @@ public class TerritoryManagementServiceImpl implements TerritoryManagementServic
 
     @Autowired
     TerritoryManagementDao territoryManagementDao;
+
+    /**
+     * @param requestCustomerData
+     * @return
+     */
+    @Override
+    public List<NuvocoCustomerModel> getCustomerforUser(RequestCustomerData requestCustomerData) {
+        B2BCustomerModel currentUser=(B2BCustomerModel) userService.getCurrentUser();
+        List<NuvocoCustomerModel> customerList = null;
+        if(currentUser instanceof NuvocoUserModel ||
+                (((NuvocoCustomerModel) currentUser).getCounterType()==null) ||
+                (( !((NuvocoCustomerModel) currentUser).getCounterType().equals(CounterType.SP)))){
+            List<SubAreaMasterModel> subAreaMasterList = new ArrayList<SubAreaMasterModel>();
+            if(StringUtils.isNotBlank(requestCustomerData.getSubAreaMasterPk())) {
+                subAreaMasterList.add(getTerritoryById(requestCustomerData.getSubAreaMasterPk()));
+            }
+            else{
+                FilterTalukaData filterTalukaData = new FilterTalukaData();
+                subAreaMasterList = getTaulkaForUser(filterTalukaData);
+            }
+            if(subAreaMasterList!=null && !subAreaMasterList.isEmpty()) {
+                customerList = territoryManagementDao.getCustomerForUser(requestCustomerData, subAreaMasterList);
+                return customerList;
+            }
+        }
+        else{
+            customerList=territoryManagementDao.getDealersForSP(requestCustomerData);
+            return customerList;
+        }
+        return Collections.emptyList();
+    }
 
     /**
      * @return
@@ -251,6 +283,15 @@ public class TerritoryManagementServiceImpl implements TerritoryManagementServic
         B2BCustomerModel customer=(B2BCustomerModel) userService.getCurrentUser();
         BaseSiteModel site = baseSiteService.getCurrentBaseSite();
         return territoryManagementDao.getAllStatesForSO(customer,site);
+    }
+
+    /**
+     * @param territoryId
+     * @return
+     */
+    @Override
+    public SubAreaMasterModel getTerritoryById(String territoryId) {
+        return territoryManagementDao.getTerritoryById(territoryId);
     }
 
 

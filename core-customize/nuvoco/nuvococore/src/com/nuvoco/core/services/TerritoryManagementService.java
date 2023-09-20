@@ -4,11 +4,14 @@ import com.nuvoco.core.model.CustDepotMasterModel;
 import com.nuvoco.core.model.NuvocoCustomerModel;
 import com.nuvoco.core.model.NuvocoUserModel;
 import com.nuvoco.core.model.SubAreaMasterModel;
+import com.nuvoco.facades.data.RequestCustomerData;
 import de.hybris.platform.core.servicelayer.data.SearchPageData;
 
 import java.util.List;
 
 public interface TerritoryManagementService {
+
+    List<NuvocoCustomerModel> getCustomerforUser(RequestCustomerData requestCustomerData);
 
     List<NuvocoCustomerModel> getRetailerListForDealer();
 
@@ -51,5 +54,7 @@ public interface TerritoryManagementService {
     List<NuvocoCustomerModel> getAllRetailersForSubAreaTOP(String subArea, String dealerCode);
 
     List<String> getAllStatesForSO();
+
+    SubAreaMasterModel getTerritoryById(String territoryId);
 
 }
