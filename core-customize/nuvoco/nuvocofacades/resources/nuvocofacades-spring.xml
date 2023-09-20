@@ -362,5 +362,4 @@
 	<bean id="orderRequisitionFacade" class="com.nuvoco.facades.impl.OrderRequisitionFacadeImpl"/>
 
 
-
 </beans>
