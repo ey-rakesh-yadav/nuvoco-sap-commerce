@@ -4,12 +4,13 @@ import com.nuvoco.facades.data.DeliveryDateAndSlotListData;
 import com.nuvoco.facades.data.EpodFeedbackData;
 import com.nuvoco.facades.data.NuvocoOrderData;
 import com.nuvoco.facades.data.NuvocoOrderHistoryData;
+import de.hybris.platform.b2bacceleratorfacades.order.B2BOrderFacade;
 import de.hybris.platform.commercefacades.order.data.CartData;
 import de.hybris.platform.core.servicelayer.data.SearchPageData;
 
 import java.util.List;
 
-public interface NuvocoB2BOrderfacade {
+public interface NuvocoB2BOrderfacade extends B2BOrderFacade {
 
     Boolean getVehicleArrivalConfirmationForOrder(boolean vehicleArrived, String orderCode, String entryNumber);
 
