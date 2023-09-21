@@ -355,7 +355,9 @@
 
 	<bean id="deliverySlotsFacade" class="com.nuvoco.facades.impl.DeliverySlotsFacadeImpl"/>
 
-	<bean id="nuvocoB2BOrderfacade" class="com.nuvoco.facades.impl.NuvocoB2BOrderfacadeImpl"/>
+	<alias name="nuvocoB2BOrderfacade" alias="orderFacade"/>
+	<bean id="nuvocoB2BOrderfacade" class="com.nuvoco.facades.impl.NuvocoB2BOrderfacadeImpl" parent="defaultB2BOrderFacade"/>
+
 
 	<bean id="deliveryModesFacade" class="com.nuvoco.facades.impl.DealerFacadeImpl"/>
 

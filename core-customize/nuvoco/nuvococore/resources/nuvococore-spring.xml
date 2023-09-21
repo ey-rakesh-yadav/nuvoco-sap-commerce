@@ -653,4 +653,16 @@
 		<property name="numeric" value="${keygen.orderRequisition.id.numeric}"/>
 		<property name="template" value="${keygen.orderRequisition.id.template}"/>
 	</bean>
+
+
+	<alias name="defaultNuvocoB2BDeliveryAddressesLookupStrategy" alias="nuvocoB2BDeliveryAddressesLookupStrategy"/>
+	<bean id="defaultNuvocoB2BDeliveryAddressesLookupStrategy" class="com.nuvoco.core.strategies.impl.DefaultNuvocoB2BDeliveryAddressesLookupStrategy" >
+		<property name="fallbackDeliveryAddressesLookupStrategy" ref="b2bDeliveryAddressesLookupStrategy"/>
+	</bean>
+
+	<alias alias="b2bDeliveryService" name="defaultB2BDeliveryService"/>
+	<bean id="defaultB2BDeliveryService" parent="deliveryService">
+		<property name="deliveryAddressesLookupStrategy" ref="nuvocoB2BDeliveryAddressesLookupStrategy"/>
+	</bean>
+
 </beans>
