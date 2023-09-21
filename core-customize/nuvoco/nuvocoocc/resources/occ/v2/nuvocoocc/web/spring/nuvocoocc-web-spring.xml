@@ -22,4 +22,9 @@
     <bean depends-on="defaultCommerceWebServicesFilterChainListV2" parent="listMergeDirective">
         <property name="add" ref="requiredRoleMatchingFilter"/>
     </bean>
+
+
+    <alias name="defaultNuvocoB2BPlaceOrderCartValidator" alias="b2BPlaceOrderCartValidator" />
+    <bean id="defaultNuvocoB2BPlaceOrderCartValidator" class="com.nuvoco.validators.DefaultNuvocoB2BPlaceOrderCartValidator" />
+
 </beans>
