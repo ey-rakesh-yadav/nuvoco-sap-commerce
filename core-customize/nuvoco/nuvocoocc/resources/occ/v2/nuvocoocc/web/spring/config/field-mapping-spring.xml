@@ -250,6 +250,19 @@
         </property>
     </bean>
 
+    <bean parent="fieldSetLevelMapping" id="orderEntryWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="de.hybris.platform.commercewebservicescommons.dto.order.OrderEntryWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="truckNo,deliveryQty,driverContactNo,selectedDeliveryDate,sequence,selectedDeliverySlot,isDateReduced,calculatedDeliveryDate,calculatedDeliverySlot,entryNumber,quantity,product(DEFAULT),uiAction,truckDispatchDate,erpOrderNo,erpLineItemId,quantityMT,warehouseCode,routeId,warehouseName,status,basePrice,totalPrice,remarks"/>
+                <entry key="DEFAULT" value="BASIC"/>
+                <entry key="FULL" value="DEFAULT"/>
+            </map>
+        </property>
+    </bean>
+
+
     <bean parent="fieldSetLevelMapping" id="nuvocoOrderWSDTOFieldSetLevelMapping">
         <property name="dtoClass"
                   value="com.nuvoco.occ.dto.order.NuvocoOrderWSDTO"/>
