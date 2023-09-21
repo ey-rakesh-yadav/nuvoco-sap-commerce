@@ -138,7 +138,7 @@ public class NuvocoCartFacadeImpl  extends DefaultCartFacade implements NuvocoCa
 
        List<NuvocoOrderHistoryData> orderHistoryData = nuvocoOrderHistoryCardConverter.convertAll(savedCartModels.getResults());
 
-        final List<CartData> savedCartDatas = Converters.convertAll(savedCartModels.getResults(), getCartConverter());
+       // final List<CartData> savedCartDatas = Converters.convertAll(savedCartModels.getResults(), getCartConverter());
 
         result.setResults(orderHistoryData);
         return result;
