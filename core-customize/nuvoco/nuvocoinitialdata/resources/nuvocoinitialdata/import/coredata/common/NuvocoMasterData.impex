@@ -7,6 +7,16 @@ INSERT_UPDATE Organization;orgID[unique=true];name
                           ;101;Nuvoco
 
 
+INSERT_UPDATE DestinationSourceMaster;orderType(code)[unique=true];customerCategory(code)[unique=true];source(code)[unique=true];sourceCity;sourceDistrict;sourceTaluka;sourceState;type(code);deliveryMode(code)[unique=true];destinationCity[unique=true];destinationTaluka[unique=true];destinationDistrict[unique=true];destinationState[unique=true];brand(uid)[unique=true];grade[unique=true];packaging[unique=true];contributionPerMT
+                                     ;SO;TR;NuvocoWarehouse;Mumbai;Thane;Kalyan;Maharashtra;PLANT;ROAD;Pune;Mulshi;Mulshi;Maharashtra;nuvoco;OPC;HDPE;3
+
+INSERT_UPDATE DeliveryMode;code[unique=true];name;active
+                          ;RAIL;RAIL;TRUE
+                          ;ROAD;ROAD;TRUE
+
+
+
+
 INSERT_UPDATE CustomerSubCategory;code[unique=true];name;parentCategory(code)
                                  ;NT;NT;NT
                                  ;RT;RT;TR

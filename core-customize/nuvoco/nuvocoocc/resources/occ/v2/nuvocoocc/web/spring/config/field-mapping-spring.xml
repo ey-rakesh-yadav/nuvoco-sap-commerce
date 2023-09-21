@@ -64,14 +64,15 @@
         </property>
     </bean>
 
-    <bean parent="fieldSetLevelMapping" id="nuvocoOrderHistoryListWsDTOFieldSetLevelMapping">
+
+    <bean parent="fieldSetLevelMapping" id="addressWsDTOFieldSetLevelMapping">
         <property name="dtoClass"
-                  value="com.nuvoco.facades.data.NuvocoOrderHistoryData"/>
+                  value="de.hybris.platform.commercewebservicescommons.dto.user.AddressWsDTO"/>
         <property name="levelMapping">
             <map>
-                <entry key="BASIC" value="ordersList"/>
-                <entry key="DEFAULT" value="BASIC"/>
-                <entry key="FULL" value="DEFAULT"/>
+                <entry key="BASIC" value="id"/>
+                <entry key="DEFAULT" value="BASIC,state,erpId,retailerAddressPk,taluka,city,district,latitude,longitude,erpCity,createdDate,modifiedDate,isPrimaryAddress,retailerUid,retailerName,accountName,cellphone,email"/>
+                <entry key="FULL" value="DEFAULT,state,taluka,city,district,latitude,longitude,erpCity,createdDate,modifiedDate,isPrimaryAddress,retailerUid,retailerName"/>
             </map>
         </property>
     </bean>
@@ -87,5 +88,205 @@
             </map>
         </property>
     </bean>
+
+
+    <bean parent="fieldSetLevelMapping" id="productWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="code,name,price"/>
+                <entry key="DEFAULT" value="BASIC,minOrderQuantity,maxOrderQuantity,price(DEFAULT)"/>
+                <entry key="FULL" value="DEFAULT,minOrderQuantity,maxOrderQuantity,price(FULL)"/>
+            </map>
+        </property>
+    </bean>
+
+
+   <!-- <bean parent="fieldSetLevelMapping" id="territoryWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.scl.occ.dto.TerritoryWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="state,district,subArea"/>
+                <entry key="DEFAULT" value="BASIC"/>
+                <entry key="FULL" value="DEFAULT"/>
+            </map>
+        </property>
+    </bean>-->
+
+    <bean parent="fieldSetLevelMapping" id="orderRequisitionWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.nuvoco.occ.dto.OrderRequisitionWsDTO"/>
+        <property name="levelMapping">
+            <map>
+
+                <entry key="BASIC" value="requisitionId, requisitionDate,profilePicture, deliverySlotName, fromCustomerNo, fromCustomerUid, fromCustomerName, toCustomerNo, toCustomerUid, toCustomerName, deliveryAddress(FULL), productCode, productName, quantity, receivedQuantity, expectedDeliveryDate, expectedDeliverySlot, status, isDraft, trackingDetails(DEFAULT), requisitionEntryDetails, orderCode, erpOrderNo, serviceType, cancelReason"/>
+                <entry key="DEFAULT"
+                       value="BASIC"/>
+                <entry key="FULL"
+                       value="DEFAULT"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="cartWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="de.hybris.platform.commercewebservicescommons.dto.order.CartWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="code,guid"/>
+                <entry key="DEFAULT"
+                       value="BASIC,totalQuantity,placedBy,creditLimitBreached,spApprovalStatus,totalItems,totalPrice,totalPriceWithTax,entries(DEFAULT),orderType,orderSource,isDealerProvideOwnTransport,suggestionMap,rejectionReasons,productName,productCode,user(FULL),deliveryAddress(FULL),deliveryMode(FULL),warehouse(DEFAULT),retailerName,retailerCode,erpCityCode,destination,destinationName,uiStatus,routeId,erpOrderNo,statusDisplay,bankAccountNo,stateCode,districtCode,regionCode,subAreaCode,requestedDeliveryDate,requestedDeliverySlot,showApprovalButton,requestDeliverySlotName"/>
+                <entry key="FULL"
+                       value="DEFAULT,potentialProductPromotions(FULL),potentialOrderPromotions(FULL),totalUnitCount,store,appliedOrderPromotions(FULL),pickupItemsQuantity,net,calculated,appliedVouchers(FULL),productDiscounts(FULL),totalDiscounts(FULL),subTotal(FULL),orderDiscounts(FULL),entries(FULL),appliedProductPromotions(FULL),totalPrice(FULL),site,deliveryMode(FULL),code,deliveryOrderGroups(FULL),guid,paymentInfo(FULL),pickupOrderGroups(FULL),totalItems,totalPriceWithTax(FULL),deliveryItemsQuantity,totalTax(FULL),user(FULL),deliveryAddress(FULL),deliveryCost(FULL),name,description,savedBy,saveTime,expirationTime,erpOrderNo"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="dealerListWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.nuvoco.occ.dto.dealer.DealerListWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="dealers"/>
+                <entry key="DEFAULT" value="dealers(DEFAULT)"/>
+                <entry key="FULL" value="dealers(FULL)"/>
+            </map>
+        </property>
+    </bean>
+
+
+    <bean parent="fieldSetLevelMapping" id="customerListWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.nuvoco.occ.dto.CustomerListWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="customers,totalCount"/>
+                <entry key="DEFAULT" value="customers(DEFAULT),totalCount"/>
+                <entry key="FULL" value="customers(FULL),totalCount"/>
+            </map>
+        </property>
+    </bean>
+    <bean parent="fieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="de.hybris.platform.commercewebservicescommons.dto.user.UserWsDTO" />
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="employeeId,dateOfJoining,contactNumber,profilePicture(DEFAULT),email,lastVisitDate,isShreeSite,isBangurSite,isRockstrongSite,influencerType,contactPersonName,contactPersonContact,customerNo,state" />
+                <entry key="DEFAULT"
+                       value="BASIC" />
+                <entry key="FULL"
+                       value="employeeId,dateOfJoining,contactNumber,profilePicture(FULL),email,influencerType" />
+            </map>
+        </property>
+    </bean>
+
+
+    <bean parent="fieldSetLevelMapping" id="dealerWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.nuvoco.occ.dto.dealer.DealerWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="uid,name,email,contactNumber,customerId,state,partnerType,potential,lastVisit,dealerCategory,flaggedDate,flaggedBy,flaggedReason,dealerName,dealerCode,dealerContactNumber,defaultAddress(FULL),counterVisitIdforUnFlag,unFlagRequestTime"/>
+                <entry key="DEFAULT" value="BASIC"/>
+                <entry key="FULL" value="DEFAULT"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="priceWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="de.hybris.platform.commercewebservicescommons.dto.product.PriceWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="value,currencyIso"/>
+                <entry key="DEFAULT"
+                       value="currencyIso,priceType,value,maxQuantity,minQuantity,formattedValue"/>
+                <entry key="FULL"
+                       value="currencyIso,priceType,value,maxQuantity,minQuantity,formattedValue"/>
+            </map>
+        </property>
+    </bean>
+
+
+    <bean parent="fieldSetLevelMapping" id="priceRangeWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="de.hybris.platform.commercewebservicescommons.dto.product.PriceRangeWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="minPrice,maxPrice"/>
+                <entry key="DEFAULT" value="minPrice,maxPrice"/>
+                <entry key="FULL" value="minPrice,maxPrice"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="orderStatusUpdateElementListWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="de.hybris.platform.commercewebservicescommons.dto.queues.OrderStatusUpdateElementListWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="orderStatusUpdateElements"/>
+                <entry key="DEFAULT" value="orderStatusUpdateElements(DEFAULT)"/>
+                <entry key="FULL" value="orderStatusUpdateElements(FULL)"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="productSearchPageWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="de.hybris.platform.commercewebservicescommons.dto.search.facetdata.ProductSearchPageWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="freeTextSearch,keywordRedirectUrl,categoryCode,products,pagination"/>
+                <entry key="DEFAULT"
+                       value="freeTextSearch,keywordRedirectUrl,categoryCode,spellingSuggestion(DEFAULT),currentQuery(DEFAULT),breadcrumbs(DEFAULT),products(DEFAULT),pagination(DEFAULT),sorts(DEFAULT)"/>
+                <entry key="FULL"
+                       value="freeTextSearch,keywordRedirectUrl,categoryCode,spellingSuggestion(FULL),currentQuery(FULL),facets(FULL),breadcrumbs(FULL),products(FULL),pagination(FULL),sorts(FULL)"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="nuvocoOrderWSDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.nuvoco.occ.dto.order.NuvocoOrderWSDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="code,quantity,status"/>
+                <entry key="DEFAULT"
+                       value="code,quantity,status,entryNumber,products(DEFAULT),deliveryAddress(DEFAULT),subAreaMasterId,estimatedDeliveryDate,trackingDetails(DEFAULT),user(DEFAULT),dealerProfilePicture(DEFAULT),erpOrderNo,erpLineItemId,destinationCode,destinationName,expectedDeliveryDate,showApprovalButton"/>
+                <entry key="FULL"
+                       value="code,quantity,status,entryNumber,products(FULL),deliveryAddress(FULL),subAreaMasterId,estimatedDeliveryDate,trackingDetails(FULL),user(DEFAULT),dealerProfilePicture(DEFAULT),showApprovalButton"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="nuvocoOrderHistoryWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.nuvoco.occ.dto.NuvocoOrderHistoryWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="orderNo,dealerCode,dealerName,spApprovalStatus,status,driverPhone,subAreaMasterId,transporterPhone,productCode,productName,quantity,deliveryAddress(DEFAULT),rejectionReason,vehicleArrivalTime,estimatedArrivalTime,transporterName,truckNumber,driverName,erpOrderNo,erpLineItemId,entryNumber,entries(DEFAULT),totalPrice(DEFAULT),orderDate,dealerProfilePicture(DEFAULT),deliveredDate,destinationCode,destinationName,shortageQuantity,epodInitiateDate,erpEtaDate,expectedDeliveryDate,soContactNumber,dealerContactNumber,cancelledDate"/>
+                <entry key="DEFAULT" value="BASIC"/>
+                <entry key="FULL" value="DEFAULT"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean parent="fieldSetLevelMapping" id="nuvocoOrderHistoryListWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="com.nuvoco.occ.dto.NuvocoOrderHistoryListWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC" value="ordersList"/>
+                <entry key="DEFAULT" value="BASIC"/>
+                <entry key="FULL" value="DEFAULT"/>
+            </map>
+        </property>
+    </bean>
+
 
 </beans>
