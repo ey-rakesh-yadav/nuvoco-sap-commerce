@@ -331,4 +331,161 @@
 		</property>
 		<property name="totalCount" type="Long"/>
 	</bean>
+
+	<bean class="com.nuvoco.occ.dto.LeadWsDTO">
+		<property name="leadId" type="String">
+			<description>leadId of the Lead</description>
+		</property>
+		<property name="title" type="String">
+			<description>title of the Lead</description>
+		</property>
+		<property name="firstName" type="String">
+			<description>firstName of the Lead</description>
+		</property>
+		<property name="lastName" type="String">
+			<description>lastName of the Lead</description>
+		</property>
+		<property name="company" type="String">
+			<description>company of the Lead</description>
+		</property>
+		<property name="leadSource" type="String">
+			<description>leadSource of the Lead</description>
+		</property>
+		<property name="industryType" type="String">
+			<description>industryType of the Lead</description>
+		</property>
+		<property name="annualRevenue" type="String">
+			<description>sap of the Lead</description>
+		</property>
+		<property name="phone" type="String">
+			<description>phone of the Lead</description>
+		</property>
+		<property name="mobile" type="String">
+			<description>mobile of the Lead</description>
+		</property>
+		<property name="fax" type="String">
+			<description>fax of the Lead</description>
+		</property>
+		<property name="email" type="String">
+			<description>email of the Lead</description>
+		</property>
+		<property name="website" type="String">
+			<description>website of the Lead</description>
+		</property>
+
+		<property name="leadStatus" type="String">
+			<description>leadStatus of the Lead</description>
+		</property>
+		<property name="leadQualificationLevel" type="String">
+			<description>leadQualificationLevel of the Lead</description>
+		</property>
+		<property name="noOfEmployees" type="String">
+			<description>noOfEmployees of the Lead</description>
+		</property>
+		<property name="campaignSource" type="String">
+			<description>campaignSource of the Lead</description>
+		</property>
+		<property name="createdBy" type="String">
+			<description>createdBy of the Lead</description>
+		</property>
+		<property name="modifiedBy" type="String">
+			<description>modifiedBy of the Lead</description>
+		</property>
+		<!--<property name="street" type="String">
+			<description>street of the Lead</description>
+		</property>
+
+		<property name="city" type="String">
+			<description>city of the Lead</description>
+		</property>
+		<property name="state" type="String">
+			<description>state of the Lead</description>
+		</property>
+		<property name="zipCode" type="String">
+			<description>zipCode of the Lead</description>
+		</property>
+		<property name="country" type="String">
+			<description>country of the Lead</description>
+		</property>-->
+		<property name="description" type="String">
+			<description>description of the Lead</description>
+		</property>
+		<property name="address" type="String">
+			<description>address of the Lead</description>
+		</property>
+		<property name="quantity" type="String">
+			<description>quantity of the Lead</description>
+		</property>
+		<property name="price" type="String">
+			<description>price of the Lead</description>
+		</property>
+		<property name="accountName" type="String">
+			<description>accountName of the Lead</description>
+		</property>
+		<property name="accountId" type="String">
+			<description>accountId of the Lead</description>
+		</property>
+	</bean>
+
+
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.user.UserWsDTO">
+		<property name="productPortfolio" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO>">
+			<description>List of products</description>
+		</property>
+		<property name="sapCode" type="String">
+			<description>sap code of the user</description>
+		</property>
+		<property name="leads" type="java.util.List&lt;com.nuvoco.occ.dto.LeadWsDTO>">
+			<description>leads of the user</description>
+		</property>
+		<property name="employeeId" type="String">
+			<description>employee Id of the user</description>
+		</property>
+		<property name="dateOfJoining" type="String">
+			<description>date of joining of the user</description>
+		</property>
+
+		<property name="contactNumber" type="String">
+			<description>contact Number of the user</description>
+		</property>
+		<property name="profilePicture" type="de.hybris.platform.commercewebservicescommons.dto.product.ImageWsDTO">
+			<description>Profile picture of User</description>
+		</property>
+		<property name="lastVisitDate" type="String"/>
+		<property name="isShreeSite" type="Boolean"/>
+		<property name="isBangurSite" type="Boolean"/>
+		<property name="isRockstrongSite" type="Boolean"/>
+		<property name="influencerType" type="String"/>
+		<property name="contactPersonName" type="String"/>
+		<property name="contactPersonContact" type="String"/>
+		<property name="customerNo" type="String"/>
+		<property name="state" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.CartWsDTO">
+		<property name="statusDisplay" type="String"/>
+		<property name="bankAccountNo" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.user.AddressWsDTO">
+		<property name="state" type="String"/>
+		<property name="taluka" type="String"/>
+		<property name="pinCode" type="String" />
+		<property name="mobileNo" type="String"/>
+		<property name="alternateMobileNo" type="String"/>
+		<property name="latitude" type="Double" />
+		<property name="longitude" type="Double" />
+		<property name="erpCity" type="String" />
+		<property name="createdDate" type="String"/>
+		<property name="modifiedDate" type="String"/>
+		<property name="retailerUid" type="String"/>
+		<property name="retailerName" type="String"/>
+		<property name="isPrimaryAddress" type="Boolean"/>
+		<property name="accountName" type="String"/>
+		<property name="erpId" type="String"/>
+		<property name="retailerAddressPk" type="String"/>
+		<property name="city" type="String" />
+	</bean>
+
 </beans>
