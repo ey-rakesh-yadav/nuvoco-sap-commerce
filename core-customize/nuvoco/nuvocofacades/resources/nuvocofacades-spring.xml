@@ -362,4 +362,23 @@
 	<bean id="orderRequisitionFacade" class="com.nuvoco.facades.impl.OrderRequisitionFacadeImpl"/>
 
 
+
+
+	<bean id="dealerAddressPopulator"
+		  class="com.nuvoco.facades.populators.DealerAddressPopulator">
+	</bean>
+
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="defaultAddressConverter" />
+		<property name="add" ref="dealerAddressPopulator" />
+	</bean>
+
+
+	<alias name="dealerAddressReversePopulator" alias="addressReversePopulator"/>
+	<bean id="dealerAddressReversePopulator"
+		  class="com.nuvoco.facades.populators.DealerAddressReversePopulator"
+		  parent="defaultAddressReversePopulator">
+	</bean>
+
 </beans>
