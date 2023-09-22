@@ -2,6 +2,7 @@ package com.nuvoco.controllers;
 
 
 import com.nuvoco.annotation.ApiBaseSiteIdAndUserIdAndTerritoryParam;
+import com.nuvoco.facades.NuvocoB2BCartFacade;
 import com.nuvoco.facades.NuvocoCartFacade;
 import com.nuvoco.facades.data.NuvocoOrderHistoryData;
 import com.nuvoco.facades.data.NuvocoOrderHistoryListData;
@@ -70,7 +71,7 @@ public class NuvocoB2BCartController extends NuvocooccController{
     private Validator b2BOrderEntriesCreateValidator;
 
     @Autowired
-    private NuvocoCartFacade nuvocoCartFacade;
+    private NuvocoB2BCartFacade nuvocoB2BCartFacade;
 
 
     @Operation(operationId = "doAddOrgCartEntries", summary = "Adds more quantity to the cart of specific products", description = "Updates the details of specified products in the cart, based either on the product code or the entryNumber.")
@@ -122,7 +123,7 @@ public class NuvocoB2BCartController extends NuvocooccController{
 
         NuvocoOrderHistoryListData orderHistoryListData = new NuvocoOrderHistoryListData();
         final SearchPageData searchPageData = PaginatedSearchUtils.createSearchPageDataWithPagination(pageSize, currentPage, true);
-        final SearchPageData<NuvocoOrderHistoryData> sclOrderHistoryData = nuvocoCartFacade.getSavedCartsBySavedBy(searchPageData, filter, month1, year1,productName,orderType);
+        final SearchPageData<NuvocoOrderHistoryData> sclOrderHistoryData = nuvocoB2BCartFacade.getSavedCartsBySavedBy(searchPageData, filter, month1, year1,productName,orderType);
         orderHistoryListData.setOrdersList(sclOrderHistoryData.getResults());
 
         if (sclOrderHistoryData.getPagination() != null)

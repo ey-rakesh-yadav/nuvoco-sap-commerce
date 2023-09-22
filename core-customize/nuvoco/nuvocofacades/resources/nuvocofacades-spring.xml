@@ -275,7 +275,7 @@
 
 	<bean id="nuvocoOrderFacade" class="com.nuvoco.facades.impl.NuvocoOrderFacadeImpl"/>
 
-	<bean id="nuvocoCartFacade" class="com.nuvoco.facades.impl.NuvocoCartFacadeImpl"/>
+	<bean id="nuvocoCartFacade" class="com.nuvoco.facades.impl.NuvocoCartFacadeImpl" parent="defaultCartFacade"/>
 	<!-- order history -->
 
 	<alias name="destinationSourceConverter" alias="destinationSourceConverter"/>
@@ -286,6 +286,11 @@
 				<ref bean="destinationSourcePopulator"/>
 			</list>
 		</property>
+	</bean>
+
+
+	<alias name="nuvocoB2BCartFacade" alias="b2bCartFacade"/>
+	<bean id="nuvocoB2BCartFacade" class="com.nuvoco.facades.impl.NuvocoB2BCartFacadeImpl" parent="defaultB2BCartFacade">
 	</bean>
 
 	<bean id="destinationSourcePopulator" class="com.nuvoco.facades.populators.DestinationSourcePopulator"/>

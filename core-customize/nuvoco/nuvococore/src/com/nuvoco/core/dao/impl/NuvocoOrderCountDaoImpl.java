@@ -54,11 +54,11 @@ public class NuvocoOrderCountDaoImpl extends DefaultGenericDao<DataConstraintMod
         final Map<String, Object> attr = new HashMap<String, Object>();
         attr.put("statusList", Arrays.asList(status));
         //attr.put(OrderModel.USER, user);
-        attr.put("isCreditLimitBreached", isCreditLimitBreached);
-        Integer lastXDays = findDaysByConstraintName("ORDER_LISTING_VISIBLITY");
+       // attr.put("isCreditLimitBreached", isCreditLimitBreached);
+       // Integer lastXDays = findDaysByConstraintName("ORDER_LISTING_VISIBLITY");
         final StringBuilder sql = new StringBuilder();
         sql.append("SELECT {o:pk} from { ").append(OrderModel._TYPECODE).append(" as o} WHERE   ")
-                .append(getLastXDayQuery("o:modifiedtime", attr, lastXDays)).append(" and {o:status} in (?statusList) ");
+                /*.append(getLastXDayQuery("o:modifiedtime", attr, lastXDays))*/.append(" {o:status} in (?statusList) ");
         if(isCreditLimitBreached){
             sql.append(" and {o:creditLimitBreached} = ?isCreditLimitBreached ");
         }
@@ -66,7 +66,7 @@ public class NuvocoOrderCountDaoImpl extends DefaultGenericDao<DataConstraintMod
             sql.append(" and {o:approvalLevel} = ?approvalLevel ");
             getApprovalLevelByUser(user,attr);
         }*/
-        sql.append(appendSpApprovalActionQuery(attr, user, spApprovalFilter));
+        //sql.append(appendSpApprovalActionQuery(attr, user, spApprovalFilter));
 
         sql.append(" ORDER BY {o:modifiedtime} DESC ");
         final PaginatedFlexibleSearchParameter parameter = new PaginatedFlexibleSearchParameter();
@@ -80,7 +80,7 @@ public class NuvocoOrderCountDaoImpl extends DefaultGenericDao<DataConstraintMod
 
 
 
-    public String appendSpApprovalActionQuery(Map<String, Object> param, UserModel user, String spApprovalFilter) {
+   /* public String appendSpApprovalActionQuery(Map<String, Object> param, UserModel user, String spApprovalFilter) {
         String queryResult = "";
         if(spApprovalFilter!=null && (spApprovalFilter.equals("approved") || spApprovalFilter.equals("rejected"))) {
             queryResult = queryResult.concat(" and {o.spApprovalStatus}=?spApprovalStatus ");
@@ -94,7 +94,7 @@ public class NuvocoOrderCountDaoImpl extends DefaultGenericDao<DataConstraintMod
             param.put("spApprovalActionBy", (B2BCustomerModel)user);
         }
         return queryResult;
-    }
+    }*/
     /**
      * @param user
      * @param store
@@ -128,10 +128,11 @@ public class NuvocoOrderCountDaoImpl extends DefaultGenericDao<DataConstraintMod
         attr.put("statusList", Arrays.asList(status));
         attr.put("store", store);
         //attr.put(OrderModel.USER, user);
-        attr.put("isCreditLimitBreached", isCreditLimitBreached);
-        Integer lastXDays = findDaysByConstraintName("ORDER_LISTING_VISIBLITY");
-        String queryResult= "SELECT {o:pk} from {ORDER as o JOIN NuvocoCustomer as u on {u:pk}={o:user} } WHERE " + getLastXDayQuery("o:modifiedtime", attr, lastXDays) + " and {o:status} in (?statusList) " ;
+       // attr.put("isCreditLimitBreached", isCreditLimitBreached);
+        //Integer lastXDays = findDaysByConstraintName("ORDER_LISTING_VISIBLITY");
+        String queryResult= "SELECT {o:pk} from {ORDER as o JOIN NuvocoCustomer as u on {u:pk}={o:user} } WHERE  {o:status} in (?statusList) " ;
 
+        /*getLastXDayQuery("o:modifiedtime", attr, lastXDays)*/
         if(null != productName) {
             List<String> productList = Arrays.asList(productName.split(","));
             if (productList != null && !productList.isEmpty()) {
@@ -148,16 +149,16 @@ public class NuvocoOrderCountDaoImpl extends DefaultGenericDao<DataConstraintMod
             queryResult = queryResult.concat(" and {o:orderType} = ?orderType ");
             attr.put("orderType",orderType);
         }
-        if(isCreditLimitBreached){
+       /* if(isCreditLimitBreached){
             queryResult.concat(" and {o:creditLimitBreached} = ?isCreditLimitBreached ");
-        }
+        }*/
 
-        if(approvalPending) {
+     /*   if(approvalPending) {
             queryResult = queryResult.concat(" and {o:approvalLevel} = ?approvalLevel ");
             getApprovalLevelByUser(user,attr);
-        }
+        }*/
 
-        queryResult = queryResult.concat(appendSpApprovalActionQuery(attr, user, spApprovalFilter));
+        //queryResult = queryResult.concat(appendSpApprovalActionQuery(attr, user, spApprovalFilter));
         queryResult = queryResult.concat(" ORDER BY {o:modifiedtime} DESC");
 
         final PaginatedFlexibleSearchParameter parameter = new PaginatedFlexibleSearchParameter();
@@ -190,7 +191,7 @@ public class NuvocoOrderCountDaoImpl extends DefaultGenericDao<DataConstraintMod
         //attr.put(OrderModel.USER, user);
         Integer lastXDays = findDaysByConstraintName("ORDER_LISTING_VISIBLITY");
         String queryResult=" SELECT {oe:pk} FROM {OrderEntry AS oe JOIN Order AS o ON {oe:order}={o:pk} JOIN NuvocoCustomer as u on {u:pk}={o:user}} WHERE "
-                + getLastXDayQuery("oe:modifiedtime", attr, lastXDays) + " AND {oe:status} IN (?statusList) ";
+                /*+ getLastXDayQuery("oe:modifiedtime", attr, lastXDays)*/ + " {oe:status} IN (?statusList) ";
 
         if(null != productName) {
             List<String> productList = Arrays.asList(productName.split(","));
@@ -208,7 +209,7 @@ public class NuvocoOrderCountDaoImpl extends DefaultGenericDao<DataConstraintMod
             queryResult = queryResult.concat(" and {o:orderType} = ?orderType ");
             attr.put("orderType",orderType);
         }
-        queryResult = queryResult.concat(appendSpApprovalActionQuery(attr, user, spApprovalFilter));
+      //  queryResult = queryResult.concat(appendSpApprovalActionQuery(attr, user, spApprovalFilter));
         queryResult = queryResult.concat(" ORDER BY {oe:modifiedtime} DESC  ");
         final PaginatedFlexibleSearchParameter parameter = new PaginatedFlexibleSearchParameter();
         parameter.setSearchPageData(searchPageData);
@@ -264,16 +265,16 @@ public class NuvocoOrderCountDaoImpl extends DefaultGenericDao<DataConstraintMod
         final Map<String, Object> attr = new HashMap<String, Object>();
         attr.put("statusList", Arrays.asList(status));
         //attr.put(OrderModel.PLACEDBY, user);
-        Integer lastXDays = findDaysByConstraintName("ORDER_LISTING_VISIBLITY");
+        //Integer lastXDays = findDaysByConstraintName("ORDER_LISTING_VISIBLITY");
         //attr.put(OrderModel.SUBAREAMASTER, territoryService.getCurrentTerritory());
         final StringBuilder sql = new StringBuilder();
         sql.append("SELECT COUNT({o:pk}) from { ").append(OrderModel._TYPECODE).append(" as o} WHERE ")
-                .append(getLastXDayQuery("modifiedtime", attr, lastXDays)).append(" and {o:status} in (?statusList)  ");
+                /*.append(getLastXDayQuery("modifiedtime", attr, lastXDays))*/.append(" {o:status} in (?statusList)  ");
 
-        if(approvalPending) {
+        /*if(approvalPending) {
             sql.append(" and {o:approvalLevel} = ?approvalLevel ");
             getApprovalLevelByUser(user,attr);
-        }
+        }*/
         //sql.append(" AND {o.subAreaMaster} in (?subAreaMaster) ");
         final FlexibleSearchQuery query = new FlexibleSearchQuery(sql.toString());
         query.setResultClassList(Arrays.asList(Integer.class));
@@ -292,10 +293,10 @@ public class NuvocoOrderCountDaoImpl extends DefaultGenericDao<DataConstraintMod
         final Map<String, Object> attr = new HashMap<String, Object>();
         attr.put("statusList", Arrays.asList(status));
         //attr.put(OrderModel.PLACEDBY, user);
-        Integer lastXDays = findDaysByConstraintName("ORDER_LISTING_VISIBLITY");
+       // Integer lastXDays = findDaysByConstraintName("ORDER_LISTING_VISIBLITY");
         final StringBuilder sql = new StringBuilder();
-        sql.append("SELECT COUNT({oe:pk}) FROM {OrderEntry AS oe JOIN Order AS o ON {oe:order}={o:pk} } WHERE ")
-                .append(getLastXDayQuery("oe:modifiedtime", attr, lastXDays)).append(" AND {oe:status} IN (?statusList) ");
+        sql.append("SELECT COUNT({oe:pk}) FROM {OrderEntry AS oe JOIN Order AS o ON {oe:order}={o:pk} } WHERE ").append("{oe:status} IN (?statusList) ");
+                /*append(getLastXDayQuery("oe:modifiedtime", attr, lastXDays))*/
         final FlexibleSearchQuery query = new FlexibleSearchQuery(sql.toString());
         query.setResultClassList(Arrays.asList(Integer.class));
         query.getQueryParameters().putAll(attr);
@@ -312,11 +313,11 @@ public class NuvocoOrderCountDaoImpl extends DefaultGenericDao<DataConstraintMod
     public Integer findCancelOrdersByStatusForSO(UserModel currentUser, OrderStatus[] status) {
         final Map<String, Object> attr = new HashMap<String, Object>();
         attr.put("statusList", Arrays.asList(status));
-        Integer lastXDays = findDaysByConstraintName("CANCELLED_ORDER_VISIBLITY");
+       // Integer lastXDays = findDaysByConstraintName("CANCELLED_ORDER_VISIBLITY");
 
         final StringBuilder sql = new StringBuilder();
-        sql.append("SELECT COUNT({o:pk}) from { ").append(OrderModel._TYPECODE).append(" as o} WHERE ")
-                .append(getLastXDayQuery("o:cancelledDate", attr, lastXDays)).append(" and {o:status} in (?statusList) ");
+        sql.append("SELECT COUNT({o:pk}) from { ").append(OrderModel._TYPECODE).append(" as o} WHERE ").append("{o:status} in (?statusList) ");
+                /*append(getLastXDayQuery("o:cancelledDate", attr, lastXDays))*/
         final FlexibleSearchQuery query = new FlexibleSearchQuery(sql.toString());
         query.setResultClassList(Arrays.asList(Integer.class));
         query.getQueryParameters().putAll(attr);
@@ -333,11 +334,11 @@ public class NuvocoOrderCountDaoImpl extends DefaultGenericDao<DataConstraintMod
     public Integer findCancelOrderEntriesByStatusForSO(UserModel currentUser, OrderStatus[] status) {
         final Map<String, Object> attr = new HashMap<String, Object>();
         attr.put("statusList", Arrays.asList(status));
-        Integer lastXDays = findDaysByConstraintName("CANCELLED_ORDER_VISIBLITY");
+        //Integer lastXDays = findDaysByConstraintName("CANCELLED_ORDER_VISIBLITY");
 
         final StringBuilder sql = new StringBuilder();
         sql.append("SELECT COUNT({oe:pk}) FROM {OrderEntry AS oe JOIN Order AS o ON {oe:order}={o:pk}} WHERE ")
-                .append(getLastXDayQuery("oe:cancelledDate", attr, lastXDays)).append(" AND {oe:status} IN (?statusList) ");
+                /*.append(getLastXDayQuery("oe:cancelledDate", attr, lastXDays))*/.append("{oe:status} IN (?statusList) ");
         final FlexibleSearchQuery query = new FlexibleSearchQuery(sql.toString());
         query.setResultClassList(Arrays.asList(Integer.class));
         query.getQueryParameters().putAll(attr);
@@ -352,17 +353,17 @@ public class NuvocoOrderCountDaoImpl extends DefaultGenericDao<DataConstraintMod
 
         final Map<String, Object> attr = new HashMap<String, Object>();
         attr.put("statusList", Arrays.asList(status));
-        Integer lastXDays = findDaysByConstraintName("CANCELLED_ORDER_VISIBLITY");
+       // Integer lastXDays = findDaysByConstraintName("CANCELLED_ORDER_VISIBLITY");
         String queryResult= "SELECT {o:pk} from {ORDER as o JOIN NuvocoCustomer as u on {u:pk}={o:user} } WHERE ";
 
-        if(monthYear!=null) {
+       /* if(monthYear!=null) {
             queryResult = queryResult.concat("{o:cancelledDate} like ?monthYear ");
             attr.put("monthYear", monthYear);
-        }
-        else {
+        }*/
+        /*else {
             queryResult = queryResult.concat(getLastXDayQuery("o:cancelledDate", attr, lastXDays));
-        }
-        queryResult = queryResult.concat(" and {o:status} in (?statusList)");
+        }*/
+        queryResult = queryResult.concat(" {o:status} in (?statusList)");
 
         if(null != productName) {
             List<String> productList = Arrays.asList(productName.split(","));
@@ -381,7 +382,7 @@ public class NuvocoOrderCountDaoImpl extends DefaultGenericDao<DataConstraintMod
             queryResult = queryResult.concat(" and {o:orderType} = ?orderType ");
             attr.put("orderType",orderType);
         }
-        queryResult = queryResult.concat(appendSpApprovalActionQuery(attr, user, spApprovalFilter));
+        //queryResult = queryResult.concat(appendSpApprovalActionQuery(attr, user, spApprovalFilter));
         queryResult = queryResult.concat(" ORDER BY {o:cancelledDate} DESC ");
         final PaginatedFlexibleSearchParameter parameter = new PaginatedFlexibleSearchParameter();
         parameter.setSearchPageData(searchPageData);
@@ -413,21 +414,21 @@ public class NuvocoOrderCountDaoImpl extends DefaultGenericDao<DataConstraintMod
         attr.put("statusList",epodStatusList);
         attr.put("store", store);
         //attr.put(OrderModel.USER, user);
-        Integer lastXDays = findDaysByConstraintName("ORDER_LISTING_VISIBLITY");
+       // Integer lastXDays = findDaysByConstraintName("ORDER_LISTING_VISIBLITY");
         final StringBuilder sql = new StringBuilder();
         sql.append("SELECT {oe:pk} FROM {OrderEntry AS oe JOIN Order AS o ON {oe:order}={o:pk}");
         if(filter!=null) {
             sql.append(" join NuvocoCustomer as c on {c.pk}={o.user} ");
         }
         sql.append("} WHERE ");
-        if(epodStatusList.contains(EpodStatus.PENDING)){
+        /*if(epodStatusList.contains(EpodStatus.PENDING)){
             sql.append(getLastXDayQuery("oe:epodInitiateDate", attr, lastXDays));
         }
         else{
             sql.append(getLastXDayQuery("oe:deliveredDate", attr, lastXDays));
-        }
+        }*/
 
-        sql.append(" AND {oe:epodStatus} IN (?statusList) ");
+        sql.append("{oe:epodStatus} IN (?statusList) ");
         if(filter!=null)
         {
             sql.append(" and (UPPER({o.code}) like (?filter) or UPPER({c.name}) like (?filter) or {c.uid} like (?filter) or {c.customerNo} like (?filter) or {c.mobileNumber} like (?filter) ) ");
@@ -462,18 +463,18 @@ public class NuvocoOrderCountDaoImpl extends DefaultGenericDao<DataConstraintMod
     public SearchPageData<OrderModel> findCancelOrdersListByStatusForSO(UserModel user, BaseStoreModel store, OrderStatus[] status, SearchPageData searchPageData, String spApprovalFilter, String monthYear) {
         final Map<String, Object> attr = new HashMap<String, Object>();
         attr.put("statusList", Arrays.asList(status));
-        Integer lastXDays = findDaysByConstraintName("CANCELLED_ORDER_VISIBLITY");
+       // Integer lastXDays = findDaysByConstraintName("CANCELLED_ORDER_VISIBLITY");
         final StringBuilder sql = new StringBuilder();
         sql.append("SELECT {o:pk} from {").append(OrderModel._TYPECODE).append(" as o} WHERE ");
-        if(monthYear!=null) {
+       /* if(monthYear!=null) {
             sql.append("{o:cancelledDate} like ?monthYear");
             attr.put("monthYear", monthYear);
-        }
-        else {
+        }*/
+       /* else {
             sql.append(getLastXDayQuery("o:cancelledDate", attr, lastXDays));
-        }
-        sql.append(" and {o:status} in (?statusList) ");
-        sql.append(appendSpApprovalActionQuery(attr, user, spApprovalFilter));
+        }*/
+        sql.append("{o:status} in (?statusList) ");
+       // sql.append(appendSpApprovalActionQuery(attr, user, spApprovalFilter));
         sql.append(" ORDER BY {o:cancelledDate} DESC");
         final PaginatedFlexibleSearchParameter parameter = new PaginatedFlexibleSearchParameter();
         parameter.setSearchPageData(searchPageData);
@@ -490,19 +491,19 @@ public class NuvocoOrderCountDaoImpl extends DefaultGenericDao<DataConstraintMod
     public SearchPageData<OrderEntryModel> findCancelOrderEntriesListByStatusForSO(UserModel user, BaseStoreModel store, OrderStatus[] status, SearchPageData searchPageData, String spApprovalFilter, String monthYear) {
         final Map<String, Object> attr = new HashMap<String, Object>();
         attr.put("statusList", Arrays.asList(status));
-        Integer lastXDays = findDaysByConstraintName("CANCELLED_ORDER_VISIBLITY");
+        //Integer lastXDays = findDaysByConstraintName("CANCELLED_ORDER_VISIBLITY");
 
         final StringBuilder sql = new StringBuilder();
         sql.append("SELECT {oe:pk} FROM {OrderEntry AS oe JOIN Order AS o ON {oe:order}={o:pk}} WHERE ");
-        if(monthYear!=null) {
+       /* if(monthYear!=null) {
             sql.append("{o:cancelledDate} like ?monthYear");
             attr.put("monthYear", monthYear);
-        }
-        else {
+        }*/
+       /* else {
             sql.append(getLastXDayQuery("oe:cancelledDate", attr, lastXDays));
-        }
-        sql.append(" AND {oe:status} IN (?statusList) ");
-        sql.append(appendSpApprovalActionQuery(attr, user, spApprovalFilter));
+        }*/
+        sql.append("{oe:status} IN (?statusList) ");
+       // sql.append(appendSpApprovalActionQuery(attr, user, spApprovalFilter));
         sql.append(" ORDER BY {oe:cancelledDate} DESC ");
         final PaginatedFlexibleSearchParameter parameter = new PaginatedFlexibleSearchParameter();
         parameter.setSearchPageData(searchPageData);
@@ -519,16 +520,16 @@ public class NuvocoOrderCountDaoImpl extends DefaultGenericDao<DataConstraintMod
     public SearchPageData<OrderEntryModel> findCancelOrderEntriesListByStatusForSO(UserModel user, BaseStoreModel store, OrderStatus[] status, SearchPageData searchPageData, String filter ,String productName , OrderType orderType, String spApprovalFilter, String monthYear) {
         final Map<String, Object> attr = new HashMap<String, Object>();
         attr.put("statusList", Arrays.asList(status));
-        Integer lastXDays = findDaysByConstraintName("CANCELLED_ORDER_VISIBLITY");
+        //Integer lastXDays = findDaysByConstraintName("CANCELLED_ORDER_VISIBLITY");
         String queryResult=" SELECT {oe:pk} FROM {OrderEntry AS oe JOIN Order AS o ON {oe:order}={o:pk} JOIN NuvocoCustomer as u on {u:pk}={o:user} } WHERE ";
-        if(monthYear!=null) {
+        /*if(monthYear!=null) {
             queryResult = queryResult.concat("{o:cancelledDate} LIKE ?monthYear");
             attr.put("monthYear", monthYear);
-        }
-        else {
+        }*/
+       /* else {
             queryResult = queryResult.concat(getLastXDayQuery("o:cancelledDate", attr, lastXDays));
-        }
-        queryResult = queryResult.concat(" AND {o:status} IN (?statusList)");
+        }*/
+        queryResult = queryResult.concat("{o:status} IN (?statusList)");
 
         if(null != productName) {
             List<String> productList = Arrays.asList(productName.split(","));
@@ -546,7 +547,7 @@ public class NuvocoOrderCountDaoImpl extends DefaultGenericDao<DataConstraintMod
             queryResult = queryResult.concat(" and {o:orderType} = ?orderType ");
             attr.put("orderType",orderType);
         }
-        queryResult = queryResult.concat(appendSpApprovalActionQuery(attr, user, spApprovalFilter));
+        //queryResult = queryResult.concat(appendSpApprovalActionQuery(attr, user, spApprovalFilter));
         queryResult = queryResult.concat(" ORDER BY {oe:cancelledDate} DESC ");
         final PaginatedFlexibleSearchParameter parameter = new PaginatedFlexibleSearchParameter();
         parameter.setSearchPageData(searchPageData);

@@ -76,13 +76,15 @@ public class NuvocoOrderServiceImpl implements NuvocoOrderService {
 
     protected Set<OrderStatus> extractOrderStatuses(final String statuses)
     {
-        final String[] statusesStrings = statuses.split(NuvocoCoreConstants.ORDER.ENUM_VALUES_SEPARATOR);
-
+       // final String[] statusesStrings = statuses.split(NuvocoCoreConstants.ORDER.ENUM_VALUES_SEPARATOR);
+       //commented for poc
         final Set<OrderStatus> statusesEnum = new HashSet<>();
-        for (final String status : statusesStrings)
+        /*for (final String status : statusesStrings)
         {
             statusesEnum.add(OrderStatus.valueOf(status));
-        }
+        }*/
+
+        statusesEnum.add(OrderStatus.valueOf(statuses));
         return statusesEnum;
     }
 

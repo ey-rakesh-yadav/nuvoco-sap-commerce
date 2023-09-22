@@ -8,6 +8,24 @@
 		<property name="genders" type="java.util.List&lt;com.nuvoco.facades.product.data.GenderData>"/>
 	</bean>
 
+	<bean class="de.hybris.platform.commercefacades.order.data.AddToCartParams">
+		<property name="truckNo" type="String"/>
+		<property name="driverContactNo" type="String"/>
+		<property name="selectedDeliveryDate" type="String"/>
+		<property name="selectedDeliverySlot" type="String"/>
+		<property name="calculatedDeliveryDate" type="String"/>
+		<property name="calculatedDeliverySlot" type="String"/>
+		<property name="sequence" type="Integer"/>
+		<property name="isDateReduced" type="Boolean"/>
+		<property name="quantityMT" type="Double"/>
+		<property name="warehouseCode" type="String"/>
+		<property name="routeId" type="String"/>
+		<property name="requestedDeliveryDate" type="String"/>
+		<property name="requestedDeliverySlot" type="String"/>
+		<property name="remarks" type="String"/>
+	</bean>
+
+
 	<bean class="com.nuvoco.facades.product.data.GenderData">
 		<property name="code" type="String"/>
 		<property name="name" type="String"/>
