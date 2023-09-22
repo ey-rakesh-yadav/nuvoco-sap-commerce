@@ -112,33 +112,34 @@ public class NuvocoCartsController extends NuvocooccController{
 
     private void setCartDeliveryAddressInternal(CartWsDTO cartDetails)
     {
-        if(!OrderType.ISO.getCode().equals(cartDetails.getOrderType())) {
+        //commented for POC
+        /*if(!OrderType.ISO.getCode().equals(cartDetails.getOrderType())) {*/
             String addressId = null;
-            if (cartDetails.getDeliveryAddress()==null)
+          /*  if (cartDetails.getDeliveryAddress()==null)
             {
                 throw new CartAddressException("Address given by id " + sanitize(addressId) + " is not valid",
                         CartAddressException.NOT_VALID, addressId);
-            }
+            }*/
             addressId = cartDetails.getDeliveryAddress().getId();
             LOG.info(String.format("setCartDeliveryAddressInternal: for address id %s",addressId));
 
             final AddressData address = new AddressData();
             address.setId(addressId);
 
-            final Errors errors = new BeanPropertyBindingResult(address, "addressData");
-            deliveryAddressValidator.validate(address, errors);
-            if (errors.hasErrors())
+            /*final Errors errors = new BeanPropertyBindingResult(address, "addressData");
+            deliveryAddressValidator.validate(address, errors);*/
+           /* if (errors.hasErrors())
             {
                 throw new CartAddressException("Address given by id " + sanitize(addressId) + " is not valid",
                         CartAddressException.NOT_VALID, addressId);
             }
-
+*/
             if (!checkoutFacade.setDeliveryAddress(address))
             {
                 throw new CartAddressException(
                         "Address given by id " + sanitize(addressId) + " cannot be set as delivery address in this cart",
                         CartAddressException.CANNOT_SET, addressId);
             }
-        }
+        //}
     }
 }
