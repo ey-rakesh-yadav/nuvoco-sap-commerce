@@ -4,12 +4,18 @@
 # ImpEx for Importing Prices
 
 # Macros / Replacement Parameter definitions
-$productCatalog=__PRODUCT_CATALOG_NAME__
-
-$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+$productCatalog=nuvocoProductCatalog
 $prices=Europe1prices[translator=de.hybris.platform.europe1.jalo.impex.Europe1PricesTranslator]
 
 # Set product approval status to Approved only for those products that have prices.
 $approved=approvalstatus(code)[default='approved']
+$productCatalogName=Nuvoco Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
 
 UPDATE Product;code[unique=true];$prices;$approved;$catalogVersion;Europe1PriceFactory_PTG(code)
+
+
+INSERT_UPDATE PriceRow;productId[unique=true];unit(code[unique=true,default=BAG]);currency(isocode)[unique=true];price;minqtd;unitFactor;net
+                      ;   DRG_PCC    ;   BAG ;   INR ;   420   ;   1   ;   1   ;   FALSE   ;
+                      ;   CONR_UNO    ;   BAG ;   INR ;   420   ;   1   ;   1   ;   FALSE   ;

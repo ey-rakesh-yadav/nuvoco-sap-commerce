@@ -15,5 +15,9 @@ $categories=target(code, $catalogVersion)[unique=true]
 INSERT_UPDATE Category;code[unique=true];allowedPrincipals(uid)[default='customergroup'];$catalogVersion
 ;1
 ;cement
+;duraguard
+;concreto
 # Insert Category Structure
 INSERT_UPDATE CategoryCategoryRelation;$categories;$supercategories
+;duraguard;cement
+;concreto;cement

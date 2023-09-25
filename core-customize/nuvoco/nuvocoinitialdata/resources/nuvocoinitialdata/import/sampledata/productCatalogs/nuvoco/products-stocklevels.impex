@@ -29,6 +29,9 @@ INSERT_UPDATE StockLevel;productCode[unique=true];warehouse(code)[unique=true,de
                         ;	104	;	nuvocoWarehouse	;	1	;	forceInStock	;
                         ;	105	;	nuvocoWarehouse	;	1	;	forceInStock	;
 
+                        ;DRG_PCC;nuvocoWarehouse;10000;forceInStock;
+                        ;CONR_UNO;nuvocoWarehouse;10000;forceInStock;
+
 INSERT_UPDATE StockLevel;productCode[unique=true];warehouse(code)[unique=true,default=nuvocoWarehouse];available[default=1];inStockStatus(code)[default=forceInStock];maxPreOrder[default=1];maxStockLevelHistoryCount[default=-1];overSelling[default=0];preOrder[default=0];reserved[default=0]
                         ;100;
                         ;101;
@@ -36,6 +39,8 @@ INSERT_UPDATE StockLevel;productCode[unique=true];warehouse(code)[unique=true,de
                         ;103;
                         ;104;
                         ;105;
+                        ;DRG_PCC;
+                        ;CONR_UNO;
 
 INSERT_UPDATE BaseStore2WarehouseRel;source(uid)[unique=true];target(code)[unique=true]
                                     ;$storeUid;nuvocoWarehouse
