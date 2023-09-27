@@ -242,6 +242,7 @@ public class OrderRequisitionServiceImpl implements OrderRequisitionService {
                 receiptRetailerAllocateNew.setDealerCode(orderRequisitionModel.getFromCustomer().getPk().toString());
                 receiptRetailerAllocateNew.setReceipt((null != updatedQty)?updatedQty.intValue():0);
                 receiptRetailerAllocateNew.setSalesToInfluencer(0);
+                receiptRetailerAllocateNew.setSalesToRetailer(0);
                 int stockRetailerInfluencer = (int) ((1.0 * (receiptRetailerAllocateNew.getReceipt() - receiptRetailerAllocateNew.getSalesToInfluencer())));
                 receiptRetailerAllocateNew.setStockAvlForInfluencer(stockRetailerInfluencer);
                 modelService.save(receiptRetailerAllocateNew);

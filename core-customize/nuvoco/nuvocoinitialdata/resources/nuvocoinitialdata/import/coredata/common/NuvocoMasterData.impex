@@ -15,7 +15,8 @@ INSERT_UPDATE DeliveryMode;code[unique=true];name;active
                           ;ROAD;ROAD;TRUE
 
 
-
+INSERT_UPDATE ReceiptAllocaltion;  receipt[unique=true];salesToRetailer;stockAvlForRetailer;product;dealerCode;startDate;endDate
+                                ;100;60;20;8796355198977;8796158689284;;;
 
 INSERT_UPDATE CustomerSubCategory;code[unique=true];name;parentCategory(code)
                                  ;NT;NT;NT
@@ -26,6 +27,25 @@ INSERT_UPDATE CustomerOrderType;transactionTypeId[unique=true];name;description;
                                ;1747;TC/NT/T61;SO FOR NT-   REWARI DEPOT;104
                                ;1748;TC/TR/T61;SO FOR TR- REWARI DEPOT;104
 
+
+INSERT_UPDATE TruckModelMaster;vehicleMake[unique=true];truckModel[unique=true];capacity
+
+INSERT_UPDATE SalesOrderDeliverySLA;route[unique=true];sourceCity;destinationDistrict;destinationCity;destinationPincode;packType;grade;customerCategory(code);commonTruckCapacity[default=0];dispatchSlaHour;deliverySlaHour;noEntryRestrictionStart1;noEntryRestrictionEnd1;noEntryRestrictionStart2;noEntryRestrictionEnd2;noEntryRestrictionStart3;noEntryRestrictionEnd3;noEntryRestrictionStart4;noEntryRestrictionEnd4
+                                   ;1111;Mumbai;Mulshi;Pune;411057;PACKED;OPC;TR;50;10;20;;;;;;;;;
+
+INSERT_UPDATE Warehouse;code[unique=true];locationCode;organisationId;active;depotIdentifier(code);railFed;brand(uid);name;state;district;taluka;pincode;capacity;workingHourStartTime;workingHourEndTime;type(code)[default=DEPOT];vendor(code)[default=default, forceWrite=true];default[default=true, forceWrite=true]
+
+
+INSERT_UPDATE DepotSubAreaMapping;subArea[unique=true];district[unique=true];state[unique=true];depot(code)[unique=true];brand(uid)[unique=true];subAreaMaster(district,taluka)[unique=true];
+
+
+
+
+INSERT_UPDATE UserSubAreaMapping;brand(uid)[unique=true];state[unique=true];nuvocoUser(employeeCode)[unique=true];subArea[unique=true];district[unique=true];subAreaMaster(district,taluka)[unique=true]
+;nuvoco;Maharashtra;	15486;	BILOLI;	PUNE	;PUNE:HAVELI
+
+
+#
 #for ccv2 dev
 INSERT_UPDATE OAuthClientDetails;clientId[unique=true] ;resourceIds ;scope ;authorizedGrantTypes ;authorities ;clientSecret ;registeredRedirectUri
                                 ;client-side ;hybris ;basic ;implicit,client_credentials ;ROLE_CLIENT,ROLE_CUSTOMERGROUP,ROLE_TRUSTED_CLIENT,ROLE_CUSTOMERMANAGERGROUP ;secret ;https://api.cuivbcudlo-ernstandy1-d1-public.model-t.cc.commerce.ondemand.com/authorizationserver/oauth2_implicit_callback;
@@ -73,6 +93,63 @@ INSERT_UPDATE Currency;isocode[unique=true];conversion;digits;symbol
 INSERT_UPDATE DeliveryMode;code[unique=true];name;active[default=true];
                           ;ROAD;ROAD
                           ;RAIL;RAIL
+
+#Nuvoco Dealers
+INSERT_UPDATE NuvocoCustomer; uid[unique=true];crmRefCode ;customerNo;customerId;groups(uid)        ;counterType(code);name                  ;customerCategory(code);state       ;mobileNumber ;email[default='dummy@test.com'];dateOfJoining[dateformat=dd-MM-yyyy];defaultB2BUnit(uid);bankAccountNo;bankName          ;ifscCode ;gstIN            ;panCard
+                            ;1000174338       ;1000174338 ;786656    ;17015746  ;NuvocoDealerGroup  ;Dealer           ;NEHA ASSOCIATES          ;TR                 ;JHARKHAND;9771439568    ;nehaassociates.ranchi@gmail.com       ; 05-04-2018                        ;    NuvocoB2BUnit  ;3670064550   ;Central Bank of India  ;CBIN0284448;20BLBPG3020R1ZH  ;BLBPG3020R
+                            ;1000174339       ;1000174339 ;786657    ;17015747  ;NuvocoDealerGroup  ;Dealer           ;ASHISH NIDHI AND SONS HUF          ;TR       ;JHARKHAND  ;9431171927    ;ashishnidhiandsons@gmail.com        ; 08-12-2022                        ;    NuvocoB2BUnit  ;50200015537675   ;HDFC BANK  ;HDFC0001470;20AAMHA2767C1ZS  ;AAMHA2767C
+
+INSERT_UPDATE Address; owner(NuvocoCustomer.customerNo)[unique=true];erpAddressId[unique=true];accountName;firstName;lastname;streetname  ;streetnumber;state ;district;taluka;erpCity;postalcode ;cellphone;email  ;isPrimaryAddress[default=false];billingAddress ; shippingAddress;duplicate[default=false];  country(isocode)[default=IN]   ;visibleInAddressBook[default=true]
+                     ;786656  ;1001 ;NEHA GOYAL;NEHA; GOYAL;GROUND FLOOR, PITAMBER COMPLEX, GADI KHELGAON CHOWK DIPA TOLI;BLOCK A SHOP NO 7;JHARKHAND   ;RANCHI;RANCHI;RANCHI;834009;9771439568;nehaassociates.ranchi@gmail.com;TRUE   ;TRUE   ;TRUE;FALSE;;TRUE
+                     ;786657  ;1002  ;ASHISH PATWARI;ASHISH; PATWARI;4TH FLOOR, 403, CHAKABORTY TOWER, SHIVAJI PARK, HEHAL;BLOCK A SHOP NO 8;JHARKHAND   ;RANCHI;RANCHI;RANCHI;834005;9431171927;ashishnidhiandsons@gmail.com   ;TRUE ;TRUE;TRUE;FALSE;;TRUE
+
+
+INSERT_UPDATE SubAreaMaster;    district[unique=true]  ;taluka[unique=true]
+                           ;RANCHI   ;RANCHI
+                           ;RANCHI   ;RANCHI
+
+INSERT_UPDATE CustomerSubAreaMapping; nuvocoCustomer(uid)[unique=true]; counterType;subArea[unique=true];district[unique=true];state[unique=true];brand(uid)[unique=true];subAreaMaster(district,taluka)[unique=true];isOtherBrand[default=false];isActive[default=false]
+                                    ;1000174338 ;Dealer;RANCHI;RANCHI  ;JHARKHAND   ;nuvoco    ;RANCHI:RANCHI
+                                    ;1000174339 ;Dealer;RANCHI;RANCHI    ;JHARKHAND;  nuvoco;    RANCHI:RANCHI
+
+INSERT_UPDATE UserSubAreaMapping;brand(uid)[unique=true];state[unique=true];nuvocoUser(employeeCode)[unique=true];subArea[unique=true];district[unique=true];subAreaMaster(district,taluka)[unique=true]
+                                ;nuvoco;JHARKHAND;	1001;	RANCHI;	RANCHI	;RANCHI:ORMANJHI
+                                ;nuvoco;JHARKHAND;	1001;	RANCHI;	RANCHI	;RANCHI:BURMU
+                                ;nuvoco;JHARKHAND;	1001;	RANCHI;	RANCHI	;RANCHI:RANCHI
+
+
+
+#Nuvoco Retailer's
+
+INSERT_UPDATE NuvocoCustomer; uid[unique=true];crmRefCode ;customerNo;customerId;groups(uid)        ;counterType(code);name                  ;customerCategory(code);state       ;mobileNumber ;email[default='dummy@test.com'];dateOfJoining[dateformat=dd-MM-yyyy];defaultB2BUnit(uid);bankAccountNo;bankName          ;ifscCode ;gstIN;panCard
+                            ;21876334       ;21876334 ;21876334    ;17015748  ;NuvocoRetailerGroup  ;Retailer           ;TATA STEEL CENTER   ;TR ;JHARKHAND;7463842501  ;shashi05bhushan@gmail.com     ; 05-06-2018  ;    NuvocoB2BUnit  ;3670064550   ;State Bank of India  ;SBIN0284448;21BLBPG3020R1ZH  ;ASDFG3020R
+                            ;21894559       ;21894559 ;21894559    ;17015749  ;NuvocoRetailerGroup  ;Retailer           ;SAHU TRADERS ;TR  ;JHARKHAND  ;9572575123    ;naveenshau10xm@gmail.com ; 10-12-2022  ;    NuvocoB2BUnit  ;50200015537675   ;HDFC BANK  ;HDFC0001486;21BBMHA2767C1ZS  ;QWERT2767C
+
+
+INSERT_UPDATE Address; owner(NuvocoCustomer.customerNo)[unique=true];erpAddressId[unique=true];accountName;firstName;lastname;streetname  ;streetnumber;state ;district;taluka;erpCity;postalcode ;cellphone;email  ;isPrimaryAddress[default=false];billingAddress ; shippingAddress;duplicate[default=false];  country(isocode)[default=IN]   ;visibleInAddressBook[default=true]
+                     ;21876334  ;1003 ;SASHI BHUSHAN;SASHI;BHUSHAN;DARDAG ORMANJHI;BLOCK A SHOP NO 7;JHARKHAND   ;RANCHI;ORMANJHI;RANCHI;835219;7463842501;shashi05bhushan@gmail.com;TRUE   ;TRUE   ;TRUE;FALSE;;TRUE
+                     ;21894559  ;1004  ;NAVEEN KUMAR;NAVEEN;KUMAR;HESALANG,LAP,MC-CULSKIGANJ;BLOCK A SHOP NO 8;JHARKHAND ;RANCHI;BURMU;RANCHI;829208;9572575123;naveenshau10xm@gmail.com   ;TRUE ;TRUE;TRUE;FALSE;;TRUE
+
+
+INSERT_UPDATE SubAreaMaster;    district[unique=true]  ;taluka[unique=true]
+                           ;RANCHI   ;ORMANJHI
+                           ;RANCHI   ;BURMU
+
+INSERT_UPDATE CustomerSubAreaMapping; nuvocoCustomer(uid)[unique=true]; counterType;subArea[unique=true];district[unique=true];state[unique=true];brand(uid)[unique=true];subAreaMaster(district,taluka)[unique=true];isOtherBrand[default=false];isActive[default=false]
+                                    ;21876334 ;Retailer;RANCHI;RANCHI  ;JHARKHAND   ;nuvoco    ;RANCHI:ORMANJHI;;true
+                                    ;21894559 ;Retailer;RANCHI;RANCHI    ;JHARKHAND;  nuvoco;    RANCHI:BURMU;;true
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 INSERT_UPDATE DeliverySlotMaster;displayName[unique=true];start;end;sequence;slot(code)
