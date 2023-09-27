@@ -31,7 +31,7 @@ INSERT_UPDATE Product;code[unique=true];state;custCategory;inventoryId;grade;pac
 
 
 #Nuvoco products
-                        ;DRG_PCC;JHARKHAND;TR;9000044225;PPC;PLAIN;PLAIN;Duragurad Cement;Y;approved;
+                        ;DRG-PCC-JCP-PP-EU;JHARKHAND;TR;9000044225;PPC;PLAIN;PLAIN;Duragurad Cement;Y;approved;
                        ;CONR_UNO;JHARKHAND;TR;9000044226;PPC;PLAIN;PLAIN;Concreto Uno Cement;Y;approved;
 
 

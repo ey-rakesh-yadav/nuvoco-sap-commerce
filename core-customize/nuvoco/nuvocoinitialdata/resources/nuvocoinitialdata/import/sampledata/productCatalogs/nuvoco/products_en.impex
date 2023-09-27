@@ -14,5 +14,5 @@ $lang=en
 
 # Update allProducts with localisations
 UPDATE Product;code[unique=true];$catalogVersion;name[lang=$lang];summary[lang=$lang];description[lang=$lang]
-;DRG_PCC;;Duraguard Cement;Duraguard Cement is a Portland Pozzolana Cement (PPC) variant;Duraguard Cement is a Portland Pozzolana Cement (PPC) variant that is powered by Void Reduction Technology (VRT) and is best suited for foundations, tiles fixing, plastering and roof casting.;
+;DRG-PCC-JCP-PP-EU;;Duraguard Cement;Duraguard Cement is a Portland Pozzolana Cement (PPC) variant;Duraguard Cement is a Portland Pozzolana Cement (PPC) variant that is powered by Void Reduction Technology (VRT) and is best suited for foundations, tiles fixing, plastering and roof casting.;
 ;CONR_UNO;;Concreto Uno Cement;CONCRETO UNO is manufactured using advanced technology ;Concreto UNO provides improved workability for the process of concreting, foundation and plastering.;

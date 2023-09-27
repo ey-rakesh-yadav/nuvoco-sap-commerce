@@ -17,5 +17,5 @@ UPDATE Product;code[unique=true];$prices;$approved;$catalogVersion;Europe1PriceF
 
 
 INSERT_UPDATE PriceRow;productId[unique=true];unit(code[unique=true,default=BAG]);currency(isocode)[unique=true];price;minqtd;unitFactor;net
-                      ;   DRG_PCC    ;   BAG ;   INR ;   420   ;   1   ;   1   ;   FALSE   ;
+                      ;   DRG-PCC-JCP-PP-EU    ;   BAG ;   INR ;   420   ;   1   ;   1   ;   FALSE   ;
                       ;   CONR_UNO    ;   BAG ;   INR ;   420   ;   1   ;   1   ;   FALSE   ;
