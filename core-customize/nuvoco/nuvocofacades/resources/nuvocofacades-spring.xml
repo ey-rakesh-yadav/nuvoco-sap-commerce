@@ -395,4 +395,16 @@
 		<property name="list" ref="orderConverter"/>
 		<property name="add" ref="nuvocoOrderPopulator"/>
 	</bean>
+
+	<alias name="nuvocoCartParameterConverter" alias="commerceCartParameterConverter"/>
+	<bean name="nuvocoCartParameterConverter" parent="defaultCommerceCartParameterConverter">
+		<property name="populators">
+			<list merge="true">
+				<ref bean="nuvocoCartParameterPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="nuvocoCartParameterPopulator"  class="com.nuvoco.facades.populators.NuvocoCartParameterPopulator">
+	</bean>
 </beans>
