@@ -345,7 +345,7 @@
 		<property name="targetClass" value="de.hybris.platform.commercefacades.order.data.CartData"/>
 		<property name="populators">
 			<list>
-				<ref bean="nuvocoOrderDetailPopulator"/>
+					<ref bean="nuvocoOrderDetailPopulator"/>
 			</list>
 		</property>
 	</bean>
@@ -388,4 +388,11 @@
 		  parent="defaultAddressReversePopulator">
 	</bean>
 
+
+	<bean id="nuvocoOrderPopulator" class="com.nuvoco.facades.populators.NuvocoOrderPopulator">
+	</bean>
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="orderConverter"/>
+		<property name="add" ref="nuvocoOrderPopulator"/>
+	</bean>
 </beans>
