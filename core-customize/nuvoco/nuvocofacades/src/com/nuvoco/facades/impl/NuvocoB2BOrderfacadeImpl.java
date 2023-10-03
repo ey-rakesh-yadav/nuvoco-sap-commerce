@@ -17,6 +17,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class NuvocoB2BOrderfacadeImpl extends DefaultB2BOrderFacade implements N
 
     private static final Logger LOGGER = Logger.getLogger(NuvocoB2BOrderfacadeImpl.class);
 
-    @Autowired
+    @Resource(name = "b2bOrderService")
     private NuvocoB2BOrderService nuvocoB2BOrderService;
 
     @Autowired

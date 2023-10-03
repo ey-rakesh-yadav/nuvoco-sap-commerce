@@ -144,7 +144,7 @@ public class NuvocoOrderDetailPopulator <T extends CartData> extends AbstractOrd
 
     protected void addEntries(final AbstractOrderModel source, final AbstractOrderData prototype)
     {
-        prototype.setEntries(getOrderEntryConverter().convertAll(source.getEntries()));
+        prototype.setEntries(orderEntryConverter.convertAll(source.getEntries()));
     }
 
 
