@@ -665,4 +665,10 @@
 		<property name="deliveryAddressesLookupStrategy" ref="nuvocoB2BDeliveryAddressesLookupStrategy"/>
 	</bean>
 
+
+	<alias name="defaultNuvocoModifyOrderStrategy" alias="nuvocoModifyOrderStrategy"/>
+	<bean id="defaultNuvocoModifyOrderStrategy" class="com.nuvoco.core.strategies.impl.DefaultNuvocoModifyOrderStrategy" parent="defaultCommerceAddToCartStrategy">
+		<property name="forceInStockMaxQuantity" value="2147483647"/>
+	</bean>
+
 </beans>

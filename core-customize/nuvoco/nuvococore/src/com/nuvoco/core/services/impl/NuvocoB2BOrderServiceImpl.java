@@ -17,6 +17,8 @@ import de.hybris.platform.core.enums.OrderStatus;
 import de.hybris.platform.core.model.order.*;
 
 import de.hybris.platform.core.model.product.ProductModel;
+import de.hybris.platform.core.model.product.UnitModel;
+import de.hybris.platform.core.model.type.ComposedTypeModel;
 import de.hybris.platform.core.model.user.UserModel;
 import de.hybris.platform.core.servicelayer.data.SearchPageData;
 import de.hybris.platform.order.CartService;
@@ -45,11 +47,16 @@ import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static de.hybris.platform.servicelayer.util.ServicesUtil.validateParameterNotNullStandardMessage;
+
 public class NuvocoB2BOrderServiceImpl extends DefaultB2BOrderService implements NuvocoB2BOrderService {
 
 
 
+
     private static final Logger LOGGER = Logger.getLogger(NuvocoB2BOrderServiceImpl.class);
+
+    protected static final int APPEND_AS_LAST = -1;
     @Autowired
     BaseStoreService baseStoreService;
     @Autowired
@@ -600,6 +607,64 @@ public class NuvocoB2BOrderServiceImpl extends DefaultB2BOrderService implements
             result.setResults(orderHistoryData);
         }
         return result;
+    }
+
+    /**
+     * @param order
+     * @param product
+     * @param qty
+     * @param unit
+     * @param number
+     * @return
+     */
+    @Override
+    public AbstractOrderEntryModel addNewOrderEntry(OrderModel order, ProductModel product, long qty, UnitModel unit, int number) {
+        validateParameterNotNullStandardMessage("product", product);
+        validateParameterNotNullStandardMessage("order", order);
+
+        ComposedTypeModel entryType = getAbstractOrderEntryTypeService().getAbstractOrderEntryType(order);
+        validateParameterNotNullStandardMessage("entryType", entryType);
+
+        if (qty <= 0)
+        {
+            throw new IllegalArgumentException("Quantity must be a positive non-zero value");
+        }
+        if (number < APPEND_AS_LAST)
+        {
+            throw new IllegalArgumentException("Number must be greater or equal -1");
+        }
+        UnitModel usedUnit = unit;
+        if (usedUnit == null)
+        {
+            LOGGER.debug("No unit passed, trying to get product unit");
+            usedUnit = product.getUnit();
+            validateParameterNotNullStandardMessage("usedUnit", usedUnit);
+        }
+
+        AbstractOrderEntryModel ret = null;
+        // search for present entries for this product if needed
+        /*if (addToPresent)
+        {
+            for (final AbstractOrderEntryModel e : orderService.getEntriesForProduct(order, product))
+            {
+                // Ensure that order entry is not a 'give away', and has same units
+                if (Boolean.FALSE.equals(e.getGiveAway()) && usedUnit.equals(e.getUnit()))
+                {
+                    e.setQuantity(Long.valueOf(e.getQuantity().longValue() + qty));
+                    ret = e;
+                    break;
+                }
+            }
+        }*/
+
+        ret = getAbstractOrderEntryService().createEntry(entryType, order);
+        ret.setQuantity(Long.valueOf(qty));
+        ret.setProduct(product);
+        ret.setUnit(usedUnit);
+        addEntryAtPosition(order, ret, number);
+
+        order.setCalculated(Boolean.FALSE);
+        return ret;
     }
 
     /**
