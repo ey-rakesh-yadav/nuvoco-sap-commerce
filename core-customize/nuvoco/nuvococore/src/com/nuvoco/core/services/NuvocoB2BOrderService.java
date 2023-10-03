@@ -6,8 +6,11 @@ import com.nuvoco.facades.data.EpodFeedbackData;
 import com.nuvoco.facades.data.NuvocoOrderHistoryData;
 import de.hybris.platform.b2b.model.B2BCustomerModel;
 import de.hybris.platform.b2b.services.B2BOrderService;
+import de.hybris.platform.core.model.order.AbstractOrderEntryModel;
 import de.hybris.platform.core.model.order.OrderEntryModel;
 import de.hybris.platform.core.model.order.OrderModel;
+import de.hybris.platform.core.model.product.ProductModel;
+import de.hybris.platform.core.model.product.UnitModel;
 import de.hybris.platform.core.servicelayer.data.SearchPageData;
 
 import java.time.LocalDateTime;
@@ -37,6 +40,10 @@ public interface NuvocoB2BOrderService extends B2BOrderService  {
     SearchPageData<NuvocoOrderHistoryData> getCancelOrderHistoryForOrder(SearchPageData searchPageData, String orderStatus, String filter,String productName , String orderType, String spApprovalFilter, Integer month, Integer year);
 
     SearchPageData<NuvocoOrderHistoryData> getCancelOrderHistoryForOrderEntry(SearchPageData searchPageData, String orderStatus, String filter,String productName , String orderType, String spApprovalFilter, Integer month, Integer year);
+
+    AbstractOrderEntryModel addNewOrderEntry(final OrderModel order, final ProductModel product,
+                                             final long qty, final UnitModel unit, final int number);
+
 
     void updateTotalQuantity(long quantity);
 
