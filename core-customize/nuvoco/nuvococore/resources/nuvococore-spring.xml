@@ -671,4 +671,9 @@
 		<property name="forceInStockMaxQuantity" value="2147483647"/>
 	</bean>
 
+	<bean id="epodPendingStatusAlertJob" class="com.nuvoco.core.job.EpodPendingStatusAlertNotificationJob"/>
+
+	<bean id="pendingRequisitionsConfirmationJob" class="com.nuvoco.core.job.PendingRequisitionsConfirmationJob"/>
+
+	<bean id="notificationForConfirmGoodsReceivedJob" class="com.nuvoco.core.job.NotificationForConfirmGoodsReceivedJob"/>
 </beans>
