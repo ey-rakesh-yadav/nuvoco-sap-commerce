@@ -7453,7 +7453,41 @@
                 </attributes>
             </itemtype>
 
-
+            <itemtype code="SiteMessage" generate="false" autocreate="false">
+                <attributes>
+                    <attribute qualifier="entryNumber" type="java.lang.Integer">
+                        <persistence type="property" />
+                        <modifiers optional="true" />
+                    </attribute>
+                    <attribute qualifier="orderCode" type="java.lang.String">
+                        <persistence type="property" />
+                        <modifiers optional="true" />
+                    </attribute>
+                    <attribute qualifier="dealerCode" type="java.lang.String">
+                        <persistence type="property" />
+                        <modifiers optional="true" />
+                    </attribute>
+                    <attribute qualifier="status" type="NotificationStatus">
+                        <persistence type="property" />
+                        <modifiers optional="true" />
+                        <defaultvalue>UNREAD</defaultvalue>
+                    </attribute>
+                    <attribute qualifier="category" type="NotificationCategory">
+                        <persistence type="property" />
+                        <modifiers optional="true" />
+                    </attribute>
+                    <attribute qualifier="expiryDate" type="java.util.Date">
+                        <persistence type="property" />
+                        <modifiers optional="true" />
+                    </attribute>
+                    <attribute qualifier="orderStatus" type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                    <attribute qualifier="orderType" type="java.lang.String">
+                        <persistence type="property" />
+                    </attribute>
+                </attributes>
+            </itemtype>
         </typegroup>
 
         <typegroup name="Electronics">
