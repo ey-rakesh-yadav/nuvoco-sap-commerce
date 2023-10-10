@@ -415,6 +415,6 @@
 		<property name="add" ref="nuvocoSiteMessagePopulator"/>
 	</bean>
 
-	<bean id="nuvocoNotificationFacade" class="com.nuvoco.facades.NuvocoNotificationFacade"/>
+	<bean id="nuvocoNotificationFacade" class="com.nuvoco.facades.impl.NuvocoNotificationFacadeImpl"/>
 
 </beans>
