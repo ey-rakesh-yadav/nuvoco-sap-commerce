@@ -676,4 +676,11 @@
 	<bean id="pendingRequisitionsConfirmationJob" class="com.nuvoco.core.job.PendingRequisitionsConfirmationJob"/>
 
 	<bean id="notificationForConfirmGoodsReceivedJob" class="com.nuvoco.core.job.NotificationForConfirmGoodsReceivedJob"/>
+
+	<alias name="nuvocoSiteMessageDao" alias="siteMessageDao"/>
+	<bean id="nuvocoSiteMessageDao" class="com.nuvoco.core.dao.impl.NuvocoSiteMessageDaoImpl" parent="defaultSiteMessageDao"/>
+
+	<bean id="nuvocoNotificationService" class="com.nuvoco.core.services.impl.NuvocoNotificationServiceImpl"/>
+
+
 </beans>
