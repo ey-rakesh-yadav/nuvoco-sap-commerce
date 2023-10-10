@@ -405,6 +405,16 @@
 		</property>
 	</bean>
 
-	<bean id="nuvocoCartParameterPopulator"  class="com.nuvoco.facades.populators.NuvocoCartParameterPopulator">
+	<bean id="nuvocoCartParameterPopulator"  class="com.nuvoco.facades.populators.NuvocoCartParameterPopulator"/>
+
+	<bean id="nuvocoSiteMessagePopulator" class="com.nuvoco.facades.populators.NuvocoSiteMessagePopulator">
 	</bean>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="siteMessageConverter"/>
+		<property name="add" ref="nuvocoSiteMessagePopulator"/>
+	</bean>
+
+	<bean id="nuvocoNotificationFacade" class="com.nuvoco.facades.NuvocoNotificationFacade"/>
+
 </beans>

@@ -545,4 +545,19 @@
 		<property name="totalCount" type="Long"/>
 	</bean>
 
+
+
+	<bean class="de.hybris.platform.notificationfacades.data.SiteMessageData">
+		<property name="entryNumber" type="String" />
+		<property name="orderCode" type="String" />
+		<property name="dealerCode" type="String" />
+		<property name="dealerImage" type="de.hybris.platform.commercefacades.product.data.ImageData" />
+		<property name="status" type="String" />
+		<property name="category" type="String" />
+		<property name="siteMessageId" type="String" />
+		<property name="expiryDate" type="String" />
+		<property name="orderType" type="String" />
+		<property name="orderStatus" type="String" />
+	</bean>
+
 </beans>
