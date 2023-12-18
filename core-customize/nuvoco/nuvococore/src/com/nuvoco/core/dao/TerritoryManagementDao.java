@@ -20,6 +20,7 @@ public interface TerritoryManagementDao {
 
     List<NuvocoCustomerModel> getCustomerForUser(RequestCustomerData requestCustomerData, List<SubAreaMasterModel> subAreaMasterList);
 
+    Integer getInfluencerCountForDealer(NuvocoCustomerModel currentUser, BaseSiteModel currentSite);
     CustDepotMasterModel getCustDepotForCustomer(NuvocoCustomerModel customer);
     List<NuvocoCustomerModel> getRetailerListForDealer(NuvocoCustomerModel nuvocoCustomer, BaseSiteModel site);
 

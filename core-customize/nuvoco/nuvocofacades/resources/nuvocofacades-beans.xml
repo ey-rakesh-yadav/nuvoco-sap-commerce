@@ -8,6 +8,19 @@
 		<property name="genders" type="java.util.List&lt;com.nuvoco.facades.product.data.GenderData>"/>
 	</bean>
 
+	<bean class="com.nuvoco.facades.data.DJPRouteScoreData">
+		<property name="id" type="String"/>
+		<property name="route" type="String"/>
+		<property name="routeScore" type="Double"/>
+		<property name="routeName" type="String"/>
+		<property name="recommended" type="Boolean"/>
+	</bean>
+
+	<bean class="com.nuvoco.facades.data.ObjectiveData">
+		<property name="id" type="String"/>
+		<property name="name" type="String"/>
+		<property name="recommended" type="Boolean"/>
+	</bean>
 
 	<bean class="de.hybris.platform.commerceservices.service.data.CommerceCartParameter">
 		<property name="truckNo" type="String"/>
@@ -559,5 +572,182 @@
 		<property name="orderType" type="String" />
 		<property name="orderStatus" type="String" />
 	</bean>
+
+	<bean class="com.nuvoco.facades.data.ProductMixVolumeAndRatioListData">
+		<property name="productVolumeAndRatio"
+				  type="java.util.List&lt;com.nuvoco.facades.data.ProductMixVolumeAndRatioData>"/>
+	</bean>
+
+	<bean class="com.nuvoco.facades.data.ProductMixVolumeAndRatioData">
+		<property name="productCode" type="String"/>
+		<property name="productName" type="String"/>
+		<property name="productVolume" type="Double"/>
+		<property name="productRatio" type="Double"/>
+		<property name="quantity" type="Double"/>
+		<property name="pointsRewarded" type="Double"/>
+		<property name="currentPoints" type="Double"/>
+	</bean>
+
+	<bean class="com.nuvoco.facades.data.DealerSummaryData">
+		<property name="dealerCategory" type="String"/>
+		<property name="lastVisitDate" type="java.util.Date"/>
+		<property name="potential" type="Double"/>
+		<property name="visits" type="Integer"/>
+		<property name="sales" type="Double"/>
+		<property name="retailerNetwork" type="Integer"/>
+		<property name="influencerNetwork" type="Integer"/>
+		<property name="outstandingDays" type="Double"/>
+		<property name="outstandingAmount" type="Double"/>
+		<property name="currentMonthCounterShare" type="Double"/>
+		<property name="lastMonthCounterShare" type="Double"/>
+		<property name="wholeSale" type="Double"/>
+		<property name="counterSale" type="Double"/>
+		<property name="availableCredit" type="Double"/>
+		<property name="creditConsumed" type="Double"/>
+		<property name="bucket1" type="Double"/>
+		<property name="bucket2" type="Double"/>
+		<property name="bucket3" type="Double"/>
+		<property name="bucket4" type="Double"/>
+		<property name="bucket5" type="Double"/>
+		<property name="bucket6" type="Double"/>
+		<property name="bucket7" type="Double"/>
+		<property name="bucket8" type="Double"/>
+		<property name="bucket9" type="Double"/>
+		<property name="bucket10" type="Double"/>
+		<property name="lastLiftingDate" type="java.util.Date"/>
+		<property name="lastLiftingQuantity" type="Double"/>
+		<property name="isDealerFlag" type="Boolean"/>
+		<property name="remarkForFlag" type="String"/>
+		<!--<property name="currentRemarkForFlag" type="String"/>-->
+		<property name="creditBreachCount" type="Integer"/>
+		<property name="networkType" type="String"/>
+		<property name="productMixMTD" type="com.nuvoco.facades.data.ProductMixVolumeAndRatioListData"/>
+		<property name="productMixYTD" type="com.nuvoco.facades.data.ProductMixVolumeAndRatioListData"/>
+		<property name="productData" type="com.nuvoco.facades.data.ProductMixVolumeAndRatioListData"/>
+		<property name="bucketsTotal" type="String"/>
+	</bean>
+
+	<bean class="com.nuvoco.facades.data.MonthlySalesData">
+		<property name="monthYear" type="String"/>
+		<property name="actualSales" type="Double"/>
+		<property name="targetSales" type="Double"/>
+		<property name="percentage" type="Double"/>
+		<property name="growth" type="Double"/>
+	</bean>
+	<bean class="com.nuvoco.facades.data.MonthlySalesListData">
+		<property name="actual" type="Double"/>
+		<property name="target" type="Double"/>
+		<property name="percentage" type="Double"/>
+		<property name="achievementPercentage" type="Double"/>
+		<property name="behindTotalTarget" type="Double"/>
+		<property name="aheadTotalTarget" type="Double"/>
+		<property name="sales" type="java.util.List&lt;com.nuvoco.facades.data.MonthlySalesData>"/>
+	</bean>
+
+	<bean class="com.nuvoco.facades.data.RetailerSummaryData">
+		<property name="name" type="String"/>
+		<property name="profilePicUrl" type="String"/>
+		<property name="lastVisitDate" type="java.util.Date"/>
+		<property name="potential" type="Double"/>
+		<property name="visits" type="Integer"/>
+		<property name="wholeSale" type="Double"/>
+		<property name="counterSale" type="Double"/>
+		<property name="influencerNetwork" type="Integer"/>
+		<property name="lastLiftingDate" type="java.util.Date"/>
+		<property name="lastLiftingQuantity" type="Double"/>
+		<property name="currentMonthCounterShare" type="Double"/>
+		<property name="lastMonthCounterShare" type="Double"/>
+		<property name="networkType" type="String"/>
+		<property name="askingRate" type="Double"/>
+		<property name="growth" type="Double"/>
+		<property name="lastYearCurrentMonthSales" type="Double"/>
+		<property name="lastMonthSales" type="Double"/>
+		<property name="productData" type="com.nuvoco.facades.data.ProductMixVolumeAndRatioListData"/>
+		<property name="productMixMTD" type="com.nuvoco.facades.data.ProductMixVolumeAndRatioListData"/>
+		<property name="productMixYTD" type="com.nuvoco.facades.data.ProductMixVolumeAndRatioListData"/>
+		<property name="salesData" type="com.nuvoco.facades.data.MonthlySalesListData"/>
+	</bean>
+
+	<bean class="com.nuvoco.facades.data.SalesHistoryData">
+		<property name="lastMonthSales" type="Double"/>
+		<property name="lastYearCurrentMonthSales" type="Double"/>
+		<property name="salesMTD" type="Double"/>
+		<property name="askingRate" type="Double"/>
+		<property name="growth" type="Double"/>
+		<property name="wholeSale" type="Double"/>
+		<property name="counterSale" type="Double"/>
+	</bean>
+
+	<bean class="com.nuvoco.facades.data.CounterVisitMasterData">
+		<property name="id" type="String"/>
+		<property name="counterId" type="de.hybris.platform.cmsfacades.data.UserData"/>
+		<property name="counterType" type="String"/>
+		<property name="lastVisitDate" type="java.util.Date"/>
+		<property name="startVisitTime" type="java.util.Date"/>
+		<property name="endVisitTime" type="java.util.Date"/>
+		<property name="sequence" type="Integer"/>
+		<property name="counterPotential" type="Double"/>
+		<property name="totalSale" type="Double"/>
+		<property name="wholeSale" type="Double"/>
+		<property name="counterSale" type="Double"/>
+		<property name="counterShare" type="Double"/>
+		<property name="isShreeCounter" type="Boolean"/>
+		<property name="isBangurCounter" type="Boolean"/>
+		<property name="isRockstrongCounter" type="Boolean"/>
+		<property name="orderGenerated" type="Double"/>
+		<property name="differenceWholesaleVol" type="Double"/>
+		<property name="differenceRetailsaleVol" type="Double"/>
+		<property name="isDealerFlag" type="Boolean"/>
+		<property name="remarkForFlag" type="String"/>
+		<property name="marketMappingList" type="java.util.List&lt;com.nuvoco.facades.data.MarketMappingDetailsData>"/>
+		<property name="counterName" type="String"/>
+		<property name="latitude" type="Double"/>
+		<property name="longitude" type="Double"/>
+		<property name="counterCode" type="String"/>
+	</bean>
+
+
+	<bean class="com.scl.facades.data.MarketMappingListData">
+		<property name="marketMappingDetailsList"
+				  type="java.util.List&lt;com.nuvoco.facades.data.MarketMappingDetailsData>"/>
+	</bean>
+
+	<bean class="com.nuvoco.facades.data.MarketMappingDetailsData">
+		<property name="id" type="String"/>
+		<property name="brand" type="String"/>
+		<property name="product" type="String"/>
+		<property name="wholesalePrice" type="Double"/>
+		<property name="retailsalePrice" type="Double"/>
+		<property name="discount" type="Double"/>
+		<property name="billing" type="Double"/>
+		<property name="stock" type="Double"/>
+		<property name="wholeSales" type="Double"/>
+		<property name="retailSales" type="Double"/>
+		<property name="counterVisitId" type="com.nuvoco.facades.data.CounterVisitMasterData"/>
+		<property name="employeeCodeSO" type="String"/>
+		<property name="taluka" type="String"/>
+		<property name="district" type="String"/>
+		<property name="counterVisitStartTime" type="String"/>
+		<property name="soName" type="String"/>
+		<property name="soUid" type="String"/>
+		<property name="soBrand" type="String"/>
+		<property name="customerName" type="String"/>
+		<property name="erpCustomerNo" type="String"/>
+		<property name="crmCustomerCode" type="String"/>
+		<property name="grade" type="String"/>
+		<property name="packaging" type="String"/>
+		<property name="state" type="String"/>
+	</bean>
+
+	<bean class="com.nuvoco.facades.visit.data.InfluencerSummaryData">
+		<property name="lastVisitDate" type="java.util.Date"/>
+		<property name="potential" type="Double"/>
+		<property name="visits" type="Integer"/>
+		<property name="sales" type="Double"/>
+		<property name="lastLiftingDate" type="java.util.Date"/>
+		<property name="lastLiftingQuantity" type="Double"/>
+		<property name="networkType" type="String"/>
+	</bean>
+
 
 </beans>

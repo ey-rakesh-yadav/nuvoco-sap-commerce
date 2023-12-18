@@ -682,5 +682,25 @@
 
 	<bean id="nuvocoNotificationService" class="com.nuvoco.core.services.impl.NuvocoNotificationServiceImpl"/>
 
+	<alias name="counterVisitDao" alias="counterVisitDao" />
+	<bean id="counterVisitDao" class="com.nuvoco.core.dao.impl.CounterVisitMasterDaoImpl"/>
 
+	<bean id="djpVisitDao" class="com.nuvoco.core.dao.impl.DJPVisitDaoImpl"/>
+
+	<alias name="orderValidationProcessDao" alias="orderValidationProcessDao" />
+	<bean id="orderValidationProcessDao" class="com.nuvoco.core.dao.impl.OrderValidationProcessDaoImpl">
+	</bean>
+
+	<bean id="collectionDao" class="com.nuvoco.core.dao.impl.CollectionDaoImpl"/>
+	<bean id="ObjectiveDao" class="com.nuvoco.core.dao.impl.ObjectiveDaoImpl"/>
+
+	<bean id="djpRunDao" class="com.nuvoco.core.dao.impl.DJPRunDaoImpl"/>
+	<bean id="salesPlanningDao" class="com.nuvoco.core.dao.impl.SalesPlanningDapImpl"/>
+
+
+	<alias name="defaultRouteMasterDao" alias="routeMasterDao"/>
+	<bean id="defaultRouteMasterDao" class="com.nuvoco.core.dao.impl.RouteMasterDaoImpl"/>
+
+	<alias name="defaultDjpRouteScoreDao" alias="djpRouteScoreDao"/>
+	<bean id="defaultDjpRouteScoreDao" class="com.nuvoco.core.dao.impl.DJPRouteScoreDaoImpl"/>
 </beans>
