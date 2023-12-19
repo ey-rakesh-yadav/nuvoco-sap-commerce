@@ -10490,7 +10490,7 @@
 
             <itemtype code="NuvocoOutboundCancelOrder" generate="true"
                       autocreate="true">
-                <deployment table="NuvocoOutboundCancelOrder"
+                <deployment table="NuvOutboundCancelOrder"
                             typecode="14105" />
                 <attributes>
                     <attribute qualifier="crmOrderNo" type="java.lang.String">
