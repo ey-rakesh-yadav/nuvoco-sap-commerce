@@ -123,6 +123,31 @@ public class TerritoryManagementDaoImpl implements TerritoryManagementDao {
         return result != null && !result.isEmpty() ? result : Collections.emptyList();
     }
 
+    /**
+     * @param currentUser
+     * @param currentSite
+     * @return
+     */
+    @Override
+    public Integer getInfluencerCountForDealer(NuvocoCustomerModel currentUser, BaseSiteModel currentSite) {
+        final Map<String, Object> attr = new HashMap<>();
+        boolean active = Boolean.TRUE;
+        attr.put("currentUser", currentUser);
+        attr.put("currentSite", currentSite);
+        attr.put("active", active);
+
+        final StringBuilder sql = new StringBuilder();
+        sql.append("SELECT COUNT(DISTINCT{d.influencer}) FROM {DealerInfluencerMap as d} WHERE {d.fromCustomer}=?currentUser AND {d.brand}=?currentSite AND {d.active}=?active AND {d.fromCustomerType}= 'Dealer' ");
+
+        final FlexibleSearchQuery query = new FlexibleSearchQuery(sql.toString());
+        query.setResultClassList(Arrays.asList(Integer.class));
+        query.getQueryParameters().putAll(attr);
+
+        final SearchResult<Integer> result = flexibleSearchService.search(query);
+
+        return result.getResult().get(0);
+    }
+
 
     private String getCustomerForUserQuery(RequestCustomerData requestCustomerData, List<SubAreaMasterModel> subAreaMasterList, Map<String, Object> params) {
         final StringBuilder builder = new StringBuilder("SELECT {c.pk} FROM {CustomerSubAreaMapping as m join NuvocoCustomer as c on {m.nuvocoCustomer}={c.pk} } WHERE {m.subAreaMaster} in (?subAreaList) ");

@@ -80,6 +80,16 @@ public class TerritoryManagementServiceImpl implements TerritoryManagementServic
     }
 
     /**
+     * @return
+     */
+    @Override
+    public Integer getInfluencerCountForDealer() {
+        NuvocoCustomerModel currentUser = (NuvocoCustomerModel) userService.getCurrentUser();
+        BaseSiteModel currentSite = baseSiteService.getCurrentBaseSite();
+        return territoryManagementDao.getInfluencerCountForDealer(currentUser,currentSite);
+    }
+
+    /**
      * @param customerId
      * @return
      */

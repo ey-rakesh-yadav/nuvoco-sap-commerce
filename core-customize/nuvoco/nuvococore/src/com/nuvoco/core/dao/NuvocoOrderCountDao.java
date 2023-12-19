@@ -1,6 +1,7 @@
 package com.nuvoco.core.dao;
 
 import com.nuvoco.core.enums.OrderType;
+import com.nuvoco.core.model.NuvocoCustomerModel;
 import de.hybris.platform.core.enums.OrderStatus;
 import de.hybris.platform.core.model.order.OrderEntryModel;
 import de.hybris.platform.core.model.order.OrderModel;
@@ -18,7 +19,7 @@ public interface NuvocoOrderCountDao {
     SearchPageData<OrderEntryModel> findOrderEntriesListByStatusForSO(UserModel user, BaseStoreModel store, OrderStatus[] status, SearchPageData searchPageData, String spApprovalFilter);
     SearchPageData<OrderModel> findOrdersListByStatusForSO(UserModel user, BaseStoreModel store, OrderStatus[] status, SearchPageData searchPageData, String filter , String productName , OrderType orderType, Boolean isCreditLimitBreached, String spApprovalFilter, Boolean approvalPending);
 
-
+    Integer findCreditBreachCountMTD(NuvocoCustomerModel dealer);
     SearchPageData<OrderEntryModel> findOrderEntriesListByStatusForSO(UserModel user, BaseStoreModel store, OrderStatus[] status, SearchPageData searchPageData, String filter ,String productName , OrderType orderType, String spApprovalFilter);
     Integer findDaysByConstraintName(String constraintName);
 

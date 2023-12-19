@@ -15,6 +15,7 @@ public interface TerritoryManagementService {
 
     List<NuvocoCustomerModel> getRetailerListForDealer();
 
+    Integer getInfluencerCountForDealer();
     List<SubAreaMasterModel> getTerritoriesForCustomer(String customerId);
 
     List<String> getAllSubAreaForCustomer(String customerId);

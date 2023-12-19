@@ -6,6 +6,8 @@ import com.nuvoco.core.enums.EpodStatus;
 import com.nuvoco.core.enums.OrderType;
 import com.nuvoco.core.enums.SPApprovalStatus;
 import com.nuvoco.core.model.DataConstraintModel;
+import com.nuvoco.core.model.NuvocoCustomerModel;
+import com.nuvoco.core.utility.NuvocoDateUtility;
 import de.hybris.platform.b2b.model.B2BCustomerModel;
 import de.hybris.platform.core.enums.OrderStatus;
 import de.hybris.platform.core.model.order.OrderEntryModel;
@@ -170,6 +172,25 @@ public class NuvocoOrderCountDaoImpl extends DefaultGenericDao<DataConstraintMod
         parameter.setFlexibleSearchQuery(query);
 
         return paginatedFlexibleSearchService.search(parameter);
+    }
+
+    /**
+     * @param dealer
+     * @return
+     */
+    @Override
+    public Integer findCreditBreachCountMTD(NuvocoCustomerModel dealer) {
+        final Map<String, Object> attr = new HashMap<String, Object>();
+        attr.put(OrderModel.USER, dealer);
+        attr.put("boolean", true);
+        final StringBuilder sql = new StringBuilder();
+        sql.append("SELECT COUNT({o:pk}) from { ").append(OrderModel._TYPECODE).append(" as o} WHERE {o:creditLimitBreached} = ?boolean  ")
+                .append(" AND {o:user} = ?user  and ").append(NuvocoDateUtility.getMtdClauseQuery("o:date", attr)).append(" AND {o:" + OrderModel.VERSIONID + "} IS NULL");
+        final FlexibleSearchQuery query = new FlexibleSearchQuery(sql.toString());
+        query.setResultClassList(Arrays.asList(Integer.class));
+        query.getQueryParameters().putAll(attr);
+        final SearchResult<Integer> result = this.getFlexibleSearchService().search(query);
+        return result.getResult().get(0);
     }
 
     /**
