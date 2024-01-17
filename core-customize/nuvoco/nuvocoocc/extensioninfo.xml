@@ -15,7 +15,7 @@
         <requires-extension name="b2bwebservicescommons"/>
 
         <requires-extension name="b2bacceleratorfacades"/>
-
+        <requires-extension name="b2bcommerce"/>
         <requires-extension name="nuvocofacades"/>
 
         <coremodule generated="true" manager="com.nuvoco.jalo.NuvocooccManager" packageroot="com.nuvoco"/>

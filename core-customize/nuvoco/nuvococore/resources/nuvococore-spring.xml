@@ -22,6 +22,7 @@
 	<bean id="acceleratorCoreSystemSetup" class="com.nuvoco.core.setup.CoreSystemSetup"
 	       parent="abstractCoreSystemSetup"/>
 
+
 	<!-- Solr field value providers -->
 
 	<bean id="volumeAwareProductPriceValueProvider" class="com.nuvoco.core.search.solrfacetsearch.provider.impl.VolumeAwareProductPriceValueProvider"  parent="abstractPropertyFieldValueProvider">
@@ -551,4 +552,155 @@
 	<alias alias="dynamicAttributesOrderEntryQtyMT" name="dynamicAttributesOrderEntryQtyMT"/>
 	<bean id="dynamicAttributesOrderEntryQtyMT" class="com.nuvoco.core.orderhandler.DynamicAttributesOrderEntryQtyMT">
 	</bean>
+
+<!--Nuvoco beans-->
+	<bean id="nuvocoCustomerNetworkTypeUpdateJob" class="com.nuvoco.core.job.NuvocoCustomerNetworkTypeUpdateJob">
+	</bean>
+
+	<!--<bean id="salesSummaryJob" class="com.nuvoco.core.job.SalesSummaryJob"></bean>
+
+	<bean id="territoryManagementService" class="com.nuvoco.core.services.impl.TerritoryManagementServiceImpl">
+	</bean>
+
+	<bean id="efficacyReportUpdateJob" class="com.nuvoco.core.job.EfficacyReportUpdateJob">
+	</bean>
+
+	<bean id="newProductReportUpdateJob" class="com.nuvoco.core.job.NewProductReportUpdateJob">
+	</bean>
+
+	<bean id="reinclusionObsoleteCounterReportUpdateJob" class="com.nuvoco.core.job.ReinclusionObsoleteCounterReportUpdateJob">
+	</bean>
+
+	<bean id="marketIntelligenceReportUpdateJob" class="com.nuvoco.core.job.MarketIntelligenceReportUpdateJob">
+	</bean>-->
+<!-- Nuvoco beans -->
+	<bean id="ssoLoginService" class="com.nuvoco.core.services.impl.SSOLoginServiceImpl"/>
+
+
+	<bean id="territoryManagementService" class="com.nuvoco.core.services.impl.TerritoryManagementServiceImpl"/>
+
+	<alias name="dealerTransitService" alias="dealerTransitService"/>
+	<bean id="dealerTransitService" class="com.nuvoco.core.services.impl.DealerTransitServiceImpl">
+	</bean>
+
+   	<bean id="territoryManagementDao" class="com.nuvoco.core.dao.impl.TerritoryManagementDaoImpl"/>
+
+	<bean id="dealerVehicleDetailsDao" class="com.nuvoco.core.dao.impl.DealerVehicleDetailsDaoImpl"/>
+
+	<bean id="dealerDriverDetailsDao" class="com.nuvoco.core.dao.impl.DealerDriverDetailsDaoImpl"/>
+
+	<bean id="nuvocoCustomerService" class="com.nuvoco.core.services.impl.NuvocoCustomerServiceImpl"/>
+
+	<alias name="orderRequisitionDao" alias="orderRequisitionDao"/>
+	<bean id="orderRequisitionDao" class="com.nuvoco.core.dao.impl.OrderRequisitionDaoImpl">
+	</bean>
+	<bean id="salesPerformanceDao" class="com.nuvoco.core.dao.impl.SalesPerformanceDaoImpl"/>
+
+	<bean id="nuvocoTruckDao" class="com.nuvoco.core.dao.impl.NuvocoTruckDaoImpl"/>
+
+	<bean id="djpVisitService" class="com.nuvoco.core.services.impl.DJPVisitServiceImpl"/>
+	<bean id="dealerService" class="com.nuvoco.core.services.impl.DealerServiceImpl"/>
+
+	<alias name="nuvocoB2BOrderService" alias="b2bOrderService"/>
+	<bean id="nuvocoB2BOrderService" class="com.nuvoco.core.services.impl.NuvocoB2BOrderServiceImpl" parent="defaultB2BOrderService" >
+		<!--<property name="submitOrderStrategies">
+			<list>
+				&lt;!&ndash; implementation that sends SubmitOrderEvent &ndash;&gt;
+				<ref bean="eventPublishingSubmitOrderStrategy"/>
+			</list>
+		</property>-->
+	</bean>
+
+	<alias name="nuvocoOrderCountDao" alias="nuvocoOrderCountDao"/>
+	<bean id="nuvocoOrderCountDao" class="com.nuvoco.core.dao.impl.NuvocoOrderCountDaoImpl"/>
+
+	<bean id="nuvocoOrderService" class="com.nuvoco.core.services.impl.NuvocoOrderServiceImpl"/>
+
+	<bean id="nuvocoCartService" class="com.nuvoco.core.services.impl.NuvocoCartServiceImpl"/>
+
+	<bean id="geoGraphicalRegionService" class="com.nuvoco.core.services.impl.GeographicalRegionServiceImpl"/>
+
+
+	<bean id="nuvocoDeliveryDao" class="com.nuvoco.core.dao.impl.DeliveryModeDaoImpl"/>
+	<bean id="districtMasterDao" class="com.nuvoco.core.dao.impl.DistrictMasterDaoImpl"/>
+	<bean id="regionMasterDao" class="com.nuvoco.core.dao.impl.RegionMasterDaoImpl"/>
+
+	<bean id="stateMasterDao" class="com.nuvoco.core.dao.impl.StateMasterDaoImpl"/>
+	<bean id="nuvocoWarehouseDao" class="com.nuvoco.core.dao.impl.NuvocoWarehouseDaoImpl"/>
+	<bean id="geographicalRegionDao" class="com.nuvoco.core.dao.impl.GeographicalRegionDaoImpl"/>
+
+	<bean id="deliverySlotMasterDao" class="com.nuvoco.core.dao.impl.DeliverySlotMasterDaoImpl"/>
+
+	<bean id="nuvocoSalesOrderDeliverySLADao" class="com.nuvoco.core.dao.impl.NuvocoSalesOrderDeliverySLADaoImpl"/>
+	<bean id="depotOperationDao" class="com.nuvoco.core.dao.impl.DepotOperationDaoImpl"/>
+	<bean id="nuvocoOrderHistoryService" class="com.nuvoco.core.services.impl.NuvocoOrderHistoryServiceImpl"/>
+	<bean id="nuvocoCommerceCheckoutService" class="com.nuvoco.core.services.impl.NuvocoCommerceCheckoutServiceImpl"/>
+
+
+	<bean id="dataConstraintDao" class="com.nuvoco.core.dao.impl.DataConstraintDaoImpl"/>
+	<bean id="tradeOrderService" class="com.nuvoco.core.services.impl.TradeOrderServiceImpl"/>
+	<bean id="nuvocoUserDao" class="com.nuvoco.core.dao.impl.NuvocoUserDaoImpl"/>
+
+	<bean id="dealerDao" class="com.nuvoco.core.dao.impl.DealerDaoImpl"/>
+
+	<bean id="orderRequisitionService" class="com.nuvoco.core.services.impl.OrderRequisitionServiceImpl"/>
+
+
+	<bean id="orderRequisitionIdGenerator" class="de.hybris.platform.servicelayer.keygenerator.impl.PersistentKeyGenerator">
+		<property name="key" value="${keygen.orderRequisition.id.name}"/>
+		<property name="digits" value="${keygen.orderRequisition.id.digits}"/>
+		<property name="start" value="${keygen.orderRequisition.id.start}"/>
+		<property name="numeric" value="${keygen.orderRequisition.id.numeric}"/>
+		<property name="template" value="${keygen.orderRequisition.id.template}"/>
+	</bean>
+
+
+	<alias name="defaultNuvocoB2BDeliveryAddressesLookupStrategy" alias="nuvocoB2BDeliveryAddressesLookupStrategy"/>
+	<bean id="defaultNuvocoB2BDeliveryAddressesLookupStrategy" class="com.nuvoco.core.strategies.impl.DefaultNuvocoB2BDeliveryAddressesLookupStrategy" >
+		<property name="fallbackDeliveryAddressesLookupStrategy" ref="b2bDeliveryAddressesLookupStrategy"/>
+	</bean>
+
+	<alias alias="b2bDeliveryService" name="defaultB2BDeliveryService"/>
+	<bean id="defaultB2BDeliveryService" parent="deliveryService">
+		<property name="deliveryAddressesLookupStrategy" ref="nuvocoB2BDeliveryAddressesLookupStrategy"/>
+	</bean>
+
+
+	<alias name="defaultNuvocoModifyOrderStrategy" alias="nuvocoModifyOrderStrategy"/>
+	<bean id="defaultNuvocoModifyOrderStrategy" class="com.nuvoco.core.strategies.impl.DefaultNuvocoModifyOrderStrategy" parent="defaultCommerceAddToCartStrategy">
+		<property name="forceInStockMaxQuantity" value="2147483647"/>
+	</bean>
+
+	<bean id="epodPendingStatusAlertJob" class="com.nuvoco.core.job.EpodPendingStatusAlertNotificationJob"/>
+
+	<bean id="pendingRequisitionsConfirmationJob" class="com.nuvoco.core.job.PendingRequisitionsConfirmationJob"/>
+
+	<bean id="notificationForConfirmGoodsReceivedJob" class="com.nuvoco.core.job.NotificationForConfirmGoodsReceivedJob"/>
+
+	<alias name="nuvocoSiteMessageDao" alias="siteMessageDao"/>
+	<bean id="nuvocoSiteMessageDao" class="com.nuvoco.core.dao.impl.NuvocoSiteMessageDaoImpl" parent="defaultSiteMessageDao"/>
+
+	<bean id="nuvocoNotificationService" class="com.nuvoco.core.services.impl.NuvocoNotificationServiceImpl"/>
+
+	<alias name="counterVisitDao" alias="counterVisitDao" />
+	<bean id="counterVisitDao" class="com.nuvoco.core.dao.impl.CounterVisitMasterDaoImpl"/>
+
+	<bean id="djpVisitDao" class="com.nuvoco.core.dao.impl.DJPVisitDaoImpl"/>
+
+	<alias name="orderValidationProcessDao" alias="orderValidationProcessDao" />
+	<bean id="orderValidationProcessDao" class="com.nuvoco.core.dao.impl.OrderValidationProcessDaoImpl">
+	</bean>
+
+	<bean id="collectionDao" class="com.nuvoco.core.dao.impl.CollectionDaoImpl"/>
+	<bean id="ObjectiveDao" class="com.nuvoco.core.dao.impl.ObjectiveDaoImpl"/>
+
+	<bean id="djpRunDao" class="com.nuvoco.core.dao.impl.DJPRunDaoImpl"/>
+	<bean id="salesPlanningDao" class="com.nuvoco.core.dao.impl.SalesPlanningDapImpl"/>
+
+
+	<alias name="defaultRouteMasterDao" alias="routeMasterDao"/>
+	<bean id="defaultRouteMasterDao" class="com.nuvoco.core.dao.impl.RouteMasterDaoImpl"/>
+
+	<alias name="defaultDjpRouteScoreDao" alias="djpRouteScoreDao"/>
+	<bean id="defaultDjpRouteScoreDao" class="com.nuvoco.core.dao.impl.DJPRouteScoreDaoImpl"/>
 </beans>

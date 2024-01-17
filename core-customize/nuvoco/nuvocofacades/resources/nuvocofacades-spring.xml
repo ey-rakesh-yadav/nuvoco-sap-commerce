@@ -174,10 +174,247 @@
 		<property name="priceDataFactory" ref="priceDataFactory"/>
 	</bean>
 
-	<alias name="yacceleratorSearchPagePointOfServiceDistancePopulator" alias="searchPagePointOfServiceDistancePopulator" />
+<!--	<alias name="yacceleratorSearchPagePointOfServiceDistancePopulator" alias="searchPagePointOfServiceDistancePopulator" />
 	<bean id="yacceleratorSearchPagePointOfServiceDistancePopulator" class="com.nuvoco.facades.storefinder.populators.SearchPagePointOfServiceDistancePopulator" >
 		<property name="pointOfServiceDistanceConverter" ref="pointOfServiceDistanceConverter"/>
-	</bean>
+	</bean>-->
 
 	<bean id="genderData" class="com.nuvoco.facades.product.data.GenderData" scope="prototype"/>
+
+<!--Nuvoco beans-->
+	<bean id="ssoLoginFacade" class="com.nuvoco.facades.impl.SSOLoginFacadeImpl"/>
+
+	<bean id="dealerFacade" class="com.nuvoco.facades.impl.DealerFacadeImpl"/>
+
+	<bean id="nuvocoAddressPopulator" class="com.nuvoco.facades.populators.NuvocoAddressPopulator"/>
+	<bean id="nuvocoAddressConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.nuvoco.facades.data.NuvocoAddressData"/>
+		<property name="populators">
+			<list>
+				<ref bean="nuvocoAddressPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="dealerVehicleDetailsPopulator" class="com.nuvoco.facades.populators.DealerVehicleDetailsPopulator">
+	</bean>
+
+	<bean id="dealerVehicleDetailsConverter" parent="abstractPopulatingConverter" >
+		<property name="targetClass" value="com.nuvoco.facades.data.vehicle.DealerVehicleDetailsData"/>
+		<property name="populators">
+			<list>
+				<ref bean="dealerVehicleDetailsPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="dealerDriverDetailsPopulator" class="com.nuvoco.facades.populators.DealerDriverDetailsPopulator">
+	</bean>
+
+	<bean id="dealerDriverDetailsConverter" parent="abstractPopulatingConverter" >
+		<property name="targetClass" value="com.nuvoco.facades.data.vehicle.DealerDriverDetailsData"/>
+		<property name="populators">
+			<list>
+				<ref bean="dealerDriverDetailsPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="dealerVehicleDetailsReversePopulator" class="com.nuvoco.facades.populators.DealerVehicleDetailsReversePopulator">
+	</bean>
+	<bean id="dealerDriverDetailsReversePopulator" class="com.nuvoco.facades.populators.DealerDriverDetailsReversePopulator">
+	</bean>
+
+	<bean id="dealerBasicPopulator" class="com.nuvoco.facades.populators.DealerBasicPopulator">
+		<property name="imageConverter" ref="imageConverter"/>
+	</bean>
+	<bean id="dealerBasicConverter" parent="abstractPopulatingConverter" >
+		<property name="targetClass" value="de.hybris.platform.commercefacades.user.data.CustomerData"/>
+		<property name="populators">
+			<list>
+				<ref bean="dealerBasicPopulator"/>
+			</list>
+		</property>
+	</bean>
+	<alias name="nuvocoCustomerFacade" alias="nuvocoCustomerFacade" />
+	<bean id="nuvocoCustomerFacade" class="com.nuvoco.facades.impl.NuvocoCustomerFacadeImpl">
+	</bean>
+
+	<alias name="djpVisitFacade" alias="djpVisitFacade" />
+	<bean id="djpVisitFacade" class="com.nuvoco.facades.impl.DJPVisitFacadeImpl">
+	</bean>
+	<bean id="nuvocoNetworkFacade" class="com.nuvoco.facades.impl.NuvocoNetworkFacadeImpl"/>
+
+	<bean id="territoryManagementFacade" class="com.nuvoco.facades.impl.TerritoryManagementFacadeImpl"/>
+
+
+
+	<bean id="nuvocoOrderEntryHistoryCardConverter" parent="abstractPopulatingConverter" >
+		<property name="targetClass" value="com.nuvoco.facades.data.NuvocoOrderHistoryData"/>
+		<property name="populators">
+			<list>
+				<ref bean="nuvocoOrderEntryHistoryCardPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="nuvocoOrderHistoryCardConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.nuvoco.facades.data.NuvocoOrderHistoryData"/>
+		<property name="populators">
+			<list>
+				<ref bean="nuvocoOrderHistoryCardPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="nuvocoOrderEntryHistoryCardPopulator" class="com.nuvoco.facades.populators.NuvocoOrderEntryHistoryCardPopulator">
+	</bean>
+
+	<bean id="nuvocoOrderHistoryCardPopulator" class="com.nuvoco.facades.populators.NuvocoOrderHistoryCardPopulator">
+	</bean>
+
+	<bean id="nuvocoOrderFacade" class="com.nuvoco.facades.impl.NuvocoOrderFacadeImpl"/>
+
+	<bean id="nuvocoCartFacade" class="com.nuvoco.facades.impl.NuvocoCartFacadeImpl" parent="defaultCartFacade"/>
+	<!-- order history -->
+
+	<alias name="destinationSourceConverter" alias="destinationSourceConverter"/>
+	<bean id="destinationSourceConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.nuvoco.facades.data.DestinationSourceMasterData"/>
+		<property name="populators">
+			<list>
+				<ref bean="destinationSourcePopulator"/>
+			</list>
+		</property>
+	</bean>
+
+
+	<alias name="nuvocoB2BCartFacade" alias="b2bCartFacade"/>
+	<bean id="nuvocoB2BCartFacade" class="com.nuvoco.facades.impl.NuvocoB2BCartFacadeImpl" parent="defaultB2BCartFacade">
+	</bean>
+
+	<bean id="destinationSourcePopulator" class="com.nuvoco.facades.populators.DestinationSourcePopulator"/>
+
+	<bean id="nuvocoB2BCheckoutFacade" class="com.nuvoco.facades.impl.NuvocoB2BCheckoutFacadeImpl" parent="defaultB2BAcceleratorCheckoutFacade"/>
+
+
+	<bean id="orderHistoryFacade" class="com.nuvoco.facades.impl.OrderHistoryFacadeImpl"/>
+
+
+	<bean id="nuvocoOrderEntryCardConverter" parent="abstractPopulatingConverter" >
+		<property name="targetClass" value="com.nuvoco.facades.data.NuvocoOrderData"/>
+		<property name="populators">
+			<list>
+				<ref bean="nuvocoOrderEntryCardPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="nuvocoOrderEntryCardPopulator" class="com.nuvoco.facades.populators.NuvocoOrderEntryCardPopulator"/>
+
+
+	<bean id="nuvocoOrderCardConverter" parent="abstractPopulatingConverter" >
+		<property name="targetClass" value="com.nuvoco.facades.data.NuvocoOrderData"/>
+		<property name="populators">
+			<list>
+				<ref bean="nuvocoOrderCardPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="nuvocoOrderCardPopulator" class="com.nuvoco.facades.populators.NuvocoOrderCardPopulator"/>
+
+
+
+	<bean id="nuvocoImagePopulator" class="com.nuvoco.facades.populators.NuvocoImagePopulator"/>
+	<bean id="nuvocoImageConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.nuvoco.facades.data.NuvocoImageData"/>
+		<property name="populators">
+			<list>
+				<ref bean="nuvocoImagePopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="nuvocoTrackingDetailsOnOrderPopulator" class="com.nuvoco.facades.populators.NuvocoTrackingDetailsOnOrderPopulator"/>
+
+	<bean id="nuvocoTrackingDetailsOnEntryPopulator" class="com.nuvoco.facades.populators.NuvocoTrackingDetailsOnEntryPopulator"/>
+
+
+	<bean id="nuvocoOrderConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.commercefacades.order.data.CartData"/>
+		<property name="populators">
+			<list>
+					<ref bean="nuvocoOrderDetailPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="nuvocoOrderDetailPopulator" class="com.nuvoco.facades.populators.NuvocoOrderDetailPopulator"/>
+
+	<bean id="geoGraphicalRegionFacade" class="com.nuvoco.facades.impl.GeographicalRegionFacadeImpl"/>
+
+	<bean id="tradeOrderFacade" class="com.nuvoco.facades.impl.TradeOrderFacadeImpl"/>
+
+	<bean id="deliveryModeFacade" class="com.nuvoco.facades.impl.DeliveryModesFacadeImpl"/>
+
+	<bean id="deliverySlotsFacade" class="com.nuvoco.facades.impl.DeliverySlotsFacadeImpl"/>
+
+	<alias name="nuvocoB2BOrderfacade" alias="orderFacade"/>
+	<bean id="nuvocoB2BOrderfacade" class="com.nuvoco.facades.impl.NuvocoB2BOrderfacadeImpl" parent="defaultB2BOrderFacade"/>
+
+
+	<bean id="deliveryModesFacade" class="com.nuvoco.facades.impl.DealerFacadeImpl"/>
+
+	<bean id="orderRequisitionFacade" class="com.nuvoco.facades.impl.OrderRequisitionFacadeImpl"/>
+
+
+
+
+	<bean id="dealerAddressPopulator"
+		  class="com.nuvoco.facades.populators.DealerAddressPopulator">
+	</bean>
+
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="defaultAddressConverter" />
+		<property name="add" ref="dealerAddressPopulator" />
+	</bean>
+
+
+	<alias name="dealerAddressReversePopulator" alias="addressReversePopulator"/>
+	<bean id="dealerAddressReversePopulator"
+		  class="com.nuvoco.facades.populators.DealerAddressReversePopulator"
+		  parent="defaultAddressReversePopulator">
+	</bean>
+
+
+	<bean id="nuvocoOrderPopulator" class="com.nuvoco.facades.populators.NuvocoOrderPopulator">
+	</bean>
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="orderConverter"/>
+		<property name="add" ref="nuvocoOrderPopulator"/>
+	</bean>
+
+	<alias name="nuvocoCartParameterConverter" alias="commerceCartParameterConverter"/>
+	<bean name="nuvocoCartParameterConverter" parent="defaultCommerceCartParameterConverter">
+		<property name="populators">
+			<list merge="true">
+				<ref bean="nuvocoCartParameterPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="nuvocoCartParameterPopulator"  class="com.nuvoco.facades.populators.NuvocoCartParameterPopulator"/>
+
+	<bean id="nuvocoSiteMessagePopulator" class="com.nuvoco.facades.populators.NuvocoSiteMessagePopulator">
+	</bean>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="siteMessageConverter"/>
+		<property name="add" ref="nuvocoSiteMessagePopulator"/>
+	</bean>
+
+	<bean id="nuvocoNotificationFacade" class="com.nuvoco.facades.impl.NuvocoNotificationFacadeImpl"/>
+
 </beans>

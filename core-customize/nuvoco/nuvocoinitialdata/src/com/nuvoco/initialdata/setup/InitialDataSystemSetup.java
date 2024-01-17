@@ -6,6 +6,9 @@ package com.nuvoco.initialdata.setup;
 import de.hybris.platform.commerceservices.dataimport.impl.CoreDataImportService;
 import de.hybris.platform.commerceservices.dataimport.impl.SampleDataImportService;
 import de.hybris.platform.commerceservices.setup.AbstractSystemSetup;
+import de.hybris.platform.commerceservices.setup.data.ImportData;
+import de.hybris.platform.commerceservices.setup.events.CoreDataImportedEvent;
+import de.hybris.platform.commerceservices.setup.events.SampleDataImportedEvent;
 import de.hybris.platform.core.initialization.SystemSetup;
 import de.hybris.platform.core.initialization.SystemSetup.Process;
 import de.hybris.platform.core.initialization.SystemSetup.Type;
@@ -15,6 +18,7 @@ import de.hybris.platform.core.initialization.SystemSetupParameterMethod;
 import com.nuvoco.initialdata.constants.NuvocoInitialDataConstants;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Required;
@@ -26,6 +30,7 @@ import org.springframework.beans.factory.annotation.Required;
 @SystemSetup(extension = NuvocoInitialDataConstants.EXTENSIONNAME)
 public class InitialDataSystemSetup extends AbstractSystemSetup
 {
+	public static final String NUVOCO = "nuvoco";
 	private static final String IMPORT_CORE_DATA = "importCoreData";
 	private static final String IMPORT_SAMPLE_DATA = "importSampleData";
 	private static final String ACTIVATE_SOLR_CRON_JOBS = "activateSolrCronJobs";
@@ -61,6 +66,15 @@ public class InitialDataSystemSetup extends AbstractSystemSetup
 	public void createEssentialData(final SystemSetupContext context)
 	{
 		// Add Essential Data here as you require
+
+		getCoreDataImportService().getSetupImpexService().importImpexFile(String.format("/%s/import/coredata/common/NuvocoMasterData.impex", context.getExtensionName()), false);
+		getCoreDataImportService().getSetupImpexService().importImpexFile(String.format("/%s/import/coredata/stores/nuvoco/solr.impex", context.getExtensionName()), false);
+		getCoreDataImportService().getSetupImpexService().importImpexFile(String.format("/%s/import/sampledata/productCatalogs/nuvoco/categories.impex", context.getExtensionName()), false);
+		getCoreDataImportService().getSetupImpexService().importImpexFile(String.format("/%s/import/sampledata/productCatalogs/nuvoco/products.impex", context.getExtensionName()), false);
+		//getCoreDataImportService().getSetupImpexService().importImpexFile(String.format("/%s/import/sampledata/productCatalogs/102ProductCatalog/categories-classifications.impex", context.getExtensionName()), false);
+		//getCoreDataImportService().getSetupImpexService().importImpexFile(String.format("/%s/import/sampledata/productCatalogs/102ProductCatalog/products-classifications.impex", context.getExtensionName()), false);
+
+
 	}
 
 	/**
@@ -93,6 +107,21 @@ public class InitialDataSystemSetup extends AbstractSystemSetup
 		/*
 		 * Add import data for each site you have configured
 		 */
+
+		final List<ImportData> importData = new ArrayList<ImportData>();
+
+		final ImportData siteImportData = new ImportData();
+		siteImportData.setProductCatalogName(NUVOCO);
+		siteImportData.setContentCatalogNames(Arrays.asList(NUVOCO));
+		siteImportData.setStoreNames(Arrays.asList(NUVOCO));
+		importData.add(siteImportData);
+
+		getCoreDataImportService().execute(this, context, importData);
+		getEventService().publishEvent(new CoreDataImportedEvent(context, importData));
+
+		getSampleDataImportService().execute(this, context, importData);
+		getEventService().publishEvent(new SampleDataImportedEvent(context, importData));
+
 	}
 
 	public CoreDataImportService getCoreDataImportService()

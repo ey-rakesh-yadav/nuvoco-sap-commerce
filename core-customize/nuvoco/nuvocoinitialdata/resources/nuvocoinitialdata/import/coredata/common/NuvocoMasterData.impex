@@ -1,0 +1,294 @@
+#Nuvoco Master Data
+
+INSERT_UPDATE PaymentTerms;code[unique=true];name;description
+                          ;5;;
+
+INSERT_UPDATE Organization;orgID[unique=true];name
+                          ;101;Nuvoco
+
+
+INSERT_UPDATE DestinationSourceMaster;orderType(code)[unique=true];customerCategory(code)[unique=true];source(code)[unique=true];sourceCity;sourceDistrict;sourceTaluka;sourceState;type(code);deliveryMode(code)[unique=true];destinationCity[unique=true];destinationTaluka[unique=true];destinationDistrict[unique=true];destinationState[unique=true];brand(uid)[unique=true];grade[unique=true];packaging[unique=true];contributionPerMT
+                                     ;SO;TR;NuvocoWarehouse;Mumbai;Thane;Kalyan;Maharashtra;PLANT;ROAD;Pune;Mulshi;Mulshi;Maharashtra;nuvoco;OPC;HDPE;3
+
+INSERT_UPDATE DeliveryMode;code[unique=true];name;active
+                          ;RAIL;RAIL;TRUE
+                          ;ROAD;ROAD;TRUE
+
+
+INSERT_UPDATE ReceiptAllocaltion;  receipt[unique=true];salesToRetailer;stockAvlForRetailer;product;dealerCode;startDate;endDate
+                                ;100;60;20;8796355198977;8796158689284;;;
+
+INSERT_UPDATE CustomerSubCategory;code[unique=true];name;parentCategory(code)
+                                 ;NT;NT;NT
+                                 ;RT;RT;TR
+
+INSERT_UPDATE CustomerOrderType;transactionTypeId[unique=true];name;description;orgID(orgID)
+                               ;1608;BC/NT/B64;SO FOR NT- PABHAT DEPOT;103
+                               ;1747;TC/NT/T61;SO FOR NT-   REWARI DEPOT;104
+                               ;1748;TC/TR/T61;SO FOR TR- REWARI DEPOT;104
+
+
+INSERT_UPDATE TruckModelMaster;vehicleMake[unique=true];truckModel[unique=true];capacity
+
+INSERT_UPDATE SalesOrderDeliverySLA;route[unique=true];sourceCity;destinationDistrict;destinationCity;destinationPincode;packType;grade;customerCategory(code);commonTruckCapacity[default=0];dispatchSlaHour;deliverySlaHour;noEntryRestrictionStart1;noEntryRestrictionEnd1;noEntryRestrictionStart2;noEntryRestrictionEnd2;noEntryRestrictionStart3;noEntryRestrictionEnd3;noEntryRestrictionStart4;noEntryRestrictionEnd4
+                                   ;1111;Mumbai;Mulshi;Pune;411057;PACKED;OPC;TR;50;10;20;;;;;;;;;
+
+INSERT_UPDATE Warehouse;code[unique=true];locationCode;organisationId;active;depotIdentifier(code);railFed;brand(uid);name;state;district;taluka;pincode;capacity;workingHourStartTime;workingHourEndTime;type(code)[default=DEPOT];vendor(code)[default=default, forceWrite=true];default[default=true, forceWrite=true]
+
+
+INSERT_UPDATE DepotSubAreaMapping;subArea[unique=true];district[unique=true];state[unique=true];depot(code)[unique=true];brand(uid)[unique=true];subAreaMaster(district,taluka)[unique=true];
+
+
+
+
+INSERT_UPDATE UserSubAreaMapping;brand(uid)[unique=true];state[unique=true];nuvocoUser(employeeCode)[unique=true];subArea[unique=true];district[unique=true];subAreaMaster(district,taluka)[unique=true]
+;nuvoco;Maharashtra;	15486;	BILOLI;	PUNE	;PUNE:HAVELI
+
+
+#
+#for ccv2 dev
+INSERT_UPDATE OAuthClientDetails;clientId[unique=true] ;resourceIds ;scope ;authorizedGrantTypes ;authorities ;clientSecret ;registeredRedirectUri
+                                ;client-side ;hybris ;basic ;implicit,client_credentials ;ROLE_CLIENT,ROLE_CUSTOMERGROUP,ROLE_TRUSTED_CLIENT,ROLE_CUSTOMERMANAGERGROUP ;secret ;https://api.cuivbcudlo-ernstandy1-d1-public.model-t.cc.commerce.ondemand.com/authorizationserver/oauth2_implicit_callback;
+                                ;mobile_android ;hybris ;basic ;authorization_code,refresh_token,password,client_credentials ;ROLE_CLIENT,ROLE_CUSTOMERGROUP,ROLE_TRUSTED_CLIENT,ROLE_CUSTOMERMANAGERGROUP ;secret ;https://api.cuivbcudlo-ernstandy1-d1-public.model-t.cc.commerce.ondemand.com/authorizationserver/oauth2_callback;
+
+INSERT_UPDATE B2BUnit;description;uid[unique=true];name;locName[lang=en];groups(uid);
+                     ;SalesOfficerUnit;SalesOfficerUnit;Sales Officer Unit;Sales Officer Unit;;
+
+
+INSERT_UPDATE Usergroup;uid[unique=true];groups(uid);locname[lang=en];
+                       ;salesofficergroup;customermanagergroup;Sales Officer User Group;
+                       ;tsmgroup;customermanagergroup;TSM User Group;
+                       ;rhgroup;customermanagergroup;RH User Group;
+
+INSERT_UPDATE B2BUnit;uid[unique=true];description;name;locName[lang=en];groups(uid);
+                     ;NuvocoCustomerUnit;Nuvoco Customer Unit;Nuvoco Customer Unit;Nuvoco Customer Unit;;
+
+INSERT_UPDATE Usergroup;uid[unique=true];groups(uid);locname[lang=en];
+                       ;NuvocoCustomerGroup;b2bcustomergroup;Nuvoco Customer Group;Nuvoco Customer Group;
+
+INSERT_UPDATE NuvocoCustomer;description;uid[unique=true];originalUid;email;name;groups(uid);sessionCurrency(isocode)[default='USD'];
+                         ;nuvococustomer1;nuvococustomer1;nuvococustomer1@rustic-hw.com;nuvococustomer1@rustic-hw.com;Nuvoco customer 1;NuvocoCustomerUnit,NuvocoCustomerGroup;
+
+INSERT_UPDATE B2BUnit;description;uid[unique=true];name;locName[lang=en];groups(uid);
+                     ;NuvocoB2BUnit;NuvocoB2BUnit;Nuvoco B2B Unit;Nuvoco B2B Unit;;
+
+INSERT_UPDATE Usergroup;uid[unique=true];groups(uid);locname[lang=en];
+                       ;NuvocoDealerGroup;b2bcustomergroup;Nuvoco Dealer Group;Nuvoco Dealer Group;
+                       ;NuvocoRetailerGroup;b2bcustomergroup;Nuvoco Retailer Group;Nuvoco Retailer Group;
+                       ;NuvocoSiteGroup;b2bcustomergroup;Nuvoco Site Group;Nuvoco Site Group;
+                       #;NuvocoInfluencerGroup;b2bcustomergroup;Nuvoco Influencer Group;Nuvoco Influencer Group;
+                       ;NuvocoDealerOnboardingGroup;b2bcustomergroup;Nuvoco Dealer Onboarding Group;Nuvoco Dealer Onboarding Group;
+                       ;NuvocoRetailerOnboardingGroup;b2bcustomergroup;Nuvoco Retailer Onboarding Group;Nuvoco Retailer Onboarding Group;
+                       #;NuvocoInfluencerOnboardingGroup;b2bcustomergroup;Nuvoco Influencer Onboarding Group;Nuvoco Influencer Onboarding Group;
+                       #;NuvocoSalesPromoterOnboardingGroup;b2bcustomergroup;Nuvoco Sales Promoter Onboarding Group;Nuvoco Sales Promoter Onboarding Group;
+                       ;NuvocoEndCustomerGroup;b2bcustomergroup;Nuvoco End Customer Group;Nuvoco End Customer Group;
+
+
+INSERT_UPDATE Usergroup;uid[unique=true];groups(uid);locname[lang=en];
+                       ;spgroup;b2bcustomergroup;Nuvoco SP Group;Nuvoco SP Group;
+
+INSERT_UPDATE Currency;isocode[unique=true];conversion;digits;symbol
+                      ;INR;1;1;₹
+
+INSERT_UPDATE DeliveryMode;code[unique=true];name;active[default=true];
+                          ;ROAD;ROAD
+                          ;RAIL;RAIL
+
+#Nuvoco Dealers
+INSERT_UPDATE NuvocoCustomer; uid[unique=true];crmRefCode ;customerNo;customerId;groups(uid)        ;counterType(code);name                  ;customerCategory(code);state       ;mobileNumber ;email[default='dummy@test.com'];dateOfJoining[dateformat=dd-MM-yyyy];defaultB2BUnit(uid);bankAccountNo;bankName          ;ifscCode ;gstIN            ;panCard
+                            ;1000174338       ;1000174338 ;786656    ;17015746  ;NuvocoDealerGroup  ;Dealer           ;NEHA ASSOCIATES          ;TR                 ;JHARKHAND;9771439568    ;nehaassociates.ranchi@gmail.com       ; 05-04-2018                        ;    NuvocoB2BUnit  ;3670064550   ;Central Bank of India  ;CBIN0284448;20BLBPG3020R1ZH  ;BLBPG3020R
+                            ;1000174339       ;1000174339 ;786657    ;17015747  ;NuvocoDealerGroup  ;Dealer           ;ASHISH NIDHI AND SONS HUF          ;TR       ;JHARKHAND  ;9431171927    ;ashishnidhiandsons@gmail.com        ; 08-12-2022                        ;    NuvocoB2BUnit  ;50200015537675   ;HDFC BANK  ;HDFC0001470;20AAMHA2767C1ZS  ;AAMHA2767C
+
+INSERT_UPDATE Address; owner(NuvocoCustomer.customerNo)[unique=true];erpAddressId[unique=true];accountName;firstName;lastname;streetname  ;streetnumber;state ;district;taluka;erpCity;postalcode ;cellphone;email  ;isPrimaryAddress[default=false];billingAddress ; shippingAddress;duplicate[default=false];  country(isocode)[default=IN]   ;visibleInAddressBook[default=true]
+                     ;786656  ;1001 ;NEHA GOYAL;NEHA; GOYAL;GROUND FLOOR, PITAMBER COMPLEX, GADI KHELGAON CHOWK DIPA TOLI;BLOCK A SHOP NO 7;JHARKHAND   ;RANCHI;RANCHI;RANCHI;834009;9771439568;nehaassociates.ranchi@gmail.com;TRUE   ;TRUE   ;TRUE;FALSE;;TRUE
+                     ;786657  ;1002  ;ASHISH PATWARI;ASHISH; PATWARI;4TH FLOOR, 403, CHAKABORTY TOWER, SHIVAJI PARK, HEHAL;BLOCK A SHOP NO 8;JHARKHAND   ;RANCHI;RANCHI;RANCHI;834005;9431171927;ashishnidhiandsons@gmail.com   ;TRUE ;TRUE;TRUE;FALSE;;TRUE
+
+
+INSERT_UPDATE SubAreaMaster;    district[unique=true]  ;taluka[unique=true]
+                           ;RANCHI   ;RANCHI
+                           ;RANCHI   ;RANCHI
+
+INSERT_UPDATE CustomerSubAreaMapping; nuvocoCustomer(uid)[unique=true]; counterType;subArea[unique=true];district[unique=true];state[unique=true];brand(uid)[unique=true];subAreaMaster(district,taluka)[unique=true];isOtherBrand[default=false];isActive[default=false]
+                                    ;1000174338 ;Dealer;RANCHI;RANCHI  ;JHARKHAND   ;nuvoco    ;RANCHI:RANCHI
+                                    ;1000174339 ;Dealer;RANCHI;RANCHI    ;JHARKHAND;  nuvoco;    RANCHI:RANCHI
+
+INSERT_UPDATE UserSubAreaMapping;brand(uid)[unique=true];state[unique=true];nuvocoUser(employeeCode)[unique=true];subArea[unique=true];district[unique=true];subAreaMaster(district,taluka)[unique=true]
+                                ;nuvoco;JHARKHAND;	1001;	RANCHI;	RANCHI	;RANCHI:ORMANJHI
+                                ;nuvoco;JHARKHAND;	1001;	RANCHI;	RANCHI	;RANCHI:BURMU
+                                ;nuvoco;JHARKHAND;	1001;	RANCHI;	RANCHI	;RANCHI:RANCHI
+
+
+
+#Nuvoco Retailer's
+
+INSERT_UPDATE NuvocoCustomer; uid[unique=true];crmRefCode ;customerNo;customerId;groups(uid)        ;counterType(code);name                  ;customerCategory(code);state       ;mobileNumber ;email[default='dummy@test.com'];dateOfJoining[dateformat=dd-MM-yyyy];defaultB2BUnit(uid);bankAccountNo;bankName          ;ifscCode ;gstIN;panCard
+                            ;21876334       ;21876334 ;21876334    ;17015748  ;NuvocoRetailerGroup  ;Retailer           ;TATA STEEL CENTER   ;TR ;JHARKHAND;7463842501  ;shashi05bhushan@gmail.com     ; 05-06-2018  ;    NuvocoB2BUnit  ;3670064550   ;State Bank of India  ;SBIN0284448;21BLBPG3020R1ZH  ;ASDFG3020R
+                            ;21894559       ;21894559 ;21894559    ;17015749  ;NuvocoRetailerGroup  ;Retailer           ;SAHU TRADERS ;TR  ;JHARKHAND  ;9572575123    ;naveenshau10xm@gmail.com ; 10-12-2022  ;    NuvocoB2BUnit  ;50200015537675   ;HDFC BANK  ;HDFC0001486;21BBMHA2767C1ZS  ;QWERT2767C
+
+
+INSERT_UPDATE Address; owner(NuvocoCustomer.customerNo)[unique=true];erpAddressId[unique=true];accountName;firstName;lastname;streetname  ;streetnumber;state ;district;taluka;erpCity;postalcode ;cellphone;email  ;isPrimaryAddress[default=false];billingAddress ; shippingAddress;duplicate[default=false];  country(isocode)[default=IN]   ;visibleInAddressBook[default=true]
+                     ;21876334  ;1003 ;SASHI BHUSHAN;SASHI;BHUSHAN;DARDAG ORMANJHI;BLOCK A SHOP NO 7;JHARKHAND   ;RANCHI;ORMANJHI;RANCHI;835219;7463842501;shashi05bhushan@gmail.com;TRUE   ;TRUE   ;TRUE;FALSE;;TRUE
+                     ;21894559  ;1004  ;NAVEEN KUMAR;NAVEEN;KUMAR;HESALANG,LAP,MC-CULSKIGANJ;BLOCK A SHOP NO 8;JHARKHAND ;RANCHI;BURMU;RANCHI;829208;9572575123;naveenshau10xm@gmail.com   ;TRUE ;TRUE;TRUE;FALSE;;TRUE
+
+
+INSERT_UPDATE SubAreaMaster;    district[unique=true]  ;taluka[unique=true]
+                           ;RANCHI   ;ORMANJHI
+                           ;RANCHI   ;BURMU
+
+INSERT_UPDATE CustomerSubAreaMapping; nuvocoCustomer(uid)[unique=true]; counterType;subArea[unique=true];district[unique=true];state[unique=true];brand(uid)[unique=true];subAreaMaster(district,taluka)[unique=true];isOtherBrand[default=false];isActive[default=false]
+                                    ;21876334 ;Retailer;RANCHI;RANCHI  ;JHARKHAND   ;nuvoco    ;RANCHI:ORMANJHI;;true
+                                    ;21894559 ;Retailer;RANCHI;RANCHI    ;JHARKHAND;  nuvoco;    RANCHI:BURMU;;true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+INSERT_UPDATE DeliverySlotMaster;displayName[unique=true];start;end;sequence;slot(code)
+                                ;7 AM to 11 AM;07:00;11:00;1;SevenToEleven
+                                ;11 AM to 5 PM;11:00;17:00;2;ElevenToFive
+                                ;5 PM to 9 PM;17:00;21:00;3;FiveToNine
+
+
+INSERT_UPDATE TruckModelMaster;truckModel[unique=true];capacity[unique=true];vehicleType(code);vehicleMake;
+                              ;TATA-3600-TURBO;82;TURBO;TATA
+                              ;TATA-4018-TRAILER;80;TRAILER;TATA
+                              ;TATA-2518-TURBO;72;TURBO;TATA
+                              ;TATA-3118-TRUCK;67;TRUCK;TATA
+
+INSERT_UPDATE ServicelayerJob; code[unique=true];springId
+                             ;NuvocoOrderProcessingRetriesJob;NuvocoOrderProcessingRetriesJob
+
+
+INSERT_UPDATE CronJob; code[unique=true];job(code);singleExecutable;sessionLanguage(isocode)
+                     ;NuvocoOrderProcessingRetriesJob;NuvocoOrderProcessingRetriesJob;false;en
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronExpression
+                     ;NuvocoOrderProcessingRetriesJob;0 0/5 * 1/1 * ? *
+
+
+INSERT_UPDATE ServicelayerJob; code[unique=true];springId
+                             ;nuvocoCancelOrderUnProcessingOrdersJob;nuvocoCancelOrderUnProcessingOrdersJob
+
+INSERT_UPDATE CronJob; code[unique=true];job(code);singleExecutable;sessionLanguage(isocode)
+                     ;nuvocoCancelOrderUnProcessingOrdersJob;nuvocoCancelOrderUnProcessingOrdersJob;false;en
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronExpression
+                     ;nuvocoCancelOrderUnProcessingOrdersJob;0 0/15 * 1/1 * ? *
+
+
+INSERT_UPDATE ServicelayerJob; code[unique=true];springId
+                             ;nuvocoCancelOrderEntryUnProcessingOrdersJob;nuvocoCancelOrderEntryUnProcessingOrdersJob
+
+INSERT_UPDATE CronJob; code[unique=true];job(code);singleExecutable;sessionLanguage(isocode)
+                     ;nuvocoCancelOrderEntryUnProcessingOrdersJob;nuvocoCancelOrderEntryUnProcessingOrdersJob;false;en
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronExpression
+                     ;nuvocoCancelOrderEntryUnProcessingOrdersJob;0 0/15 * 1/1 * ? *
+
+
+
+INSERT_UPDATE ServicelayerJob ;code[unique=true]  ;springId
+                              ;efficacyReportUpdateJob ;efficacyReportUpdateJob
+
+INSERT_UPDATE CronJob ;code[unique=true]  ;job(code)    ; sessionLanguage(isocode); sessionCurrency(isocode)
+                      ;efficacyReportUpdateCronJob  ;efficacyReportUpdateJob  ;en ;INR
+
+INSERT_UPDATE Trigger ;cronjob(code)[unique=true] ;cronExpression
+                      ;efficacyReportUpdateCronJob   ;0 0 0 1 1/1 ? *
+
+INSERT_UPDATE ServicelayerJob ;code[unique=true]  ;springId
+                              ;marketIntelligenceReportUpdateJob ;marketIntelligenceReportUpdateJob
+
+INSERT_UPDATE CronJob ;code[unique=true]  ;job(code)    ; sessionLanguage(isocode); sessionCurrency(isocode)
+                      ;marketIntelligenceReportUpdateCronJob  ;marketIntelligenceReportUpdateJob  ;en ;INR
+
+INSERT_UPDATE Trigger ;cronjob(code)[unique=true] ;cronExpression
+                      ;marketIntelligenceReportUpdateCronJob   ;0 0 0 1 1/1 ? *
+
+INSERT_UPDATE ServicelayerJob ;code[unique=true]  ;springId
+                              ;newProductReportUpdateJob ;newProductReportUpdateJob
+
+INSERT_UPDATE CronJob ;code[unique=true]  ;job(code)    ; sessionLanguage(isocode); sessionCurrency(isocode)
+                      ;newProductReportUpdateCronJob  ;newProductReportUpdateJob  ;en ;INR
+
+INSERT_UPDATE Trigger ;cronjob(code)[unique=true] ;cronExpression
+                      ;newProductReportUpdateCronJob   ;0 0 0 1 1/1 ? *
+
+INSERT_UPDATE ServicelayerJob ;code[unique=true]  ;springId
+                              ;reinclusionObsoleteCounterReportUpdateJob ;reinclusionObsoleteCounterReportUpdateJob
+
+INSERT_UPDATE CronJob ;code[unique=true]  ;job(code)    ; sessionLanguage(isocode); sessionCurrency(isocode)
+                      ;reinclusionObsoleteCounterReportUpdateCronJob  ;reinclusionObsoleteCounterReportUpdateJob  ;en ;INR
+
+INSERT_UPDATE Trigger ;cronjob(code)[unique=true] ;cronExpression
+                      ;reinclusionObsoleteCounterReportUpdateCronJob   ;0 0 0 1 1/1 ? *
+
+
+
+INSERT_UPDATE ServicelayerJob ;code[unique=true]  ;springId
+                              ;nuvocoCustomerNetworkTypeUpdateJob ;nuvocoCustomerNetworkTypeUpdateJob
+
+INSERT_UPDATE CronJob ;code[unique=true]  ;job(code)    ; sessionLanguage(isocode); sessionCurrency(isocode)
+                      ;nuvocoCustomerNetworkTypeUpdateJob ;nuvocoCustomerNetworkTypeUpdateJob  ;en ;INR
+
+INSERT_UPDATE Trigger ;cronjob(code)[unique=true] ;cronExpression
+                      ;nuvocoCustomerNetworkTypeUpdateJob   ;0 0 0 1/1 * ? *
+
+INSERT_UPDATE ServicelayerJob ;code[unique=true]  ;springId
+                              ;salesSummaryJob ;salesSummaryJob
+
+INSERT_UPDATE CronJob ;code[unique=true]  ;job(code)    ; sessionLanguage(isocode); sessionCurrency(isocode)
+                      ;salesSummaryCronJob ;salesSummaryJob  ;en ;INR
+
+INSERT_UPDATE Trigger ;cronjob(code)[unique=true] ;cronExpression
+                      ;salesSummaryCronJob   ;0 0 */1 * * *
+
+
+
+
+INSERT_UPDATE NuvocoCustomer; uid[unique=true];crmRefCode;customerNo;customerId;groups(uid);counterType(code);name;customerCategory(code);state	;mobileNumber;email[default='dummy@test.com'];dateOfJoining[dateformat=dd-MM-yyyy];defaultB2BUnit(uid);bankAccountNo;bankName;ifscCode;gstIN;panCard
+;1000174335	;1000174335;910849;17491912;NuvocoRetailerGroup;Retailer;RINKU CEMENT STORE	;TR	;Maharashtra;	9466029116	;rinkucement729@gmail.com;	16-02-2023;	NuvocoB2BUnit	;6130063112;LDCC Bank	;LD000123;	06AXSPG5656K1ZV;KYQPS6983E
+;1000174336	;1000174336	;786655;17015745;NuvocoDealerGroup;Dealer;K.S. TRADERS	;TR	;Maharashtra	;9953649161	;	k.s123@gmail.com;     05-03-2023;        	NuvocoB2BUnit	;6132163211 ;	LDCC Bank	;LD0001234;06AXSPG5656K1XC;	GDYPS7983B
+
+
+INSERT_UPDATE Address; owner(NuvocoCustomer.customerNo)[unique=true];erpAddressId[unique=true];accountName;firstName;streetname	;streetnumber;state	;district;taluka;erpCity;postalcode	;cellphone;email;isPrimaryAddress[default=false];billingAddress	;	shippingAddress;duplicate[default=false];	country(isocode)[default=IN]	;visibleInAddressBook[default=true]
+;910849	;;RINKU KUMAR DHURUA;RINKU KUMAR DHURUA;Abc chowk;4863;Maharashtra;Pune;Mulshi;PUNE;411057;9777574386;rinkukumar411@gmail.com;TRUE	;TRUE;FALSE
+;786655	;;KISHAN KUMAR SUYOG;KISHAN KUMAR SUYOG;Laxmi chowk;1232;Maharashtra;Pune;Mulshi;Pimpari;411057;9777574386;kishankumar263@gmail.com;TRUE;FALSE;TRUE
+
+
+INSERT_UPDATE SubAreaMaster;	district[unique=true]	;taluka[unique=true]
+;PUNE	;MULSHI
+;PUNE	;HAVELI
+
+INSERT_UPDATE CustomerSubAreaMapping; nuvocoCustomer(uid)[unique=true];	counterType;subArea[unique=true];district[unique=true];state[unique=true];brand(uid)[unique=true];subAreaMaster(district,taluka)[unique=true];isOtherBrand[default=false];isActive[default=false]
+;1000174335	;Retailer;PUNE;MULSHI	;Maharashtra	;nuvoco	;PUNE:MULSHI
+;1000174336	;Dealer;PUNE;HAVELI	;Maharashtra;	nuvoco;	PUNE:HAVELI
+
+
+
+
+
+
+
+
+
+INSERT_UPDATE SearchRestriction; code[unique = true]; name[lang = en];query ; principal(UID); restrictedType(code); active; generate
+                               ; OrderSubAreaRestrictionForDealer ; OrderSubAreaRestrictionForDealer; {item:user} = ?session.user AND {item:site} = ?session.currentSite AND {item:versionID} IS NULL; NuvocoDealerGroup ; Order   ; true  ; true
+                               ; OrderRequistionForDealer ; OrderRequistionForDealer; {item:active} = 1 and {item:fromCustomer} = ?session.user; NuvocoDealerGroup ; OrderRequisition   ; true  ; true
+                               ; PointRequisitionForDealer ; PointRequisitionForDealer; {item:isActive} = 1 and {item:requestRaisedTo} = ?session.user ; NuvocoDealerGroup ; PointRequisition   ; true  ; true
+                               ; NetworkAssistanceForDealer ; NetworkAssistanceForDealer; {item:brand} = ?session.currentSite AND  {item:raisedBy} = ?session.user; NuvocoDealerGroup ; NetworkAssistance   ; true  ; true
+
+INSERT_UPDATE SearchRestriction; code[unique = true]; name[lang = en];query ; principal(UID); restrictedType(code); active; generate
+                               ; OrderSubAreaRestrictionForRetailer ; OrderSubAreaRestrictionForRetailer; {item:user} = ?session.user AND {item:site} = ?session.currentSite AND {item:versionID} IS NULL; NuvocoRetailerGroup ; Order   ; true  ; true
+                               ; OrderRequistionForRetailer ; OrderRequistionForRetailer; {item:active} = 1 and {item:toCustomer} = ?session.user; NuvocoRetailerGroup ; OrderRequisition   ; true  ; true
+                               ; PointRequisitionForRetailer ; PointRequisitionForRetailer; {item:isActive} = 1 and {item:requestRaisedTo} = ?session.user ; NuvocoRetailerGroup ; PointRequisition   ; true  ; true
+                               ; NetworkAssistanceFoRetailer ; NetworkAssistanceFoRetailer;  {item:brand} = ?session.currentSite AND {item:raisedBy} = ?session.user; NuvocoRetailerGroup ; NetworkAssistance   ; true  ; true

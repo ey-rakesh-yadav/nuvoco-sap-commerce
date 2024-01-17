@@ -1,0 +1,40 @@
+# -----------------------------------------------------------------------
+# Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Products
+
+# Macros / Replacement Parameter definitions
+$productCatalog=nuvocoProductCatalog
+$productCatalogName=Nuvoco Product Catalog
+
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=supercategories(code, $catalogVersion)
+$baseProduct=baseProduct(code,$catalogVersion)
+$approved=approvalstatus(code)[default='approved']
+
+
+INSERT_UPDATE VariantCategory; code[unique = true]; name            ; $supercategories; hasImage; $catalogVersion; allowedPrincipals(uid)[default = 'customergroup']
+                             ; bagType           ; Bag Type     	;                 		; true
+
+INSERT_UPDATE VariantValueCategory; code[unique = true]; name         ; $supercategories; sequence; $catalogVersion; allowedPrincipals(uid)[default = 'customergroup']
+                                  ; HDPE               ; HDPE      ; bagType        ; 1
+                                  ; PAPER              ; PAPER     ; bagType        ; 2
+                                  ;PLAIN               ;PLAIN      ; bagType        ;3
+INSERT_UPDATE Product;code[unique=true];state;custCategory;inventoryId;grade;packagingCondition;bagType;name[lang=en];premium;$approved;$supercategories[default='cement'];$catalogVersion;
+                     ;100;Andhra Pradesh;TR;3438;OPC_53;HDPE;HDPE;ROOFON_53_HDPE;N;approved;
+
+                        ;101;Andhra Pradesh;TR;3438;OPC_53;PAPER;PAPER;ROOFON_53_PAPER;N;approved;
+                        ;102;Andhra Pradesh;TR;3439;PPC;ROC;HDPE;SHREE JUNG RODHAK CEMENT - PPC;N;approved;
+                        ;103;Andhra Pradesh;TR;7675779;PPC_ROOFON;PAPER;PAPER;ROOFON;Y;approved;
+                        ;104;Bihar;TR;7570361;CC;HDPE;HDPE;SHREE JUNG RODHAK CEMENT - CC;N;approved;
+                        ;105;Bihar;TR;7570361;CC;PAPER;PAPER;ROOFON - CC;Y;approved;
+
+
+#Nuvoco products
+                        ;DRG-PCC-JCP-PP-EU;JHARKHAND;TR;9000044225;PPC;PLAIN;PLAIN;Duragurad Cement;Y;approved;
+                       ;CONR_UNO;JHARKHAND;TR;9000044226;PPC;PLAIN;PLAIN;Concreto Uno Cement;Y;approved;
+
+
+
+# Insert Products
+INSERT_UPDATE Product;code[unique=true];$supercategories;manufacturerName;manufacturerAID;unit(code);ean;variantType(code);$catalogVersion;$approved
