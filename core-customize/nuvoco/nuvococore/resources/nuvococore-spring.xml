@@ -704,7 +704,7 @@
 	<alias name="defaultDjpRouteScoreDao" alias="djpRouteScoreDao"/>
 	<bean id="defaultDjpRouteScoreDao" class="com.nuvoco.core.dao.impl.DJPRouteScoreDaoImpl"/>
 
-	<alias alias="dynamicAttributesSiteActive" name="dynamicAttributesSiteActive"/>
-	<bean id="dynamicAttributesSiteActive" class="com.nuvoco.core.handler.DynamicAttributesSiteActive"/>
+	<!-- <alias alias="dynamicAttributesSiteActive" name="dynamicAttributesSiteActive"/>
+	<bean id="dynamicAttributesSiteActive" class="com.nuvoco.core.handler.DynamicAttributesSiteActive"/> -->
 
 </beans>
