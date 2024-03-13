@@ -187,10 +187,11 @@ public class NuvocoCartServiceImpl implements NuvocoCartService {
                 queryResult = queryResult + " and UPPER({ds:destinationTaluka})=?destinationTaluka ";
             }
             queryResult = queryResult + " and UPPER({ds:destinationCity})=?destinationCity and {ds:grade}=?grade and {ds:packaging}=?packaging ";
-
+            LOG.info(String.format("Query Executed %s",queryResult));
             final FlexibleSearchQuery query = new FlexibleSearchQuery(queryResult);
             query.getQueryParameters().putAll(map);
             final SearchResult<DestinationSourceMasterModel> result = flexibleSearchService.search(query);
+             LOG.info(String.format("Query Result %s",result.getResult()));
             return result.getResult();
         }
         return Collections.emptyList();
