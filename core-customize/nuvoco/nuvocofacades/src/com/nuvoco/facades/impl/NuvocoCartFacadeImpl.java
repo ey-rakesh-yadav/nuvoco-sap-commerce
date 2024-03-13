@@ -40,13 +40,16 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import org.apache.log4j.Logger;
 
 import static de.hybris.platform.servicelayer.util.ServicesUtil.validateParameterNotNullStandardMessage;
 
 public class NuvocoCartFacadeImpl  extends DefaultCartFacade implements NuvocoCartFacade {
 
     private static int DEFAULT_SAVE_CART_EXPIRY_DAYS = 30;
+private static final Logger LOGGER = Logger.getLogger(NuvocoCartFacadeImpl.class);
 
+	
     @Autowired
     NuvocoCartService nuvocoCartService;
 
@@ -107,11 +110,12 @@ public class NuvocoCartFacadeImpl  extends DefaultCartFacade implements NuvocoCa
         List<DestinationSourceMasterModel> destinationSourceMasterList = nuvocoCartService.fetchDestinationSourceByCity(city, orderType, deliveryMode,productCode, district, state, taluka);
         if( destinationSourceMasterList !=null && !destinationSourceMasterList.isEmpty()) {
             List<DestinationSourceMasterData> destinationSourceMasterData = destinationSourceConverter.convertAll(destinationSourceMasterList);
-
+            String.format("Destination Source Master Data List Afger Converter Call ::%s",destinationSourceMasterData.size());
             destinationSourceMasterData.sort(Comparator.comparing(DestinationSourceMasterData::getPriority));
             sourceListData.setDestinationSourceDataList(destinationSourceMasterData);
 
             Optional<DestinationSourceMasterData> sourceMaster = destinationSourceMasterData.stream().filter(d -> d.getSourcePriority().equals("L1")).findAny();
+            String.format("Destination Source Master Data List Afger Filter  ::%s",sourceMaster.get().getCity());
             if (sourceMaster.isPresent()) {
                 sourceListData.setDefaultSource(sourceMaster.get());
             }
