@@ -110,12 +110,12 @@ private static final Logger LOGGER = Logger.getLogger(NuvocoCartFacadeImpl.class
         List<DestinationSourceMasterModel> destinationSourceMasterList = nuvocoCartService.fetchDestinationSourceByCity(city, orderType, deliveryMode,productCode, district, state, taluka);
         if( destinationSourceMasterList !=null && !destinationSourceMasterList.isEmpty()) {
             List<DestinationSourceMasterData> destinationSourceMasterData = destinationSourceConverter.convertAll(destinationSourceMasterList);
-            String.format("Destination Source Master Data List Afger Converter Call ::%s",destinationSourceMasterData.size());
+            LOG.info(String.format("Destination Source Master Data List Afger Converter Call ::%s",destinationSourceMasterData.size()));
             destinationSourceMasterData.sort(Comparator.comparing(DestinationSourceMasterData::getPriority));
             sourceListData.setDestinationSourceDataList(destinationSourceMasterData);
 
             Optional<DestinationSourceMasterData> sourceMaster = destinationSourceMasterData.stream().filter(d -> d.getSourcePriority().equals("L1")).findAny();
-            String.format("Destination Source Master Data List Afger Filter  ::%s",sourceMaster.get().getCity());
+              LOG.info(String.format("Destination Source Master Data List Afger Filter  ::%s",sourceMaster.get().getCity()));
             if (sourceMaster.isPresent()) {
                 sourceListData.setDefaultSource(sourceMaster.get());
             }
