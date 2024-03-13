@@ -75,7 +75,7 @@ public class NuvocoCartServiceImpl implements NuvocoCartService {
 
         List<DeliveryModeModel> deliveryModeList = deliveryModeDao.findDeliveryModesByCode(deliveryMode);
         list = findDestinationSourceByCode(city, deliveryModeList.get(0), OrderType.valueOf(orderType), CustomerCategory.TR ,grade, packaging, district, state, baseSiteService.getCurrentBaseSite(), taluka);
-        String.format("Destination Source Master List Retrieved from DB Call ::%s",list.size());
+        LOG.info(String.format("Destination Source Master List Retrieved from DB Call ::%s",list.size()));
         return list;
     }
 
