@@ -21,7 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
+import org.apache.log4j.Logger;
 import javax.annotation.security.PermitAll;
 
 import static com.nuvoco.controllers.DealerAddressController.DEFAULT_FIELD_SET;
@@ -33,6 +33,7 @@ import static com.nuvoco.controllers.DealerAddressController.DEFAULT_FIELD_SET;
 @PermitAll
 public class NuvocoOrdersController {
 
+  private static final Logger LOG = Logger.getLogger(NuvocoOrdersController.class);
 
     @Autowired
     NuvocoOrderFacade nuvocoOrderFacade;
@@ -93,6 +94,7 @@ public class NuvocoOrdersController {
             @ApiFieldsParam @RequestParam(defaultValue = DEFAULT_FIELD_SET) final String fields) {
 
         final DestinationSourceListData destinationSourceListData = nuvocoCartFacade.fetchDestinationSource(city,orderType,deliveryMode,productCode,district,state,taluka);
+        LOG.info(String.format("Destination Source List Data Returning to FE  ::%s",destinationSourceListData));       
         return dataMapper.map(destinationSourceListData, DestinationSourceListWsDTO.class, fields);
     }
 

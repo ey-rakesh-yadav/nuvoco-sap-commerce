@@ -20,7 +20,7 @@ import de.hybris.platform.servicelayer.search.paginated.PaginatedFlexibleSearchS
 import de.hybris.platform.site.BaseSiteService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.apache.log4j.Logger;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -31,6 +31,8 @@ import static de.hybris.platform.servicelayer.util.ServicesUtil.validateParamete
 
 public class NuvocoCartServiceImpl implements NuvocoCartService {
 
+
+    private static final Logger LOG = Logger.getLogger(NuvocoCartServiceImpl.class);
 
     @Autowired
     ProductService productService;
@@ -73,6 +75,7 @@ public class NuvocoCartServiceImpl implements NuvocoCartService {
 
         List<DeliveryModeModel> deliveryModeList = deliveryModeDao.findDeliveryModesByCode(deliveryMode);
         list = findDestinationSourceByCode(city, deliveryModeList.get(0), OrderType.valueOf(orderType), CustomerCategory.TR ,grade, packaging, district, state, baseSiteService.getCurrentBaseSite(), taluka);
+        LOG.info(String.format("Destination Source Master List Retrieved from DB Call ::%s",list.size()));
         return list;
     }
 
@@ -184,10 +187,11 @@ public class NuvocoCartServiceImpl implements NuvocoCartService {
                 queryResult = queryResult + " and UPPER({ds:destinationTaluka})=?destinationTaluka ";
             }
             queryResult = queryResult + " and UPPER({ds:destinationCity})=?destinationCity and {ds:grade}=?grade and {ds:packaging}=?packaging ";
-
+            LOG.info(String.format("Query Executed %s",queryResult));
             final FlexibleSearchQuery query = new FlexibleSearchQuery(queryResult);
             query.getQueryParameters().putAll(map);
             final SearchResult<DestinationSourceMasterModel> result = flexibleSearchService.search(query);
+             LOG.info(String.format("Query Result %s",result.getResult()));
             return result.getResult();
         }
         return Collections.emptyList();
