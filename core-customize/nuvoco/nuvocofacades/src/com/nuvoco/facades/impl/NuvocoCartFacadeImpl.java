@@ -47,7 +47,7 @@ import static de.hybris.platform.servicelayer.util.ServicesUtil.validateParamete
 public class NuvocoCartFacadeImpl  extends DefaultCartFacade implements NuvocoCartFacade {
 
     private static int DEFAULT_SAVE_CART_EXPIRY_DAYS = 30;
-private static final Logger LOGGER = Logger.getLogger(NuvocoCartFacadeImpl.class);
+private static final Logger LOG = Logger.getLogger(NuvocoCartFacadeImpl.class);
 
 	
     @Autowired
